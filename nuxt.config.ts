@@ -1,6 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  compatibilityDate: "2024-04-03",
   app: {
     head: {
       title: "Portfolio",
@@ -17,9 +16,6 @@ export default defineNuxtConfig({
         // <noscript>JavaScript is required</noscript>
         { children: "JavaScript is required" },
       ],
-      bodyAttrs: {
-        class: 'bg-gray-900',
-      },
     },
   },
   devtools: {
@@ -28,15 +24,19 @@ export default defineNuxtConfig({
       reuseExistingServer: true,
     },
   },
+
   modules: [
     "@nuxtjs/tailwindcss",
-    "@pinia/nuxt",
+    // "@pinia/nuxt",
     "@nuxtjs/color-mode",
     "@nuxtjs/i18n",
     // "@nuxtjs/supabase",
     "@nuxt/icon",
     "@nuxtjs/google-fonts",
+    "nuxt-aos",
+    "nuxt-lodash"
   ],
+
   googleFonts: {
     preload: true,
     families: {
@@ -47,8 +47,26 @@ export default defineNuxtConfig({
         ital: [100]
       },
       Inter: '200..700',
+      Vazirmatn: '200...700'
     }
   },
+
+  colorMode: {
+    preference: 'system', // default value of $colorMode.preference
+    fallback: 'light', // fallback value if not system preference found
+    classSuffix: ''
+  },
+
+  i18n: {
+    lazy:true,
+    langDir: "./lang",
+    locales: [
+      {code: 'en',  iso: 'en-US',  name: 'English', dir:'ltr', file: 'en.json'},
+      {code: 'fa',  iso: 'fa-IR', name: 'Farsi', dir:'rtl', file: 'fa.json'}
+    ],
+    defaultLocale: 'en'
+  },
+  
   css: [
     "./assets/css/global.css"
   ]

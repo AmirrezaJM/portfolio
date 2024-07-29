@@ -1,7 +1,7 @@
 <template>
-    <NuxtLink :to="link" target="_blank" class="flex items-center space-x-1">
-        <Icon :name="iconName" class="text-black" :size="size" />
-        <h5 class="text-base font-normal">{{title}}</h5>
+    <NuxtLink :to="link" target="_blank" class="flex items-center space-x-1 rtl:space-x-reverse">
+        <Icon :name="iconName" class="text-black dark:text-white" :size="size" />
+        <h5 class="text-base dark:text-white font-normal">{{title}}</h5>
     </NuxtLink>
 </template>
 
