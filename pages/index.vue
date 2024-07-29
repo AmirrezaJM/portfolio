@@ -68,11 +68,11 @@ const toggleTheme = () => {
           v-if="showLanguage">
           <button @click="setLocale('fa')" class="space-x-2 rtl:space-x-reverse flex justify-center items-center group">
             <Icon name="flag:ir-4x3" size="12" />
-            <span class="text-sm text-blue-600 group-hover:text-blue-900">Persian</span>
+            <span class="text-sm text-blue-600 group-hover:text-blue-900">{{$t("persian")}}</span>
           </button>
           <button @click="setLocale('en')" class="space-x-2 rtl:space-x-reverse flex justify-center items-center">
             <Icon name="flag:us-4x3" size="12" />
-            <span class="text-sm text-blue-600">English</span>
+            <span class="text-sm text-blue-600 group-hover:text-blue-900">{{$t("english")}}</span>
           </button>
         </div>
       </div>
