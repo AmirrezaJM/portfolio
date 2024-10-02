@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 const colorMode = useColorMode();
 const { locale, setLocale } = useI18n();
 
@@ -111,7 +111,7 @@ const toggleTheme = () => {
               class="border-4 border-gray-100 transition-all duration-300 ease-in group-hover:border-gray-300 border-spacing-1 rounded-full shadow-md"
             >
               <img
-                src="~/assets/img/avatar.jpeg"
+                src="~/assets/images/avatar.jpeg"
                 alt="user"
                 class="h-24 w-24 object-cover rounded-full"
               />
@@ -150,7 +150,7 @@ const toggleTheme = () => {
             <!-- HR -->
             <div class="flex items-end justify-end my-2">
               <img
-                src="~/assets/img/avatar.jpeg"
+                src="~/assets/images/avatar.jpeg"
                 alt="HR"
                 class="h-8 w-8 object-cover rounded-full mx-2 order-2"
               />

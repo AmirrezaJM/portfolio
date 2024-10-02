@@ -8,7 +8,7 @@
     <div class="flex items-center space-x-2 rtl:space-x-reverse">
       <img
         class="object-cover h-12 w-12 rounded"
-        src="~/assets/img/avatar.jpeg"
+        src="~/assets/images/avatar.jpeg"
         alt="image"
       />
       <div class="flex flex-col space-y-0.5">

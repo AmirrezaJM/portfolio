@@ -11,14 +11,14 @@
         experinceCardData: [
             {
                 id:1,
-                job: "CEO and Front-End Developer",
+                job: "Junior Front-End Developer",
                 companyName:"Pody",
                 typeOfWork: "part-time",
                 date: "Sep 2019 - Apr 2020",
             },
             {
                 id:2,
-                job: "Front-End Developer",
+                job: "Junior Front-End Developer",
                 companyName:"Almas Teb Rayan",
                 typeOfWork: "full-time",
                 date: "Apr 2020 - Jul 2021",

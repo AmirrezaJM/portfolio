@@ -12,7 +12,7 @@ const aboutMeInfos = reactive({
     {
       id: 1,
       text: "Hi, How are you?",
-      avatar: "../assets/img/avatar.jpeg",
+      avatar: "../assets/images/avatar.jpeg",
       avatar_alternative: "HR",
       isHR: true,
       aosPostion: "fade-left",
@@ -20,7 +20,7 @@ const aboutMeInfos = reactive({
     {
       id: 2,
       text: "Hi,I'm fine!",
-      avatar: "../assets/img/avatar.jpeg",
+      avatar: "../assets/images/avatar.jpeg",
       avatar_alternative: "user",
       isHR: false,
       aosPostion: "fade-right",
@@ -28,7 +28,7 @@ const aboutMeInfos = reactive({
     {
       id: 3,
       text: "Would you introduce yourself to me?",
-      avatar: "require('@/assets/img/avatar.jpeg')",
+      avatar: "require('@/assets/images/avatar.jpeg')",
       avatar_alternative: "HR",
       isHR: true,
       aosPostion: "fade-left",
@@ -36,7 +36,7 @@ const aboutMeInfos = reactive({
     {
       id: 4,
       text: "Sure! my name is Amirreza Jolani mameghani, I'm 26 years old",
-      avatar: "../assets/img/avatar.jpeg",
+      avatar: "../assets/images/avatar.jpeg",
       avatar_alternative: "user",
       isHR: false,
       aosPostion: "fade-right",
@@ -44,7 +44,7 @@ const aboutMeInfos = reactive({
     {
       id: 5,
       text: "Great, Amirreza would tell me what is Professional career? ",
-      avatar: "../assets/img/avatar.jpeg",
+      avatar: "../assets/images/avatar.jpeg",
       avatar_alternative: "HR",
       isHR: true,
       aosPostion: "fade-left",
@@ -54,7 +54,7 @@ const aboutMeInfos = reactive({
     {
       id: 6,
       text: "Well, With over four years of experience as a Front-End Developer, I have demonstrated proficiency in utilizing technologies including HTML5, CSS3 (SASS), React, and Vue framework.",
-      avatar: "../assets/img/avatar.jpeg",
+      avatar: "../assets/images/avatar.jpeg",
       avatar_alternative: "user",
       isHR: false,
       aosPostion: "fade-right",
@@ -63,7 +63,7 @@ const aboutMeInfos = reactive({
     {
       id: 7,
       text: "Nice, and do you have other technical skills?",
-      avatar: "../assets/img/avatar.jpeg",
+      avatar: "../assets/images/avatar.jpeg",
       avatar_alternative: "HR",
       isHR: true,
       aosPostion: "fade-left",
@@ -72,7 +72,7 @@ const aboutMeInfos = reactive({
     {
       id: 8,
       text: "I have experienced in JS, TS, Python and swift. Also, I know how to use with git platform , figma, and I used multiple IDEs such as vscode, webstorm and ...",
-      avatar: "../assets/img/avatar.jpeg",
+      avatar: "../assets/images/avatar.jpeg",
       avatar_alternative: "user",
       isHR: false,
       aosPostion: "fade-right",
@@ -81,7 +81,7 @@ const aboutMeInfos = reactive({
     {
       id: 9,
       text: "which language can you speak ??",
-      avatar: "../assets/img/avatar.jpeg",
+      avatar: "../assets/images/avatar.jpeg",
       avatar_alternative: "HR",
       isHR: true,
       aosPostion: "fade-left",
@@ -89,7 +89,7 @@ const aboutMeInfos = reactive({
     {
       id: 10,
       text: "Frankly speaking, Persian is my mother tongue and I can speak English fluently, also, my German level is B1 and Italian level is A1.",
-      avatar: "../assets/img/avatar.jpeg",
+      avatar: "../assets/images/avatar.jpeg",
       avatar_alternative: "user",
       isHR: false,
       aosPostion: "fade-right",

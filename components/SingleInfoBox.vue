@@ -51,5 +51,3 @@
     }
 </style>
 
-
-<!-- ~/assets/img/avatar.jpeg -->
