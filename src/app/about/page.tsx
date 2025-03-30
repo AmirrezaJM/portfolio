@@ -4,7 +4,6 @@ import MusicCard from "@/components/MusicCard";
 export default function Page() {
   return (
     <div className="py-2 md:py-2 lg:py-4 relative z-0 overflow-x-clip min-h-screen">
-      {/* <main className="container mx-auto px-2 [container-type:inline-size]"> */}
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] min-h-[70vh] gap-6 max-w-7xl mx-auto">
         {/* Left Column */}
         <div className="grid gap-4 lg:col-span-1 h-full">
@@ -40,10 +39,8 @@ export default function Page() {
             image="/music4.jpg"
             color="#0ea5e9"
           />
-
         </div>
       </div>
-      {/* </main> */}
     </div>
   );
 }

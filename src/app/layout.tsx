@@ -4,12 +4,12 @@ import "./globals.css";
 import { twMerge } from "tailwind-merge";
 import { Footer } from "@/components/sections/Footer";
 import { Header } from "@/components/sections/Header";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({
   variable: "--font-sans",
   subsets: ["latin"],
 });
-
 
 export const metadata: Metadata = {
   title: "Portfolio",
@@ -23,14 +23,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={twMerge(
-          inter.className,
-          "text-white relative -z-10"
-        )}
-      >
+      <body className={twMerge(inter.className, "text-white relative -z-10")}>
         <Header />
-        <main>{children}</main>
+        <main>
+          {children} <SpeedInsights />
+        </main>
         <Footer />
       </body>
     </html>
