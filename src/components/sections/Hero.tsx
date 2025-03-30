@@ -1,93 +1,80 @@
-import { ArrowDown } from "lucide-react";
-import Image from "next/image";
-import { HeroOrbit } from "../HeroOrbit";
-import StarIcon from "../../../public/icons/star.svg";
-import SparkleIcon from "../../../public/icons/sparkle.svg";
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Download } from "lucide-react";
+import Link from "next/link";
 
 export function Hero() {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const [typedText, setTypedText] = useState("");
+
+  // Infinite Typing Animation Logic
+  useEffect(() => {
+    const text = "Coming Soon!";
+    let index = 0;
+
+    const type = () => {
+      setTypedText(text.slice(0, index));
+      index++;
+
+      if (index > text.length) {
+        index = 0;
+        setTimeout(type, 1000);
+      } else {
+        setTimeout(type, 150);
+      }
+    };
+
+    type();
+  }, []);
+
   return (
-    <div className="py-32 md:py-48 lg:py-60 relative z-0 overflow-x-clip">
-      <div className="absolute inset-0 [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_70%,transparent)">
-        <div
-          className="absolute inset-0 -z-30 opacity-5"
-          style={{ backgroundImage: `url('/images/grain.jpg')` }}
-        ></div>
-        <div className="absolute inset-0 size-[620px] border-2 top-1/2 left-1/2 -translte-x-1/2 -translate-y-1/2 rounded-full border-emerald-300/5 shadow[0_0_80px_inset] shadow-emerald-300"></div>
-        <div className="absolute inset-0 size-[820px] border-2 top-1/2 left-1/2 -translte-x-1/2 -translate-y-1/2 rounded-full border-emerald-300/5 shadow[0_0_80px_inset] shadow-emerald-300"></div>
-        <div className="absolute inset-0 size-[1020px] border-2 top-1/2 left-1/2 -translte-x-1/2 -translate-y-1/2 rounded-full border-emerald-300/5 shadow[0_0_80px_inset] shadow-emerald-300"></div>
-        <div className="absolute inset-0 size-[1220px] border-2 top-1/2 left-1/2 -translte-x-1/2 -translate-y-1/2 rounded-full border-emerald-300/5 shadow[0_0_80px_inset] shadow-emerald-300"></div>
-        <HeroOrbit size={430} rotation={-14} shouldOrbit orbitDuration="30s">
-          <SparkleIcon className="size-8 text-emerald-300/20" />
-        </HeroOrbit>
-        <HeroOrbit size={440} rotation={79} shouldOrbit orbitDuration="32s">
-          <SparkleIcon className="size-5 text-emerald-300/20" />
-        </HeroOrbit>
-        <HeroOrbit size={520} rotation={-41} shouldOrbit orbitDuration="34s">
-          <div className="size-2 rounded-full text-emerald-300/20" />
-        </HeroOrbit>
-        <HeroOrbit size={530} rotation={178} shouldOrbit orbitDuration="36s">
-          <SparkleIcon className="size-10 text-emerald-300/20" />
-        </HeroOrbit>
-        <HeroOrbit size={550} rotation={20} shouldOrbit orbitDuration="38s">
-          <SparkleIcon className="size-12 text-emerald-300/20" />
-        </HeroOrbit>
-        <HeroOrbit size={590} rotation={98} shouldOrbit orbitDuration="40s">
-          <SparkleIcon className="size-8 text-emerald-300/20" />
-        </HeroOrbit>
-        <HeroOrbit size={650} rotation={-5} shouldOrbit orbitDuration="42s">
-          <div className="size-2 rounded-full text-emerald-300/20" />
-        </HeroOrbit>
-        <HeroOrbit size={710} rotation={144} shouldOrbit orbitDuration="44s">
-          <SparkleIcon className="size-14 text-emerald-300/20" />
-        </HeroOrbit>
+    <section
+      id="hero"
+      className="py-24 sm:py-32 md:py-40 lg:py-48 relative z-0 h-[80vh] overflow-x-clip"
+    >
+      <div className="container mx-auto px-4 sm:px-6 md:px-8 [container-type:inline-size]">
+        {/* Name */}
+        <h1 className="text-3xl sm:text-4xl md:text-5xl text-center py-4 bg-gradient-to-t from-[hsl(0,0%,50%)] to-white bg-clip-text text-transparent font-bold leading-tight">
+          Amirreza Jolani Mameghani
+        </h1>
 
-        <HeroOrbit size={720} rotation={85} shouldOrbit orbitDuration="46s">
-          <div className="size-3 rounded-full text-emerald-300/20" />
-        </HeroOrbit>
+        {/* Role */}
+        <h5 className="text-xl sm:text-2xl md:text-3xl text-neutral-400/80 text-center mt-2">
+          Full-stack Developer
+        </h5>
 
-        <HeroOrbit size={800} rotation={-72} shouldOrbit orbitDuration="48s" shouldSpin spinDuration="6s">
-          <StarIcon className="size-28 text-emerald-300" />
-        </HeroOrbit>
+        {/* Download CV Button */}
+        <div className="mt-8 mb-6 flex justify-center relative z-50 px-4">
+          <Link
+            href="/AmirrezaJolaniCV.pdf"
+            download
+            className="flex justify-center"
+          >
+            <Button
+              size="lg"
+              variant="outline"
+              className="border border-white/20 text-white/90 hover:text-white bg-white/5 hover:bg-white/10 shadow-sm hover:shadow-md backdrop-blur-sm transition-all duration-300 px-6 py-2 rounded-xl w-full max-w-xs sm:max-w-md"
+            >
+              <Download className="mr-2" />
+              Download CV
+            </Button>
+          </Link>
+        </div>
+
+        {/* Typing Animation */}
+        <div className="text-center mt-10 text-yellow-400 text-xl sm:text-2xl md:text-3xl font-mono tracking-wider">
+          {typedText}
+          <span className="animate-pulse">|</span>
+        </div>
+
+        {/* Canvas Background (if animated) */}
+        <canvas
+          ref={canvasRef}
+          className="absolute top-0 left-0 w-full h-full z-0"
+        />
       </div>
-      {/* animate-spin [animation-duration:30s] */}
-      <div className="container">
-        <div className="flex flex-col items-center">
-          <Image
-            className="size-24"
-            src="/images/memoji-computer.png"
-            alt="Person peeking from"
-          />
-          <div className="bg-gray-950 border border-y-gray-800 px-4  py-1.5 inline-flex gap-4 rounded-lg">
-            <div className="bg-green-500 size-2.5 rounded-full relative">
-              <div className="bg-green-500 absolute inset-0 rounded-full animate-ping"></div>
-            </div>
-            <div className="text-sm font-medium">
-              Available for new projects{" "}
-            </div>
-          </div>
-        </div>
-        <div className="max-w-lg mx-auto">
-          <h1 className="font-serif text-5xl text-center mt-8 tracking-wide">
-            Building Expectional User Experiences
-          </h1>
-          <p className="mt-4 text-center text-white/60 md:text-lg">
-            I specialize in transforming designs into functional,
-            high-performing web application Let&#39;s discuss your next
-            projects.
-          </p>
-        </div>
-        <div className="flex flex-col md:flex-row justify-center items-center mt-8 gap-4">
-          {/* TODO: SHADCNUI */}
-          <button className="inline-flex items-center gap-2 border border-white/15 px-6 h-12 rounded-xl">
-            <span className="font-semibold">Explore My Work</span>
-            <ArrowDown className="size-4" />
-          </button>
-          <button className="inline-flex items-center gap-2 border border-white bg-white text-gray-900 h-12 px-6 rounded-xl">
-            <span>👋🏻</span>
-            <span className="font-semibold">Let&#39;s connect</span>
-          </button>
-        </div>
-      </div>
-    </div>
+    </section>
   );
 }

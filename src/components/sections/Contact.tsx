@@ -1,34 +1,70 @@
-import { ArrowUpRight } from "lucide-react";
+// components/ConnectCard.tsx
+"use client";
+
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { CardHeader } from "../CardHeader";
 
 export function Contact() {
   return (
-    <div className="py-16 pt-12 lg:py-24 lg:pt-20">
-      <div className="container">
-        <div className="bg-gradient-to-r from-emerald-300 to-sky-400 text-gray-900 md:text-left py-8 px-10 rounded-3xl text-center relative overflow-hidden z-0">
-          <div
-            className="absolute inset-0 opacity-5 -z-10"
-            style={{ backgroundImage: `url('/images/grain.jpg')` }}
-          ></div>
-          <div className="flex flex-col md:flex-row gap-8 md:gap-16 items-center">
-            <div>
-              <h2 className="font-serif text-2xl md:text-3xl">
-                Let&#39;s create something amazing together
-              </h2>
-              <p className="text-sm md:text-base mt-2">
-                Ready to bring your next project to life? Let&#39;s connect and
-                discuss how I can help you achieve your goals.
-              </p>
+    <section id="connect" className="pb-16 lg:py-8">
+      <div className="container mx-auto px-2 [container-type:inline-size]">
+      <CardHeader title="Let's Connect" />
+        <Card className="bg-gradient-to-b relative from-black/70 to-black/40 backdrop-blur border border-white/10 rounded-2xl p-6 text-white w-full">
+          <CardContent className="space-y-6">
+            <h2 className="text-xl font-semibold text-center md:text-left">Connect with me</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <Input
+                placeholder="First name"
+                className="bg-[#111] border-white/10"
+              />
+              <Input
+                placeholder="Last name"
+                className="bg-[#111] border-white/10"
+              />
+              <Input
+                placeholder="Email"
+                className="bg-[#111] border-white/10"
+              />
+              <Input
+                placeholder="Phone"
+                className="bg-[#111] border-white/10"
+              />
             </div>
-            <div>
-              {/* TODO: SHADCNUI */}
-              <button className="text-white bg-gray-900 inline-flex items-center px-6 h-12 rounded-xl gap-2 w-max border border-gray-900">
-                <span className="font-semibold">Contact Me</span>
-                <ArrowUpRight className="size-4" />
-              </button>
+
+            <div className="space-y-2">
+              <label className="inline-block text-sm text-white/60 mb-3">Your Requirement</label>
+              <div className="flex flex-wrap gap-2 w-full md:w-auto">
+                {["Frontend", "Backend", "Software", "fullStack"].map((tag) => (
+                  <Button
+                    key={tag}
+                    variant="outline"
+                    className="border-white/10 text-white/50 hover:bg-white/10 hover:text-white/90"
+                  >
+                    {tag}
+                  </Button>
+                ))}
+              </div>
             </div>
-          </div>
-        </div>
+
+            <div>
+              <label className="text-sm text-white/60 mb-3 block">
+                How can I help?
+              </label>
+              <Textarea
+                placeholder="Feel free to outline your ideas or needs..."
+                className="bg-[#111] border-white/10 min-h-[120px]"
+              />
+            </div>
+
+            <Button className="w-full bg-white text-black hover:bg-white/80">
+              Submit
+            </Button>
+          </CardContent>
+        </Card>
       </div>
-    </div>
+    </section>
   );
 }

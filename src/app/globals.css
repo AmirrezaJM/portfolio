@@ -4,6 +4,23 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@utility container {
+  padding-inline: 10px;
+  margin-inline: auto;
+
+  @variant sm {
+    padding-inline: 20px;
+  }
+
+  @variant lg {
+    padding-inline: 80px;
+  }
+
+  @variant xl {
+    padding-inline: 120px;
+  }
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -66,8 +83,8 @@
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  --background: oklch(17.3% 0 0);
+  --foreground:oklch(60.38% 0.0108 273.26);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
@@ -103,7 +120,7 @@
 
 .dark {
   --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
+  --foreground: oklch(60.38% 0.0108 273.26);
   --card: oklch(0.145 0 0);
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.145 0 0);
@@ -141,13 +158,32 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background;
   }
 }
-
 
 @layer utilities {
   .container {
     @apply lg:max-w-5xl;
+  }
+  .bg-react-conic {
+    background-image: conic-gradient(
+      from 180deg at 50% 50%,
+      var(--ring) 0deg,
+      var(--ring) 176deg,
+      #61dafb 193deg,
+      var(--ring) 217deg,
+      var(--ring) 1turn
+    );
+  }
+  .shadow-accented {
+    box-shadow:
+      0 1px 0 1px rgba(0, 0, 0, 0.02),
+      0 4px 6px rgba(0, 0, 0, 0.02),
+      inset 0 0 0 10px #111111;
+  }
+  .perspective-1200 {
+    perspective: 1200px;
+    perspective-origin: center;
   }
 }
