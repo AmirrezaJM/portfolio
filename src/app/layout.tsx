@@ -4,7 +4,7 @@ import "./globals.css";
 import { twMerge } from "tailwind-merge";
 import { Footer } from "@/components/sections/Footer";
 import { Header } from "@/components/sections/Header";
-import { SpeedInsights } from "@vercel/speed-insights/next";
+// import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -26,7 +26,8 @@ export default function RootLayout({
       <body className={twMerge(inter.className, "text-white relative -z-10")}>
         <Header />
         <main>
-          {children} <SpeedInsights />
+          {children}
+           {/* <SpeedInsights /> */}
         </main>
         <Footer />
       </body>
