@@ -85,7 +85,7 @@ Frontend Specialist · Fullstack Explorer · UI/UX Enthusiast
 
 - 🔗 [LinkedIn](https://linkedin.com/in/amirjm)
 - 💻 [GitHub](https://github.com/amirjm)
-- ✉️ Contact: `amirrezajolani[at]gmail.com`
+- ✉️ Contact: `amirreza.jolani1998@gmail.com`
 
 ---
 
