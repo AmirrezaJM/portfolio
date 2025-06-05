@@ -80,7 +80,6 @@ export function WorkCard({
           {/* Right Text */}
           <div className="space-y-2 text-white text-sm sm:text-base px-1 sm:px-0">
             <h2 className="text-lg sm:text-xl font-semibold flex items-center gap-2">
-              {icon}
               {heading}
             </h2>
             <p className="text-neutral-400 leading-relaxed">{description}</p>

@@ -28,11 +28,11 @@ const MusicCard: React.FC<MusicCardProps> = ({
         alt={title}
         width={52}
         height={52}
-        className="absolute inset-0 w-full h-full object-cover opacity-20"
+        className="absolute inset-0 w-full h-full object-cover opacity-30"
       />
 
       {/* Category label */}
-      <div className="absolute top-2 left-3 text-[0.65rem] sm:text-xs text-white/80 italic z-10">
+      <div className="absolute top-2 left-3 text-[0.7rem] sm:text-sm text-white/80 italic z-10">
         {category}
       </div>
 

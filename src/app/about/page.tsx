@@ -12,31 +12,31 @@ export default function Page() {
         {/* Right Column: Music Grid */}
         <div className="grid grid-cols-2 grid-rows-2 gap-4 h-full">
           <MusicCard
-            category="music"
+            category="Cafeteria"
             title="Flow"
             artist="Shawn James"
-            image="/music1.jpg"
+            image="/shawnJames.jpg"
             color="#3b82f6"
           />
           <MusicCard
-            category="chill"
-            title="Gwyn, Lord of Cinder"
-            artist=""
-            image="/music2.jpg"
+            category="R&P"
+            title="Goodbye"
+            artist="Ramsey"
+            image="/ramsey.webp"
             color="#b91c1c"
           />
           <MusicCard
-            category="creative"
-            title=" (U & I)"
-            artist="Shawn James"
-            image="/music3.jpg"
+            category="Creative"
+            title="Gun for hire"
+            artist="Woodkid"
+            image="/woodkid.jpeg"
             color="#9333ea"
           />
           <MusicCard
-            category="loneliness"
-            title="Food for the Soul"
+            category="Loneliness"
+            title="Throgh the valley"
             artist="Shawn James"
-            image="/music4.jpg"
+            image="/shawnJames.jpg"
             color="#0ea5e9"
           />
         </div>
