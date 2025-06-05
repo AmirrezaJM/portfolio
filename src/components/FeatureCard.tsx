@@ -1,15 +1,11 @@
 "use client";
 
 import { Card, CardContent } from "@/components/ui/card";
+import { FeatureCardProps } from "@/types/portfolio.types";
 import { motion } from "framer-motion";
 import { FC } from "react";
 
-interface FeatureCardProps {
-  title: string;
-  description: string;
-  icon?: React.ReactNode;
-  delay?: number;
-}
+
 
 export const FeatureCard: FC<FeatureCardProps> = ({
   title,

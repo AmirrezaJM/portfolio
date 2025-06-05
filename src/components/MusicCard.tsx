@@ -1,14 +1,8 @@
 // components/MusicCard.tsx
+import { MusicCardProps } from "@/types/portfolio.types";
 import Image from "next/image";
 import { FaSpotify } from "react-icons/fa";
 
-interface MusicCardProps {
-  category: string;
-  title: string;
-  artist: string;
-  image: string;
-  color: string;
-}
 
 const MusicCard: React.FC<MusicCardProps> = ({
   category,

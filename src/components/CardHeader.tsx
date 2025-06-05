@@ -1,8 +1,7 @@
 "use client";
 
-interface CardHeaderProps {
-  title: string;
-}
+import { CardHeaderProps } from "@/types/portfolio.types";
+
 
 export const CardHeader = ({ title }: CardHeaderProps) => {
   return (

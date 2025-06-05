@@ -5,16 +5,10 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import { useGSAP } from "@gsap/react";
 import Image from "next/image";
+import { WorkCardProps } from "@/types/portfolio.types";
 
 gsap.registerPlugin(ScrollTrigger);
 
-interface WorkCardProps {
-  title: string;
-  image: string;
-  icon?: React.ReactNode;
-  heading: string;
-  description: string;
-}
 
 export function WorkCard({
   title,

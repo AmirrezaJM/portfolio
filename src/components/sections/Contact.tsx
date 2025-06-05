@@ -14,7 +14,6 @@ const formSchema = z.object({
     message: "Username must be at least 2 characters.",
   }),
 })
- 
 
 export function Contact() {
   const form = useForm<z.infer<typeof formSchema>>({
