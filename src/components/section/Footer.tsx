@@ -2,6 +2,7 @@ import Link from "next/link";
 import { FaDiscord, FaLinkedin, FaTelegram } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 
+
 export function Footer() {
   return (
     <footer className="border-t-[0.5px] bg-background/50 relative -z-10 overflow-x-hidden px-4 sm:px-6 lg:px-8 py-6 sm:py-8 mt-8">

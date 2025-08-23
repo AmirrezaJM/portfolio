@@ -42,6 +42,7 @@ Supports component-based architecture with virtual DOM rendering.
 Ideal for creating scalable, dynamic, and high-performance web apps."
             icon={<FaReact />}
             delay={0.1}
+            hoverBorderColor="hover:border-blue-500 hover:text-blue-500"
           />
           <FeatureCard
             title="Vue.js"

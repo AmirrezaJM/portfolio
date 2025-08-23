@@ -5,6 +5,7 @@ import Clock from "react-live-clock";
 import { Pointer } from "lucide-react";
 import { useEffect, useState } from "react";
 
+
 export function Header() {
   const [progress, setProgress] = useState(0);
   const [showNavItems, setShowNavItems] = useState(false);
@@ -32,8 +33,8 @@ export function Header() {
   }, []);
 
   return (
-    <>
-      <header className="w-full top-0 sticky p-3 flex justify-center items-center z-10 backdrop-blur-xl bg-background/30">
+    <header>
+      <div className="w-full top-0 sticky p-3 flex justify-center items-center z-10 backdrop-blur-xl bg-background/30">
         <div className="container mx-auto px-2 [container-type:inline-size]">
           <div className="flex flex-row justify-between items-center">
             <div>
@@ -55,23 +56,30 @@ export function Header() {
                 {showNavItems && (
                   <div className="flex gap-8 items-center relative z-30 opacity-100 animate-fade-in transition-opacity duration-300">
                     <Link
-                      className="text-sm font-semibold text-foreground/70 hover:text-white"
-                      href="/#work"
+                      className="text-sm font-semibold text-foreground/70 hover:text-black"
+                      href="/#project"
                     >
-                      Work
+                      Project
                     </Link>
                     <Link
-                      className="text-sm font-semibold text-foreground/70 hover:text-white"
-                      href="/about"
+                      className="text-sm font-semibold text-foreground/70 hover:text-black"
+                      href="/#about"
                     >
                       About
                     </Link>
                     <Link
-                      className="text-sm font-semibold text-foreground/70 hover:text-white"
+                      className="text-sm font-semibold text-foreground/70 hover:text-black"
                       href="/#connect"
                     >
                       Connection
                     </Link>
+                    <a
+                      href="/assets/Amirreza_Jolani_Mameghani_CV.pdf"
+                      className="text-sm font-semibold text-primary/80 hover:text-black"
+                      download
+                    >
+                      Get CV
+                    </a>
                   </div>
                 )}
                 {/* Always visible end icon */}
@@ -102,8 +110,8 @@ export function Header() {
                 </div>
               </nav>
             </div>
-            <div>
-              {/* TODO:ADD THEME LIGHT AND DARK MODE */}{" "}
+
+            <div className="flex items-center gap-x-4">
               <Clock
                 className="text-base font-semibold tracking-normal text-neutral-400/80 uppercase"
                 format={"hh:mm a"}
@@ -112,7 +120,7 @@ export function Header() {
             </div>
           </div>
         </div>
-      </header>
-    </>
+      </div>
+    </header>
   );
 }
