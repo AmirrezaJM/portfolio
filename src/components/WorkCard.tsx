@@ -52,7 +52,7 @@ export function WorkCard({
       <div className="group">
         {/* Top Bar */}
         <div className="mb-4 flex justify-between items-center px-2 sm:px-4">
-          <p className="text-xs sm:text-sm uppercase tracking-widest text-white/60">
+          <p className="text-xs sm:text-sm uppercase tracking-[0.15em] text-white/60">
             {title}
           </p>
           <div className="text-white">{icon}</div>

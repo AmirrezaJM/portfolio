@@ -21,7 +21,7 @@ export default function AboutView({
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div className="lg:col-span-7">
-            <h2 className="text-large-title md:text-title-1 xl:text-large-title [--tw-text-opacity:1] bg-gradient-to-b from-white/95 to-white/55 bg-clip-text text-transparent leading-tight tracking-tight">
+            <h2 className="text-large-title md:text-title-1 xl:text-large-title [--tw-text-opacity:1] bg-gradient-to-b from-white/95 to-white/55 bg-clip-text text-transparent leading-tight tracking-[0.15em]">
               {title}
             </h2>
           </div>

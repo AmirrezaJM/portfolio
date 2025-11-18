@@ -113,7 +113,7 @@ export function Header() {
 
             <div className="flex items-center gap-x-4">
               <Clock
-                className="text-base font-semibold tracking-normal text-neutral-400/80 uppercase"
+                className="text-base font-semibold tracking-[0.15em] text-neutral-400/80 uppercase"
                 format={"hh:mm a"}
                 ticking={true}
               />

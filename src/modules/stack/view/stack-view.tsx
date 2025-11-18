@@ -1,14 +1,33 @@
 import * as React from "react";
 import SingleStackComponent from "../components/singlestack-component";
 import Container from "@/components/section/Container";
-import { FaCode, FaCss3Alt, FaFigma, FaGitSquare, FaHtml5, FaNodeJs, FaReact, FaSass, FaSwift, FaVuejs } from "react-icons/fa";
-import { SiDocker, SiJquery, SiNuxtdotjs, SiTailwindcss, SiVitepress, SiWebpack } from "react-icons/si";
-import { RiNextjsFill, RiTeamFill } from "react-icons/ri";
+import {
+  FaCode,
+  FaCss3Alt,
+  FaFigma,
+  FaGitSquare,
+  FaHtml5,
+  FaNodeJs,
+  FaPhp,
+  FaReact,
+  FaSass,
+  FaVuejs,
+} from "react-icons/fa";
 import { IoLogoJavascript } from "react-icons/io5";
-import { GrSwift } from "react-icons/gr";
 import { BiLogoPostgresql } from "react-icons/bi";
-import { TbFileTypeVue } from "react-icons/tb";
-
+import { RiNextjsFill } from "react-icons/ri";
+import {
+  SiBootstrap,
+  SiDocker,
+  SiJquery,
+  SiNuxtdotjs,
+  SiRedux,
+  SiStyledcomponents,
+  SiTailwindcss,
+  SiTypescript,
+  SiVitepress,
+  SiWebpack,
+} from "react-icons/si";
 
 type Stack = {
   name: string;
@@ -18,206 +37,283 @@ type Stack = {
   className?: string;
 };
 
+type SoftSkill = {
+  title: string;
+  description: string;
+};
+
 type StackviewProps = {
   title?: string;
   blurb?: string;
   stacks: Stack[];
 };
 
+type SoftSkillsProps = {
+  title?: string;
+  blurb?: string;
+  skills: SoftSkill[];
+};
 
 export default function StackView() {
   const iconClass = "h-5 w-5 text-label/70";
-  const stacks: Stack[] = [
+  const hardSkills: Stack[] = [
     {
       name: "React.js",
       description:
-        "A powerful JavaScript library for building interactive UIs. Component-based, virtual DOM, and highly scalable.",
+        "Component-driven UI work with hooks, context, and composable architectures for complex dashboards.",
       href: "https://react.dev/",
       Icon: <FaReact className={iconClass} aria-hidden="true" />,
       className: "hover:bg-blue-600/20",
     },
     {
-      name: "Vue.js",
-      description:
-        "Progressive framework for UIs & SPAs. Reactive core, component reuse, and gentle learning curve.",
-      href: "https://vuejs.org/",
-      Icon: <FaVuejs className={iconClass} aria-hidden="true" />,
-    },
-    {
-      name: "Nuxt.js",
-      description:
-        "Vue framework with SSR/SSG, file-based routing, and great DX. Ideal for content-heavy sites.",
-      href: "https://nuxt.com/",
-      Icon: <SiNuxtdotjs className={iconClass} aria-hidden="true" />,
-    },
-    {
       name: "Next.js",
       description:
-        "React framework for full-stack apps with SSG, SSR, API routes, and image optimization.",
+        "App Router builds with SSR/SSG, API routes, incremental revalidation, and image optimization.",
       href: "https://nextjs.org/",
       Icon: <RiNextjsFill className={iconClass} aria-hidden="true" />,
+      className: "hover:bg-white/10",
     },
     {
-      name: "Tailwind CSS",
+      name: "Vue 3",
       description:
-        "Utility-first CSS for rapid UI development and scalable design systems.",
-      href: "https://tailwindcss.com/",
-      Icon: <SiTailwindcss className={iconClass} aria-hidden="true" />,
+        "Composition API, script setup, and reusable component libraries for travel-tech portals and dashboards.",
+      href: "https://vuejs.org/",
+      Icon: <FaVuejs className={iconClass} aria-hidden="true" />,
+      className: "hover:bg-emerald-600/20",
     },
     {
-      name: "VitePress",
+      name: "Nuxt 3",
       description:
-        "Fast, markdown-first static site generator powered by Vite and Vue—perfect for docs.",
-      href: "https://vitepress.dev/",
-      Icon: <SiVitepress className={iconClass} aria-hidden="true" />,
+        "File-based routing, server routes, and Nitro deployments for content-heavy websites and clones.",
+      href: "https://nuxt.com/",
+      Icon: <SiNuxtdotjs className={iconClass} aria-hidden="true" />,
+      className: "hover:bg-teal-600/20",
+    },
+    {
+      name: "TypeScript",
+      description:
+        "Static typing across React, Vue, Prisma, and Remix routes for safer APIs and design systems.",
+      href: "https://www.typescriptlang.org/",
+      Icon: <SiTypescript className={iconClass} aria-hidden="true" />,
+      className: "hover:bg-sky-600/20",
+    },
+    {
+      name: "JavaScript (ES6+)",
+      description:
+        "Modern syntax, async flows, testing, and DOM work across browsers for performant frontends.",
+      href: "https://developer.mozilla.org/docs/Web/JavaScript",
+      Icon: <IoLogoJavascript className={iconClass} aria-hidden="true" />,
+      className: "hover:bg-amber-500/20",
     },
     {
       name: "HTML5",
       description:
-        "Semantic markup for structured content, forms, and multimedia—the web’s foundation.",
+        "Semantic markup and accessibility-first layouts for marketing sites, documentation, and apps.",
       href: "https://developer.mozilla.org/docs/Web/HTML",
       Icon: <FaHtml5 className={iconClass} aria-hidden="true" />,
+      className: "hover:bg-orange-600/20",
     },
     {
-      name: "CSS3",
+      name: "CSS3 & Layout",
       description:
-        "Layout, color, and animation tooling—Grid, Flexbox, keyframes—for modern UIs.",
+        "Grid, Flexbox, and fluid typography with custom properties to keep responsive work tidy.",
       href: "https://developer.mozilla.org/docs/Web/CSS",
       Icon: <FaCss3Alt className={iconClass} aria-hidden="true" />,
+      className: "hover:bg-blue-600/20",
     },
     {
-      name: "Sass",
+      name: "SCSS/Sass",
       description:
-        "CSS preprocessor with variables, nesting, and mixins to scale large stylesheets.",
+        "Scalable stylesheets with nesting, mixins, and design tokens—used for healthcare and travel products.",
       href: "https://sass-lang.com/",
       Icon: <FaSass className={iconClass} aria-hidden="true" />,
+      className: "hover:bg-pink-600/20",
+    },
+    {
+      name: "Tailwind CSS",
+      description:
+        "Utility-first workflows, custom themes, and shadcn/ui integration for rapid prototyping.",
+      href: "https://tailwindcss.com/",
+      Icon: <SiTailwindcss className={iconClass} aria-hidden="true" />,
+      className: "hover:bg-cyan-600/20",
+    },
+    {
+      name: "Styled Components",
+      description:
+        "Theming and component co-location for React/Next.js apps; shared tokens across marketing and product.",
+      href: "https://styled-components.com/",
+      Icon: <SiStyledcomponents className={iconClass} aria-hidden="true" />,
+      className: "hover:bg-rose-600/20",
+    },
+    {
+      name: "Bootstrap",
+      description:
+        "Legacy-friendly design system customization, grid overrides, and responsive utilities.",
+      href: "https://getbootstrap.com/",
+      Icon: <SiBootstrap className={iconClass} aria-hidden="true" />,
+      className: "hover:bg-violet-600/20",
+    },
+    {
+      name: "Shadcn/ui & unstyled components",
+      description:
+        "Radix-based primitives styled with Tailwind for reusable Shopify components and design systems.",
+      href: "https://ui.shadcn.com/",
+      Icon: <FaCode className={iconClass} aria-hidden="true" />,
+      className: "hover:bg-zinc-700/20",
+    },
+    {
+      name: "GSAP & motion",
+      description:
+        "Animation timelines, scroll driven effects, and Framer Motion choreography for richer UX.",
+      href: "https://greensock.com/gsap/",
+      Icon: <FaCode className={iconClass} aria-hidden="true" />,
+      className: "hover:bg-lime-500/20",
+    },
+    {
+      name: "Redux & State Machines",
+      description:
+        "Complex state coordination for dashboards, client portals, and admin tools.",
+      href: "https://redux.js.org/",
+      Icon: <SiRedux className={iconClass} aria-hidden="true" />,
+      className: "hover:bg-purple-600/20",
+    },
+    {
+      name: "Figma & Design Systems",
+      description:
+        "Component libraries, UX flows, and dev handoff that inform Shopify, Nuxt, and docs work.",
+      href: "https://figma.com/",
+      Icon: <FaFigma className={iconClass} aria-hidden="true" />,
+      className: "hover:bg-purple-500/20",
+    },
+    {
+      name: "Tooling & IDEs",
+      description:
+        "Git, VS Code, WebStorm, and PhpStorm workflows with linting, formatting, and code reviews.",
+      href: "https://git-scm.com/",
+      Icon: <FaGitSquare className={iconClass} aria-hidden="true" />,
+      className: "hover:bg-orange-500/20",
+    },
+    {
+      name: "Performance & SEO",
+      description:
+        "DevTools, Lighthouse, semantic HTML, and Core Web Vitals tuning for 90-100 scores.",
+      href: "https://web.dev/vitals/",
+      Icon: <FaCode className={iconClass} aria-hidden="true" />,
+      className: "hover:bg-emerald-500/20",
     },
     {
       name: "Node.js",
       description:
-        "Event-driven runtime for server-side JavaScript. Great for APIs and real-time apps.",
+        "API routes, server utilities, and tooling scripts powering Remix, Next.js, and Nuxt projects.",
       href: "https://nodejs.org/",
       Icon: <FaNodeJs className={iconClass} aria-hidden="true" />,
+      className: "hover:bg-green-600/20",
     },
     {
-      name: "RESTful APIs",
+      name: "PHP (Laravel)",
       description:
-        "HTTP-based CRUD services with predictable endpoints; backbone for client-server communication.",
-      href: "https://restfulapi.net/",
-      Icon: <IoLogoJavascript className={iconClass} aria-hidden="true" />,
+        "Back-end extensions, authentication flows, and admin tooling for legacy platforms.",
+      href: "https://laravel.com/",
+      Icon: <FaPhp className={iconClass} aria-hidden="true" />,
+      className: "hover:bg-indigo-500/20",
     },
-
     {
       name: "PostgreSQL",
       description:
-        "Advanced open-source relational database with strong SQL and indexing.",
+        "Schema design, indexing, and Prisma-based access for full-stack apps.",
       href: "https://www.postgresql.org/",
       Icon: <BiLogoPostgresql className={iconClass} aria-hidden="true" />,
+      className: "hover:bg-blue-600/20",
+    },
+    {
+      name: "Docker",
+      description:
+        "Local dev environments, Compose workflows, and reproducible deployments for assignments.",
+      href: "https://www.docker.com/",
+      Icon: <SiDocker className={iconClass} aria-hidden="true" />,
+      className: "hover:bg-sky-500/20",
     },
     {
       name: "Webpack",
       description:
-        "Battle-tested bundler: code splitting, loaders, and optimization for complex apps.",
+        "Legacy bundler knowledge for code splitting, asset pipelines, and optimization.",
       href: "https://webpack.js.org/",
       Icon: <SiWebpack className={iconClass} aria-hidden="true" />,
+      className: "hover:bg-blue-400/20",
+    },
+    {
+      name: "VitePress & docs",
+      description:
+        "Markdown-first documentation sites with custom themes for engineering handbooks.",
+      href: "https://vitepress.dev/",
+      Icon: <SiVitepress className={iconClass} aria-hidden="true" />,
+      className: "hover:bg-green-600/20",
     },
     {
       name: "jQuery",
       description:
-        "Lightweight DOM and AJAX helper—handy in legacy projects and quick prototypes.",
+        "Legacy DOM scripting and quick prototypes when supporting older stacks.",
       href: "https://jquery.com/",
       Icon: <SiJquery className={iconClass} aria-hidden="true" />,
+      className: "hover:bg-purple-500/20",
     },
-    {
-      name: "Figma",
-      description:
-        "Collaborative design tool: components, prototyping, and dev handoff.",
-      href: "https://figma.com/",
-      Icon: <FaFigma className={iconClass} aria-hidden="true" />,
-    },
-    {
-      name: "User Experience",
-      description:
-        "Research, accessibility, and testing for meaningful, usable experiences.",
-      href: "#",
-      Icon: <FaReact className={iconClass} aria-hidden="true" />,
-    },
-    {
-      name: "User Interface Design",
-      description:
-        "Visual systems—layout, typography, and interaction—for clear, consistent UIs.",
-      href: "#",
-      Icon: <IoLogoJavascript className={iconClass} aria-hidden="true" />,
-    },
-    {
-      name: "Git",
-      description:
-        "Distributed version control for collaboration, branching, and CI workflows.",
-      href: "https://git-scm.com/",
-      Icon: <FaGitSquare className={iconClass} aria-hidden="true" />,
-    },
-    {
-      name: "Programming",
-      description:
-        "Problem-solving, data structures, and clean code for maintainable software.",
-      href: "#",
-      Icon: <FaCode className={iconClass} aria-hidden="true" />,
-    },
-    {
-      name: "Swift",
-      description:
-        "Modern, safe, and fast language for iOS and macOS development.",
-      href: "https://www.swift.org/",
-      Icon: <FaSwift className={iconClass} aria-hidden="true" />,
-    },
-    {
-      name: "SwiftUI",
-      description:
-        "Declarative Apple UI framework—build UIs with state and composition.",
-      href: "https://developer.apple.com/xcode/swiftui/",
-      Icon: <GrSwift className={iconClass} aria-hidden="true" />,
-    },
-    {
-      name: "Teamwork",
-      description:
-        "Communication, feedback, and shared problem-solving for agile delivery.",
-      href: "#",
-      Icon: <RiTeamFill className={iconClass} aria-hidden="true" />,
-    },
-    {
-      name: "Teaching",
-      description:
-        "Explain complex topics clearly; mentor and grow teams effectively.",
-      href: "#",
-      Icon: <FaCode className={iconClass} aria-hidden="true" />,
-    },
-    {
-      name: "Special Education",
-      description:
-        "Adaptive strategies for diverse learners—useful for inclusive, accessible tech.",
-      href: "#",
-      Icon: <FaCode className={iconClass} aria-hidden="true" />,
-    },
-    {
-      name: "Vue Types",
-      description:
-        "Prop typing helpers for Vue; improve safety and DX on larger apps.",
-      href: "#",
-      Icon: <TbFileTypeVue className={iconClass} aria-hidden="true" />,
-    },
-    {
-      name: "Docker (DevOps basics)",
-      description:
-        "Containerization for reproducible builds and deployments; CI/CD foundation.",
-      href: "https://www.docker.com/",
-      Icon: <SiDocker className={iconClass} aria-hidden="true" />,
-    }
   ];
 
+  const softSkills: SoftSkill[] = [
+    {
+      title: "Caring & motivated",
+      description:
+        "Bring empathy to healthcare, travel, and commerce products while stewarding accessible UIs.",
+    },
+    {
+      title: "Out-of-the-box thinking",
+      description:
+        "Connect design systems, motion, and dev tooling to unlock delightful experiences.",
+    },
+    {
+      title: "Problem-solving",
+      description:
+        "Lead investigations across stacks, from Lighthouse regressions to data integrity issues.",
+    },
+    {
+      title: "Reliability & ownership",
+      description:
+        "Trusted to ship end-to-end projects—from brief and design to deployment and documentation.",
+    },
+    {
+      title: "Teamwork",
+      description:
+        "Facilitate sprint rituals, pair programming, and clear async communication across time zones.",
+    },
+    {
+      title: "Mentorship & teaching",
+      description:
+        "Coach juniors through Zharfa Academy programs, 1:1 reviews, and onboarding materials.",
+    },
+    {
+      title: "Communication & feedback",
+      description:
+        "Translate stakeholder goals into actionable tasks and provide constructive critique.",
+    },
+    {
+      title: "Ownership mindset",
+      description:
+        "Drive documentation, QA checklists, and automation that raise the bar for every release.",
+    },
+  ];
 
   return (
     <Container>
-      <AllStacks stacks={stacks} />
+      <AllStacks
+        title="Hard Skills"
+        blurb="Frameworks, languages, and tools featured across my LinkedIn and CV experience."
+        stacks={hardSkills}
+      />
+      <SoftSkillsGrid
+        skills={softSkills}
+        title="Soft Skills"
+        blurb="Human skills that keep teams aligned and projects sustainable."
+      />
     </Container>
   );
 }
@@ -229,13 +325,11 @@ export function AllStacks({
 }: StackviewProps) {
   return (
     <section className="w-full my-6 sm:my-12">
-      {/* Header */}
       <header className="mb-6 sm:mb-8">
         <h2 className="text-large-title text-label font-semibold">{title}</h2>
         <p className="mt-3 max-w-3xl text-body text-label-secondary">{blurb}</p>
       </header>
 
-      {/* Grid of cards */}
       <div className="grid grid-cols-1 gap-4 sm:gap-5 lg:grid-cols-2">
         {stacks.map((item) => (
           <SingleStackComponent
@@ -246,6 +340,33 @@ export function AllStacks({
             Icon={item.Icon}
             className={item.className}
           />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function SoftSkillsGrid({
+  title = "Soft Skills",
+  blurb = "Human skills that complement the technical stack.",
+  skills,
+}: SoftSkillsProps) {
+  return (
+    <section className="w-full my-6 sm:my-12">
+      <header className="mb-6 sm:mb-8">
+        <h2 className="text-large-title text-label font-semibold">{title}</h2>
+        <p className="mt-3 max-w-3xl text-body text-label-secondary">{blurb}</p>
+      </header>
+
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        {skills.map((skill) => (
+          <div
+            key={skill.title}
+            className="rounded-2xl border border-white/10 bg-white/5 p-5 text-label shadow-lg shadow-black/20 backdrop-blur"
+          >
+            <h3 className="text-lg font-semibold text-label">{skill.title}</h3>
+            <p className="mt-2 text-sm leading-6 text-label-secondary">{skill.description}</p>
+          </div>
         ))}
       </div>
     </section>

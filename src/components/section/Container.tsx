@@ -15,7 +15,7 @@ export default function Container({
     <div
       className={[
         // layout & centering
-        "mx-auto w-full",
+        "mx-auto w-full relative",
         // responsive side paddings (tablet → 4K)
         "px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 2xl:px-16",
         "min-[1920px]:px-24 min-[2560px]:px-32 min-[3840px]:px-40",
