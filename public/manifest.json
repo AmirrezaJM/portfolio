@@ -1,0 +1,20 @@
+{
+  "name": "Portfolio | Amirreza Jolani Mameghani",
+  "short_name": "Amirreza",
+  "start_url": "/",
+  "display": "standalone",
+  "description": "Senior frontend engineer building performant Shopify, Next.js, and Vue experiences.",
+  "background_color": "#03030a",
+  "theme_color": "#03030a",
+  "icons": [
+    { "src": "/myself.webp", "sizes": "16x16", "type": "image/webp" },
+    { "src": "/myself.webp", "sizes": "32x32", "type": "image/webp" },
+    { "src": "/myself.webp", "sizes": "48x48", "type": "image/webp" },
+    { "src": "/myself.webp", "sizes": "64x64", "type": "image/webp" },
+    { "src": "/myself.webp", "sizes": "128x128", "type": "image/webp" },
+    { "src": "/myself.webp", "sizes": "192x192", "type": "image/webp" },
+    { "src": "/myself.webp", "sizes": "256x256", "type": "image/webp" },
+    { "src": "/myself.webp", "sizes": "384x384", "type": "image/webp" },
+    { "src": "/myself.webp", "sizes": "512x512", "type": "image/webp" }
+  ]
+}

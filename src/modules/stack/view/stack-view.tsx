@@ -46,12 +46,14 @@ type StackviewProps = {
   title?: string;
   blurb?: string;
   stacks: Stack[];
+  sectionId?: string;
 };
 
 type SoftSkillsProps = {
   title?: string;
   blurb?: string;
   skills: SoftSkill[];
+  sectionId?: string;
 };
 
 export default function StackView() {
@@ -303,18 +305,22 @@ export default function StackView() {
   ];
 
   return (
-    <Container>
-      <AllStacks
-        title="Hard Skills"
-        blurb="Frameworks, languages, and tools featured across my LinkedIn and CV experience."
-        stacks={hardSkills}
-      />
-      <SoftSkillsGrid
-        skills={softSkills}
-        title="Soft Skills"
-        blurb="Human skills that keep teams aligned and projects sustainable."
-      />
-    </Container>
+    <section id="stack" className="w-full py-16">
+      <Container>
+        <AllStacks
+          title="Hard Skills"
+          blurb="Frameworks, languages, and tools featured across my LinkedIn and CV experience."
+          stacks={hardSkills}
+          sectionId="hard-skill"
+        />
+        <SoftSkillsGrid
+          skills={softSkills}
+          title="Soft Skills"
+          blurb="Human skills that keep teams aligned and projects sustainable."
+          sectionId="soft-skill"
+        />
+      </Container>
+    </section>
   );
 }
 
@@ -322,9 +328,10 @@ export function AllStacks({
   title = "My Stacks",
   blurb = "Commitment to staying updated with the latest design trends and techniques.",
   stacks,
+  sectionId,
 }: StackviewProps) {
   return (
-    <section className="w-full my-6 sm:my-12">
+    <section id={sectionId} className="w-full my-6 sm:my-12">
       <header className="mb-6 sm:mb-8">
         <h2 className="text-large-title text-label font-semibold">{title}</h2>
         <p className="mt-3 max-w-3xl text-body text-label-secondary">{blurb}</p>
@@ -350,9 +357,10 @@ function SoftSkillsGrid({
   title = "Soft Skills",
   blurb = "Human skills that complement the technical stack.",
   skills,
+  sectionId,
 }: SoftSkillsProps) {
   return (
-    <section className="w-full my-6 sm:my-12">
+    <section id={sectionId} className="w-full my-6 sm:my-12">
       <header className="mb-6 sm:mb-8">
         <h2 className="text-large-title text-label font-semibold">{title}</h2>
         <p className="mt-3 max-w-3xl text-body text-label-secondary">{blurb}</p>

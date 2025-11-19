@@ -10,33 +10,30 @@ const reviews = [
   {
     id: 1,
     quote:
-      "Jaykay stands out for passion and work ethic. Unwavering confidence in completing tasks.",
+      "A true team player—always ready to help, collaborate, and lift the whole group forward.",
     author: "Clara Shushunov",
-    title: "UX Researcher (Modus)",
-    avatar: "https://gravatar.com/avatar/6a3fe3e407d0961e77d39d97777f678b?s=400&d=robohash&r=x",
+    title: "Software Engineer • Product‑aware, Mentor & Process Lead",
   },
   {
     id: 2,
     quote:
-      "Combines design talent with professionalism. A pleasure to work with—highly recommend.",
-    author: "Charles Dairo",
-    title: "CEO, CKDIGITAL",
-    avatar: "https://gravatar.com/avatar/6a3fe3e407d0961e77d39d97777f678b?s=400&d=robohash&r=x",
+      "Works with empathy and professionalism. Makes teamwork smoother and every project more enjoyable.",
+    author: "Massy Wahab",
+    title: "Project Manager, Stiching OFoundation",
   },
   {
     id: 3,
     quote:
-      "Dedication and eagerness to learn stand out. Embracing the Design Kit shows excellence.",
-    author: "Harry Phillips",
-    title: "Head of Product (Pupgig)",
-    avatar: "https://gravatar.com/avatar/6a3fe3e407d0961e77d39d97777f678b?s=400&d=robohash&r=x",
+      "Supportive, reliable, and solution-oriented. He strengthens any team he’s part of—highly recommend.",
+    author: "Mohammad Baghanbari",
+    title: "CEO Zharfa Academy",
   },
 ];
 
 
 export default function ReviewView() {
   return (
-    <section>
+    <section id="testimonials">
       <Container>
         <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-black/30 shadow-2xl backdrop-blur-xl">
           {/* Globe side */}
@@ -68,4 +65,3 @@ export default function ReviewView() {
     </section>
   );
 }
-

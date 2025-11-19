@@ -39,11 +39,16 @@ export const metadata: Metadata = {
   applicationName: "AJM Portfolio",
   generator: "Next.js",
   icons: {
-    icon: "/favicon-32x32.png",
-    shortcut: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
+    icon: [
+      { url: "/myself.webp", sizes: "16x16", type: "image/webp" },
+      { url: "/myself.webp", sizes: "32x32", type: "image/webp" },
+      { url: "/myself.webp", sizes: "192x192", type: "image/webp" },
+      { url: "/myself.webp", sizes: "512x512", type: "image/webp" }
+    ],
+    shortcut: "/myself.webp",
+    apple: "/myself.webp",
   },
-  manifest: "/site.webmanifest",
+  manifest: "/manifest.json",
   openGraph: {
     title: "Portfolio | Amirreza Jolani Mameghani",
     description:
@@ -85,6 +90,14 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
+      <head>
+        <link
+          rel="icon"
+          href="/myself.webp"
+          type="image/webp"
+          sizes="16x16 32x32 48x48 64x64 128x128 192x192 256x256 384x384 512x512"
+        />
+      </head>
       {/* expose all font variables on <body> */}
       <body
         className={twMerge(
