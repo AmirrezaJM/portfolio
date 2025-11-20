@@ -34,7 +34,7 @@ export default function TestimonialsView({ reviews }: { reviews: Review[] }) {
         fadeOutColor="rgba(0,0,0,0)"
         logoHeight={200}
         ariaLabel="Testimonials carousel"
-        className="py-6"
+        className="py-6 px-2 sm:px-0"
       />
     </div>
   );
@@ -42,7 +42,7 @@ export default function TestimonialsView({ reviews }: { reviews: Review[] }) {
 
 function TestimonialCard({ review }: { review: Review }) {
   return (
-    <figure className="max-w-md rounded-3xl border border-white/10 bg-white/5 px-5 py-6 text-white shadow-[0_30px_80px_-40px_rgba(0,0,0,0.8)] backdrop-blur">
+    <figure className="w-[min(calc(100vw-5rem),28rem)] max-w-md rounded-3xl border border-white/10 bg-white/5 px-5 py-6 text-white shadow-[0_30px_80px_-40px_rgba(0,0,0,0.8)] backdrop-blur">
       <div className="text-white/60">
         <svg width="32" height="32" viewBox="0 0 32 32" className="h-8 w-8 rotate-180 fill-current">
           <path d="M9.983 3v7.391c0 5.704-3.731 9.57-8.983 10.609l-.995-2.151c2.432-.917 3.995-3.638 3.995-5.849h-4v-10h9.983zm14.017 0v7.391c0 5.704-3.748 9.571-9 10.609l-.996-2.151c2.433-.917 3.996-3.638 3.996-5.849h-3.983v-10h9.983z" />

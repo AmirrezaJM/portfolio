@@ -52,7 +52,7 @@ export default function ReviewView() {
             </div>
           </div>
 
-          <div className="relative z-10 py-6 sm:py-10 lg:py-10 lg:px-3">
+          <div className="relative z-10 px-4 py-6 sm:px-6 sm:py-10 lg:py-10 lg:px-6">
             {/* Your carousel / scroller */}
             <div className="relative">
               <TestimonialsView reviews={reviews} />
