@@ -61,7 +61,7 @@ export default function HeroView() {
                   size="lg"
                   className="border-white/30 bg-white/5 px-8 text-base text-white hover:bg-white/10"
                 >
-                  <Link href="/AmirrezaJolaniCV.pdf" target="_blank" rel="noreferrer">
+                  <Link href="/AmirrezaJM.pdf" target="_blank" rel="noreferrer">
                     Download CV
                   </Link>
                 </Button>
@@ -86,24 +86,6 @@ export default function HeroView() {
                   className="inline-grid h-11 w-11 place-items-center rounded-full border border-white/15 bg-white/5 text-white transition hover:border-white/40 hover:bg-white/10"
                 >
                   <FaGithub className="h-5 w-5" />
-                </Link>
-                <Link
-                  href="https://wa.me/+31634997564"
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="WhatsApp"
-                  className="inline-grid h-11 w-11 place-items-center rounded-full border border-white/15 bg-white/5 text-white transition hover:border-white/40 hover:bg-white/10"
-                >
-                  <FaWhatsapp className="h-5 w-5" />
-                </Link>
-                <Link
-                  href="https://t.me/AmirrezaJMM"
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="Telegram"
-                  className="inline-grid h-11 w-11 place-items-center rounded-full border border-white/15 bg-white/5 text-white transition hover:border-white/40 hover:bg-white/10"
-                >
-                  <FaTelegram className="h-5 w-5" />
                 </Link>
               </div>
             </div>
