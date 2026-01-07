@@ -13,19 +13,19 @@ const STAT_HIGHLIGHTS = [
   {
     label: "Years shipping",
     value: "6+",
-    detail: "End-to-end ownership since 2020 across Next, and Nuxt builds, and shopify.",
+    detail: "End-to-end product delivery since 2020 across Next.js, Nuxt, and Shopify builds.",
   },
   {
     label: "Based in",
     value: "Utrecht, NL",
-    detail: "Partnering with EU teams while mentoring remote squads.",
+    detail: "Working in international, cross-functional teams across Europe; comfortable async and remote-first.",
   },
   {
     label: "Craft",
     value: "React/Next.js · Vue 3/Nuxt 3",
-    detail: "Performance, accessibility, and maintainable systems first.",
+    detail: "Full-stack Next.js (App Router): Server Actions/APIs, PostgreSQL/Prisma, caching, and performance-first UX (Core Web Vitals).",
   },
-];
+]
 
 
 export default function HeroView() {
