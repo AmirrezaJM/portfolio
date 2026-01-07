@@ -12,7 +12,7 @@ import MyselfImage from "@/assets/myself.webp";
 const STAT_HIGHLIGHTS = [
   {
     label: "Years shipping",
-    value: "5+",
+    value: "6+",
     detail: "End-to-end ownership since 2020 across Next, and Nuxt builds, and shopify.",
   },
   {
@@ -22,7 +22,7 @@ const STAT_HIGHLIGHTS = [
   },
   {
     label: "Craft",
-    value: "React/Next.js · Vue 3 · Shopify",
+    value: "React/Next.js · Vue 3/Nuxt 3",
     detail: "Performance, accessibility, and maintainable systems first.",
   },
 ];
