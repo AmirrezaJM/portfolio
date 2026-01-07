@@ -15,32 +15,42 @@ type Project = {
 const PROJECTS: Project[] = [
   {
     title: "Prompter",
-    stack: "Next.js 15 · Prisma · Docker",
+    stack: "Next.js 15 · TypeScript · Prisma · PostgreSQL · Docker",
     summary:
-      "Full-stack prompt management application that lets writers create, edit, delete, and favorite prompts through a clean App Router interface. Backed by PostgreSQL + Prisma with shadcn/ui components and responsive Tailwind styling.",
+      "Full-stack prompt management app built with the Next.js App Router, enabling users to create, edit, delete, and favorite prompts. Uses Prisma + PostgreSQL for a type-safe data layer and an accessible UI with shadcn/ui + Tailwind.",
     impact:
-      "Docker-ready environment with zod validation, sonner toasts, and ESLint/TypeScript automation so assignments can spin up quickly while keeping data safe and the UX accessible.",
-    tags: ["Next.js 15", "Prisma", "PostgreSQL", "Tailwind CSS", "Docker", "shadcn/ui", "Zod", "Sonner"],
+      "Built with production habits: Dockerized for consistent environments, Zod validation for safer inputs, and UX-friendly feedback via Sonner. Designed with performance/caching-aware patterns and maintainable code structure.",
+    tags: ["Next.js", "TypeScript", "Prisma", "PostgreSQL", "Docker", "Tailwind CSS"],
     href: "https://github.com/AmirrezaJM/prompter",
   },
   {
-    title: "Pokemon Clone",
-    stack: "Nuxt 3 · Pinia",
+    title: "Nodebase",
+    stack: "Next.js · React Flow · tRPC · Prisma · Inngest",
     summary:
-      "A user-friendly Pokedex-style experience that lists every Pokemon with detail pages and lets visitors toggle dark and light themes. Built with Nuxt 3.13, @nuxt/ui, and persisted Pinia stores.",
+      "Visual workflow editor with a node-based UI (React Flow) for composing automation flows, backed by type-safe APIs (tRPC + Prisma) and a modern full-stack Next.js architecture.",
     impact:
-      "Ships as an MIT-licensed Nuxt app with streamlined install scripts, Node 20 compatibility, and responsive layouts powered by Nuxt UI primitives.",
-    tags: ["Nuxt 3", "Pinia", "@nuxt/ui", "Persisted State", "Dark/Light Mode"],
+      "Includes secure auth and reliable background execution with Inngest—well-suited for Fintech-style workflows (approvals, pricing updates, invoicing-like pipelines) and microservices-friendly integrations via clear API boundaries.",
+    tags: ["Next.js", "React Flow", "tRPC", "Prisma", "Inngest", "Tailwind CSS"],
+    href: "https://github.com/AmirrezaJM/nodebase",
+  },
+  {
+    title: "Pokemon Clone",
+    stack: "Nuxt 3 · Pinia · @nuxt/ui",
+    summary:
+      "Pokedex-style Nuxt 3 app with listings, detail pages, and dark/light theme switching, using persisted Pinia stores and Nuxt UI components.",
+    impact:
+      "Focused on UX polish and maintainability with responsive layouts and clean state management.",
+    tags: ["Nuxt 3", "Pinia", "TypeScript"],
     href: "https://github.com/AmirrezaJM/pokemon-clone",
   },
   {
     title: "Threads Clone",
-    stack: "Nuxt 3 · Supabase",
+    stack: "Nuxt 3 · Supabase · Prisma",
     summary:
-      "Nuxt 3 social feed clone combining Supabase auth/storage, Prisma, Pinia, Tailwind, nuxt-icon, and uuid utilities to mirror the Threads posting experience.",
+      "Nuxt 3 social feed clone integrating Supabase authentication/storage with a structured Prisma-backed data layer and Tailwind styling.",
     impact:
-      "Project roadmap includes dedicated Tailwind config, PWA setup with Vite/PWA, Vitest coverage for Pinia stores, and configurable light/dark modes to keep teams iterating.",
-    tags: ["Nuxt 3", "Supabase", "Pinia", "Tailwind CSS", "Prisma", "Vite/PWA"],
+      "Built with scalable UI patterns and an iteration-friendly foundation for adding tests and PWA support.",
+    tags: ["Nuxt 3", "Supabase", "Prisma", "Tailwind CSS"],
     href: "https://github.com/AmirrezaJM/threads-clone",
   },
 ];
