@@ -1,13 +1,21 @@
 # 🚀 Amirreza Jolani's Portfolio – Built with Next.js
 
-![Next.js](https://img.shields.io/badge/Next.js-000?logo=nextdotjs&logoColor=white)
-![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-38B2AC?logo=tailwind-css&logoColor=white)
+![Next.js](https://img.shields.io/badge/Next.js-black?logo=next.js&logoColor=white)
+![React](https://img.shields.io/badge/React-20232a?logo=react&logoColor=61DAFB)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
-![Framer Motion](https://img.shields.io/badge/Framer--Motion-0055FF?logo=framer&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?logo=tailwind-css&logoColor=white)
+![Framer Motion](https://img.shields.io/badge/Framer_Motion-0055FF?logo=framer&logoColor=white)
 ![GSAP](https://img.shields.io/badge/GSAP-88CE02?logo=greensock&logoColor=white)
+![Three.js](https://img.shields.io/badge/Three.js-black?logo=three.js&logoColor=white)
+![Radix UI](https://img.shields.io/badge/Radix_UI-161618?logo=radix-ui&logoColor=white)
+![Zod](https://img.shields.io/badge/Zod-3068b7?logo=zod&logoColor=white)
+![React Hook Form](https://img.shields.io/badge/React_Hook_Form-EC5990?logo=reacthookform&logoColor=white)
+![ESLint](https://img.shields.io/badge/ESLint-4B32C3?logo=eslint&logoColor=white)
+![PostCSS](https://img.shields.io/badge/PostCSS-DD3A0A?logo=postcss&logoColor=white)
+![pnpm](https://img.shields.io/badge/pnpm-F69220?logo=pnpm&logoColor=white)
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
-![Status](https://img.shields.io/badge/status-active-success)
-![Deploy](https://img.shields.io/badge/deployed%20on-Vercel-black?logo=vercel)
+![Status](https://img.shields.io/badge/Status-Active-success)
+![Vercel](https://img.shields.io/badge/Vercel-000000?logo=vercel&logoColor=white)
 
 ---
 
@@ -70,10 +78,11 @@ Built by **Amirreza Jolani Mameghani** to reflect full-stack engineering, design
 |--------------|-----------------------------------------------|
 | Framework    | [Next.js 15](https://nextjs.org/)             |
 | Language     | TypeScript                                    |
-| Styling      | Tailwind CSS, ShadCN UI, Geist Font           |
-| Animations   | GSAP, Framer Motion                           |
-| UI Components| Custom Cards, Hero, Header                    |
-| Icons        | Lucide, React Icons                           |
+| Styling      | Tailwind CSS, ShadCN (Radix UI), Geist Font   |
+| Animations   | GSAP, Framer Motion, Three.js (R3F)           |
+| Forms/Valid. | React Hook Form, Zod                          |
+| UI Components| Custom Cards, Hero, Header, Vaul              |
+| Icons        | Lucide, React Icons, Lineicons                |
 | Deployment   | Vercel                                        |
 
 ---
