@@ -82,7 +82,6 @@ const StarBorder = <T extends React.ElementType = "div">(props: StarBorderProps<
             radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.65), transparent 60%);
           opacity: 0.9;
           filter: drop-shadow(0 0 25px rgba(34, 211, 238, 0.25));
-          animation: sb-rotate var(--sb-speed, 6s) linear infinite;
           mask: linear-gradient(#000 0 0) padding-box, linear-gradient(#000 0 0);
           mask-composite: exclude;
           -webkit-mask: linear-gradient(#000 0 0) padding-box, linear-gradient(#000 0 0);
