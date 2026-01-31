@@ -12,7 +12,7 @@ const reviews = [
     quote:
       "A true team player—always ready to help, collaborate, and lift the whole group forward.",
     author: "Clara Shushunov",
-    title: "Software Engineer • Product‑aware, Mentor & Process Lead",
+    title: "Fullstack Developer • Product‑aware, Mentor & Process Lead",
   },
   {
     id: 2,
