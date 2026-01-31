@@ -1,7 +1,4 @@
-'use client';
-
-import * as React from "react";
-
+"use client";
 import Container from "@/components/section/Container";
 import Link from "next/link";
 import { FaGithub, FaLinkedinIn, FaTelegram, FaWhatsapp } from "react-icons/fa";
@@ -47,10 +44,10 @@ export default function HeroView() {
                 Amirreza Jolani Mameghani
               </p>
               <h1 className="mt-4 text-[clamp(3rem,6vw,5rem)] font-semibold leading-tight text-white">
-                FullStack Developer
+                Software Engineer
               </h1>
               <p className="mt-6 max-w-3xl text-lg leading-8 text-white/85">
-                Full-stack developer with 6+ years taking products from idea to production, building customer-facing web experiences and internal tools using TypeScript, React/Next.js, and Vue. I focus on fast, accessible, maintainable interfaces (Tailwind, shadcn/ui) backed by solid API and data foundations (Node.js, REST/GraphQL, Prisma, PostgreSQL), with strong web fundamentals (HTTP, caching/CDNs, Core Web Vitals) and pragmatic engineering practices (code reviews, documentation, mentoring). Based in Utrecht, I’m currently supporting OFoundation as part of my master’s thesis, where I help improve performance and code quality with a data-backed mindset, and I’m especially interested in Fintech challenges such as payments, pricing, and reliability at scale.
+                Software engineer with 5+ years taking products from idea to production, building customer-facing web experiences and internal tools using TypeScript, React/Next.js, and Vue. I focus on fast, accessible, maintainable interfaces (Tailwind, shadcn/ui) backed by solid API and data foundations (Node.js, REST/GraphQL, Prisma, PostgreSQL), with strong web fundamentals (HTTP, caching/CDNs, Core Web Vitals) and pragmatic engineering practices (code reviews, documentation, mentoring). Based in Utrecht, I’m currently supporting OFoundation as part of my master’s thesis, where I help improve performance and code quality with a data-backed mindset, and I’m especially interested in Fintech challenges such as payments, pricing, and reliability at scale.
                 </p>
 
               <div className="mt-8 flex flex-wrap gap-4">
@@ -60,7 +57,7 @@ export default function HeroView() {
                   size="lg"
                   className="border-white/30 bg-white/5 px-8 text-base text-white hover:bg-white/10"
                 >
-                  <Link href="/Fullstack_developer.pdf" target="_blank" rel="noreferrer">
+                  <Link href="/Software_Engineer.pdf" target="_blank" rel="noreferrer">
                     Download CV
                   </Link>
                 </Button>

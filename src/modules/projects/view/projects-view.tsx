@@ -15,7 +15,7 @@ type Project = {
 const PROJECTS: Project[] = [
   {
     title: "Prompter",
-    stack: "Next.js 15 · TypeScript · Prisma · PostgreSQL · Docker",
+    stack: "Next.js· TypeScript · Prisma · PostgreSQL · Docker",
     summary:
       "Full-stack prompt management app built with the Next.js App Router, enabling users to create, edit, delete, and favorite prompts. Uses Prisma + PostgreSQL for a type-safe data layer and an accessible UI with shadcn/ui + Tailwind.",
     impact:
@@ -53,6 +53,16 @@ const PROJECTS: Project[] = [
     tags: ["Nuxt 3", "Supabase", "Prisma", "Tailwind CSS"],
     href: "https://github.com/AmirrezaJM/threads-clone",
   },
+  {
+    title: "E-Commerce Marketplace",
+    stack: "Next.js · MongoDB · TRPC · Tailwind CSS",
+    summary:
+      "Next.js social feed clone integrating MongoDB authentication/storage with a structured Prisma-backed data layer and Tailwind styling.",
+    impact:
+      "Built with scalable UI patterns and an iteration-friendly foundation for adding tests and PWA support.",
+    tags: ["Next.js", "MongoDB", "TRPC", "Tailwind CSS", "shadcn/ui", "nuqs", "zod", "payload-cms"],
+    href: "https://github.com/AmirrezaJM/ecommerce-marketplace",
+  },
 ];
 
 export default function ProjectsView() {
@@ -75,7 +85,7 @@ export default function ProjectsView() {
               href={project.href}
               target="_blank"
               rel="noreferrer"
-              className="group relative block focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white/70"
+              className="group relative block focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white/70"
               aria-label={`Open ${project.title} project`}
             >
               <article
