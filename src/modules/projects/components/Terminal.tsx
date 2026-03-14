@@ -164,7 +164,7 @@ export default function Terminal() {
       <div
         ref={scrollRef}
         onClick={() => inputRef.current?.focus()}
-        className="h-[400px] cursor-text overflow-y-auto p-4 font-mono text-sm"
+        className="h-[400px] cursor-text overflow-y-auto overscroll-contain p-4 font-mono text-sm"
         role="log"
         aria-label="Terminal output"
       >

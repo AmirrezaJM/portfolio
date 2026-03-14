@@ -14,6 +14,16 @@ const ProjectsView = dynamic(() => import("@/modules/projects/view/projects-view
   ssr: true,
 });
 
+const TerminalView = dynamic(() => import("@/modules/terminal/view/terminal-view"), {
+  loading: () => <SectionSkeleton title="Terminal" />,
+  ssr: true,
+});
+
+const GithubView = dynamic(() => import("@/modules/github/view/github-view"), {
+  loading: () => <SectionSkeleton title="GitHub Activity" />,
+  ssr: true,
+});
+
 const StackView = dynamic(() => import("@/modules/stack/view/stack-view"), {
   loading: () => <SectionSkeleton title="Skills" />,
   ssr: true,
@@ -55,6 +65,8 @@ export default function Home() {
           <HeroView />
           <ExperienceView />
           <ProjectsView />
+          <TerminalView />
+          <GithubView />
           <StackView />
           <ReviewView />
           <ContactView />

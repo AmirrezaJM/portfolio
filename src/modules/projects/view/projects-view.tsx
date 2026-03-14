@@ -5,7 +5,6 @@ import { motion } from "motion/react";
 import Container from "@/features/Container";
 import { FaGithub } from "react-icons/fa";
 import { LuLink } from "react-icons/lu";
-import Terminal from "../components/Terminal";
 
 type ProjectStat = { value: string; label: string; color: string };
 
@@ -139,17 +138,6 @@ export default function ProjectsView() {
           <h2 className="text-[clamp(2rem,4vw,3rem)] font-bold leading-tight text-white">
             Featured Projects
           </h2>
-        </motion.div>
-
-        {/* Terminal */}
-        <motion.div
-          className="mb-6"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1], delay: 0.1 }}
-        >
-          <Terminal />
         </motion.div>
 
         {/* Cards */}
