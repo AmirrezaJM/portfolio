@@ -1,382 +1,140 @@
-import * as React from "react";
-import SingleStackComponent from "../components/singlestack-component";
+"use client";
+
+import { useState } from "react";
 import Container from "@/features/Container";
-import {
-  FaCode,
-  FaCss3Alt,
-  FaFigma,
-  FaGitSquare,
-  FaHtml5,
-  FaNodeJs,
-  FaPhp,
-  FaReact,
-  FaSass,
-  FaVuejs,
-} from "react-icons/fa";
-import { IoLogoJavascript } from "react-icons/io5";
-import { BiLogoPostgresql } from "react-icons/bi";
-import { RiNextjsFill } from "react-icons/ri";
-import {
-  SiBootstrap,
-  SiDocker,
-  SiJquery,
-  SiNuxtdotjs,
-  SiRedux,
-  SiStyledcomponents,
-  SiTailwindcss,
-  SiTypescript,
-  SiVitepress,
-  SiWebpack,
-} from "react-icons/si";
 
-type Stack = {
-  name: string;
-  description: string;
-  href?: string;
-  Icon?: React.ReactNode;
-  className?: string;
-};
+type Skill = { name: string; level: number; category: "frontend" | "backend" | "tools" };
 
-type SoftSkill = {
-  title: string;
-  description: string;
-};
+const SKILLS: Skill[] = [
+  // Frontend
+  { name: "React / Next.js", level: 95, category: "frontend" },
+  { name: "Vue 3 / Nuxt 3", level: 90, category: "frontend" },
+  { name: "TypeScript", level: 92, category: "frontend" },
+  { name: "Tailwind CSS", level: 95, category: "frontend" },
+  { name: "HTML5 / CSS3", level: 97, category: "frontend" },
+  { name: "GSAP & Framer Motion", level: 80, category: "frontend" },
+  // Backend
+  { name: "Node.js", level: 82, category: "backend" },
+  { name: "PostgreSQL", level: 78, category: "backend" },
+  { name: "Prisma ORM", level: 85, category: "backend" },
+  { name: "REST / GraphQL APIs", level: 82, category: "backend" },
+  { name: "PHP / Laravel", level: 65, category: "backend" },
+  { name: "Docker", level: 72, category: "backend" },
+  // Tools
+  { name: "Git / GitHub", level: 92, category: "tools" },
+  { name: "Figma & Design Systems", level: 78, category: "tools" },
+  { name: "Performance / SEO", level: 88, category: "tools" },
+  { name: "Testing (Jest/Vitest)", level: 72, category: "tools" },
+  { name: "CI/CD Pipelines", level: 68, category: "tools" },
+  { name: "Webpack / Vite", level: 75, category: "tools" },
+];
 
-type StackviewProps = {
-  title?: string;
-  blurb?: string;
-  stacks: Stack[];
-  sectionId?: string;
-};
+const TABS = [
+  { key: "all", label: "Overview" },
+  { key: "frontend", label: "Frontend" },
+  { key: "backend", label: "Backend" },
+  { key: "tools", label: "Tools" },
+] as const;
 
-type SoftSkillsProps = {
-  title?: string;
-  blurb?: string;
-  skills: SoftSkill[];
-  sectionId?: string;
+type TabKey = (typeof TABS)[number]["key"];
+
+const LEVEL_COLOR = (level: number) => {
+  if (level >= 90) return "bg-amber-500";
+  if (level >= 75) return "bg-sky-500";
+  return "bg-emerald-500";
 };
 
 export default function StackView() {
-  const iconClass = "h-5 w-5 text-label/70";
-  const hardSkills: Stack[] = [
-    {
-      name: "React.js",
-      description:
-        "Component-driven UI work with hooks, context, and composable architectures for complex dashboards.",
-      href: "https://react.dev/",
-      Icon: <FaReact className={iconClass} aria-hidden="true" />,
-      className: "hover:bg-blue-600/20",
-    },
-    {
-      name: "Next.js",
-      description:
-        "App Router builds with SSR/SSG, API routes, incremental revalidation, and image optimization.",
-      href: "https://nextjs.org/",
-      Icon: <RiNextjsFill className={iconClass} aria-hidden="true" />,
-      className: "hover:bg-white/10",
-    },
-    {
-      name: "Vue 3",
-      description:
-        "Composition API, script setup, and reusable component libraries for travel-tech portals and dashboards.",
-      href: "https://vuejs.org/",
-      Icon: <FaVuejs className={iconClass} aria-hidden="true" />,
-      className: "hover:bg-emerald-600/20",
-    },
-    {
-      name: "Nuxt 3",
-      description:
-        "File-based routing, server routes, and Nitro deployments for content-heavy websites and clones.",
-      href: "https://nuxt.com/",
-      Icon: <SiNuxtdotjs className={iconClass} aria-hidden="true" />,
-      className: "hover:bg-teal-600/20",
-    },
-    {
-      name: "TypeScript",
-      description:
-        "Static typing across React, Vue, Prisma, and Remix routes for safer APIs and design systems.",
-      href: "https://www.typescriptlang.org/",
-      Icon: <SiTypescript className={iconClass} aria-hidden="true" />,
-      className: "hover:bg-sky-600/20",
-    },
-    {
-      name: "JavaScript (ES6+)",
-      description:
-        "Modern syntax, async flows, testing, and DOM work across browsers for performant frontends.",
-      href: "https://developer.mozilla.org/docs/Web/JavaScript",
-      Icon: <IoLogoJavascript className={iconClass} aria-hidden="true" />,
-      className: "hover:bg-amber-500/20",
-    },
-    {
-      name: "HTML5",
-      description:
-        "Semantic markup and accessibility-first layouts for marketing sites, documentation, and apps.",
-      href: "https://developer.mozilla.org/docs/Web/HTML",
-      Icon: <FaHtml5 className={iconClass} aria-hidden="true" />,
-      className: "hover:bg-orange-600/20",
-    },
-    {
-      name: "CSS3 & Layout",
-      description:
-        "Grid, Flexbox, and fluid typography with custom properties to keep responsive work tidy.",
-      href: "https://developer.mozilla.org/docs/Web/CSS",
-      Icon: <FaCss3Alt className={iconClass} aria-hidden="true" />,
-      className: "hover:bg-blue-600/20",
-    },
-    {
-      name: "SCSS/Sass",
-      description:
-        "Scalable stylesheets with nesting, mixins, and design tokens—used for healthcare and travel products.",
-      href: "https://sass-lang.com/",
-      Icon: <FaSass className={iconClass} aria-hidden="true" />,
-      className: "hover:bg-pink-600/20",
-    },
-    {
-      name: "Tailwind CSS",
-      description:
-        "Utility-first workflows, custom themes, and shadcn/ui integration for rapid prototyping.",
-      href: "https://tailwindcss.com/",
-      Icon: <SiTailwindcss className={iconClass} aria-hidden="true" />,
-      className: "hover:bg-cyan-600/20",
-    },
-    {
-      name: "Styled Components",
-      description:
-        "Theming and component co-location for React/Next.js apps; shared tokens across marketing and product.",
-      href: "https://styled-components.com/",
-      Icon: <SiStyledcomponents className={iconClass} aria-hidden="true" />,
-      className: "hover:bg-rose-600/20",
-    },
-    {
-      name: "Bootstrap",
-      description:
-        "Legacy-friendly design system customization, grid overrides, and responsive utilities.",
-      href: "https://getbootstrap.com/",
-      Icon: <SiBootstrap className={iconClass} aria-hidden="true" />,
-      className: "hover:bg-violet-600/20",
-    },
-    {
-      name: "Shadcn/ui & unstyled components",
-      description:
-        "Radix-based primitives styled with Tailwind for reusable Shopify components and design systems.",
-      href: "https://ui.shadcn.com/",
-      Icon: <FaCode className={iconClass} aria-hidden="true" />,
-      className: "hover:bg-zinc-700/20",
-    },
-    {
-      name: "GSAP & motion",
-      description:
-        "Animation timelines, scroll driven effects, and Framer Motion choreography for richer UX.",
-      href: "https://greensock.com/gsap/",
-      Icon: <FaCode className={iconClass} aria-hidden="true" />,
-      className: "hover:bg-lime-500/20",
-    },
-    {
-      name: "Redux & State Machines",
-      description:
-        "Complex state coordination for dashboards, client portals, and admin tools.",
-      href: "https://redux.js.org/",
-      Icon: <SiRedux className={iconClass} aria-hidden="true" />,
-      className: "hover:bg-purple-600/20",
-    },
-    {
-      name: "Figma & Design Systems",
-      description:
-        "Component libraries, UX flows, and dev handoff that inform Shopify, Nuxt, and docs work.",
-      href: "https://figma.com/",
-      Icon: <FaFigma className={iconClass} aria-hidden="true" />,
-      className: "hover:bg-purple-500/20",
-    },
-    {
-      name: "Tooling & IDEs",
-      description:
-        "Git, VS Code, WebStorm, and PhpStorm workflows with linting, formatting, and code reviews.",
-      href: "https://git-scm.com/",
-      Icon: <FaGitSquare className={iconClass} aria-hidden="true" />,
-      className: "hover:bg-orange-500/20",
-    },
-    {
-      name: "Performance & SEO",
-      description:
-        "DevTools, Lighthouse, semantic HTML, and Core Web Vitals tuning for 90-100 scores.",
-      href: "https://web.dev/vitals/",
-      Icon: <FaCode className={iconClass} aria-hidden="true" />,
-      className: "hover:bg-emerald-500/20",
-    },
-    {
-      name: "Node.js",
-      description:
-        "API routes, server utilities, and tooling scripts powering Remix, Next.js, and Nuxt projects.",
-      href: "https://nodejs.org/",
-      Icon: <FaNodeJs className={iconClass} aria-hidden="true" />,
-      className: "hover:bg-green-600/20",
-    },
-    {
-      name: "PHP (Laravel)",
-      description:
-        "Back-end extensions, authentication flows, and admin tooling for legacy platforms.",
-      href: "https://laravel.com/",
-      Icon: <FaPhp className={iconClass} aria-hidden="true" />,
-      className: "hover:bg-indigo-500/20",
-    },
-    {
-      name: "PostgreSQL",
-      description:
-        "Schema design, indexing, and Prisma-based access for full-stack apps.",
-      href: "https://www.postgresql.org/",
-      Icon: <BiLogoPostgresql className={iconClass} aria-hidden="true" />,
-      className: "hover:bg-blue-600/20",
-    },
-    {
-      name: "Docker",
-      description:
-        "Local dev environments, Compose workflows, and reproducible deployments for assignments.",
-      href: "https://www.docker.com/",
-      Icon: <SiDocker className={iconClass} aria-hidden="true" />,
-      className: "hover:bg-sky-500/20",
-    },
-    {
-      name: "Webpack",
-      description:
-        "Legacy bundler knowledge for code splitting, asset pipelines, and optimization.",
-      href: "https://webpack.js.org/",
-      Icon: <SiWebpack className={iconClass} aria-hidden="true" />,
-      className: "hover:bg-blue-400/20",
-    },
-    {
-      name: "VitePress & docs",
-      description:
-        "Markdown-first documentation sites with custom themes for engineering handbooks.",
-      href: "https://vitepress.dev/",
-      Icon: <SiVitepress className={iconClass} aria-hidden="true" />,
-      className: "hover:bg-green-600/20",
-    },
-    {
-      name: "jQuery",
-      description:
-        "Legacy DOM scripting and quick prototypes when supporting older stacks.",
-      href: "https://jquery.com/",
-      Icon: <SiJquery className={iconClass} aria-hidden="true" />,
-      className: "hover:bg-purple-500/20",
-    },
-  ];
+  const [activeTab, setActiveTab] = useState<TabKey>("all");
 
-  const softSkills: SoftSkill[] = [
-    {
-      title: "Caring & motivated",
-      description:
-        "Bring empathy to healthcare, travel, and commerce products while stewarding accessible UIs.",
-    },
-    {
-      title: "Out-of-the-box thinking",
-      description:
-        "Connect design systems, motion, and dev tooling to unlock delightful experiences.",
-    },
-    {
-      title: "Problem-solving",
-      description:
-        "Lead investigations across stacks, from Lighthouse regressions to data integrity issues.",
-    },
-    {
-      title: "Reliability & ownership",
-      description:
-        "Trusted to ship end-to-end projects—from brief and design to deployment and documentation.",
-    },
-    {
-      title: "Teamwork",
-      description:
-        "Facilitate sprint rituals, pair programming, and clear async communication across time zones.",
-    },
-    {
-      title: "Mentorship & teaching",
-      description:
-        "Coach juniors through Zharfa Academy programs, 1:1 reviews, and onboarding materials.",
-    },
-    {
-      title: "Communication & feedback",
-      description:
-        "Translate stakeholder goals into actionable tasks and provide constructive critique.",
-    },
-    {
-      title: "Ownership mindset",
-      description:
-        "Drive documentation, QA checklists, and automation that raise the bar for every release.",
-    },
-  ];
+  const filtered =
+    activeTab === "all" ? SKILLS : SKILLS.filter((s) => s.category === activeTab);
 
   return (
     <section id="stack" className="w-full py-16">
       <Container>
-        <AllStacks
-          title="Hard Skills"
-          blurb="Frameworks, languages, and tools featured across my LinkedIn and CV experience."
-          stacks={hardSkills}
-          sectionId="hard-skill"
-        />
-        <SoftSkillsGrid
-          skills={softSkills}
-          title="Soft Skills"
-          blurb="Human skills that keep teams aligned and projects sustainable."
-          sectionId="soft-skill"
-        />
-      </Container>
-    </section>
-  );
-}
-
-export function AllStacks({
-  title = "My Stacks",
-  blurb = "Commitment to staying updated with the latest design trends and techniques.",
-  stacks,
-  sectionId,
-}: StackviewProps) {
-  return (
-    <section id={sectionId} className="w-full my-6 sm:my-12">
-      <header className="mb-6 sm:mb-8">
-        <h2 className="text-large-title text-label font-semibold">{title}</h2>
-        <p className="mt-3 max-w-3xl text-body text-label-secondary">{blurb}</p>
-      </header>
-
-      <div className="grid grid-cols-1 gap-4 sm:gap-5 lg:grid-cols-2">
-        {stacks.map((item) => (
-          <SingleStackComponent
-            key={item.name}
-            name={item.name}
-            description={item.description}
-            href={item.href}
-            Icon={item.Icon}
-            className={item.className}
-          />
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function SoftSkillsGrid({
-  title = "Soft Skills",
-  blurb = "Human skills that complement the technical stack.",
-  skills,
-  sectionId,
-}: SoftSkillsProps) {
-  return (
-    <section id={sectionId} className="w-full my-6 sm:my-12">
-      <header className="mb-6 sm:mb-8">
-        <h2 className="text-large-title text-label font-semibold">{title}</h2>
-        <p className="mt-3 max-w-3xl text-body text-label-secondary">{blurb}</p>
-      </header>
-
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        {skills.map((skill) => (
-          <div
-            key={skill.title}
-            className="rounded-2xl border border-white/10 bg-white/5 p-5 text-label shadow-lg shadow-black/20 backdrop-blur"
-          >
-            <h3 className="text-lg font-semibold text-label">{skill.title}</h3>
-            <p className="mt-2 text-sm leading-6 text-label-secondary">{skill.description}</p>
+        {/* Section header */}
+        <div className="mb-10 space-y-2">
+          <div className="flex items-center gap-3">
+            <div className="h-px w-12 bg-amber-500" />
+            <span className="text-xs font-semibold uppercase tracking-widest text-amber-500">
+              Expertise
+            </span>
           </div>
-        ))}
-      </div>
+          <h2 className="text-[clamp(2rem,4vw,3rem)] font-bold leading-tight text-white">
+            Technical Expertise
+          </h2>
+          <p className="text-sm text-white/50">
+            From frontend craft to full-stack delivery and engineering tooling
+          </p>
+        </div>
+
+        {/* Tab navigation */}
+        <div className="mb-8 inline-flex gap-1 rounded-2xl border border-white/10 bg-white/5 p-1 backdrop-blur">
+          {TABS.map((tab) => (
+            <button
+              key={tab.key}
+              onClick={() => setActiveTab(tab.key)}
+              className={`rounded-xl px-5 py-2 text-sm font-medium transition-colors ${
+                activeTab === tab.key
+                  ? "bg-white/15 text-white"
+                  : "text-white/50 hover:text-white/80"
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Skills card */}
+        <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur">
+          <div className="flex items-center gap-2 mb-6">
+            <span className="text-amber-400">✦</span>
+            <span className="text-base font-semibold text-white">Technical Skills</span>
+          </div>
+
+          <div className="space-y-5">
+            {filtered.map((skill) => (
+              <div key={skill.name}>
+                <div className="mb-1.5 flex items-center justify-between">
+                  <span className="text-sm text-white/80">{skill.name}</span>
+                  <span
+                    className={`text-sm font-semibold ${
+                      skill.level >= 90
+                        ? "text-amber-400"
+                        : skill.level >= 75
+                        ? "text-sky-400"
+                        : "text-emerald-400"
+                    }`}
+                  >
+                    {skill.level}%
+                  </span>
+                </div>
+                <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/10">
+                  <div
+                    className={`h-full rounded-full transition-all duration-700 ${LEVEL_COLOR(skill.level)}`}
+                    style={{ width: `${skill.level}%` }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Legend */}
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-5 border-t border-white/10 pt-5">
+            {[
+              { label: "Frontend", color: "bg-sky-500" },
+              { label: "Backend", color: "bg-rose-500" },
+              { label: "Tools", color: "bg-amber-500" },
+            ].map((item) => (
+              <div key={item.label} className="flex items-center gap-2 text-sm text-white/50">
+                <span className={`h-2.5 w-2.5 rounded-full ${item.color}`} />
+                {item.label}
+              </div>
+            ))}
+          </div>
+        </div>
+      </Container>
     </section>
   );
 }

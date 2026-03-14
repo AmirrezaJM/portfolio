@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 import HeroView from "@/modules/hero/view/hero";
 import SectionSkeleton from "@/features/section-skeleton";
 import ScrollDockClient from "@/components/navigation/scroll-dock-client";
+import { Header } from "@/features/Header";
 
 const ExperienceView = dynamic(() => import("@/modules/experience/view/experience-view"), {
   loading: () => <SectionSkeleton title="Experience" />,
@@ -33,13 +34,14 @@ const FooterView = dynamic(() => import("@/modules/footer/view/footer-view"), {
 export default function Home() {
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#03030a] text-white">
+      <Header />
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "linear-gradient(90deg, rgba(255,255,255,0.25) 1px, transparent 1px), linear-gradient(0deg, rgba(255,255,255,0.2) 1px, transparent 1px)", backgroundSize: "120px 120px" }} />
         <div className="absolute -top-40 left-1/4 h-[480px] w-[480px] rounded-full bg-[radial-gradient(circle,_rgba(76,139,245,0.45),_transparent_70%)] blur-3xl" />
         <div className="absolute right-0 h-[520px] w-[520px] rounded-full bg-[radial-gradient(circle,_rgba(255,138,195,0.35),_transparent_65%)] blur-3xl" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.05),_transparent_55%)]" />
       </div>
-      <div className="relative flex min-h-screen flex-col gap-12">
+      <div className="relative flex min-h-screen flex-col gap-12 pt-[57px]">
         <main className="flex flex-col gap-12">
           <HeroView />
           <ExperienceView />

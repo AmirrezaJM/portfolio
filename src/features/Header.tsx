@@ -1,123 +1,107 @@
 "use client";
-import Image from "next/image";
 import Link from "next/link";
-import Clock from "react-live-clock";
-import { Pointer } from "lucide-react";
 import { useEffect, useState } from "react";
+import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 
+const NAV_LINKS = [
+  { label: "Home", href: "#hero" },
+  { label: "Projects", href: "#projects" },
+  { label: "Skills", href: "#stack" },
+  { label: "Experience", href: "#experience" },
+  { label: "Contact", href: "#contact" },
+];
+
+const SECTION_IDS = ["hero", "projects", "stack", "experience", "contact"];
 
 export function Header() {
   const [progress, setProgress] = useState(0);
-  const [showNavItems, setShowNavItems] = useState(false);
-
-  const handleMouseEnter = () => {
-    setTimeout(() => {
-      setShowNavItems(true);
-    }, 300); // Match your navbar expand duration
-  };
-
-  const handleMouseLeave = () => {
-    setShowNavItems(false); // Immediately hide when mouse leaves
-  };
+  const [activeSection, setActiveSection] = useState("hero");
 
   useEffect(() => {
-    const updateProgress = () => {
+    const onScroll = () => {
+      // Progress bar
       const scrollTop = window.scrollY;
       const docHeight = document.body.scrollHeight - window.innerHeight;
-      const scrolled = (scrollTop / docHeight) * 100;
-      setProgress(scrolled);
+      setProgress(docHeight > 0 ? (scrollTop / docHeight) * 100 : 0);
+
+      // Active section detection
+      let current = "hero";
+      for (const id of SECTION_IDS) {
+        const el = document.getElementById(id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= 120) current = id;
+        }
+      }
+      setActiveSection(current);
     };
 
-    window.addEventListener("scroll", updateProgress);
-    return () => window.removeEventListener("scroll", updateProgress);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
-    <header>
-      <div className="w-full top-0 sticky p-3 flex justify-center items-center z-10 backdrop-blur-xl bg-background/30">
-        <div className="container mx-auto px-2 [container-type:inline-size]">
-          <div className="flex flex-row justify-between items-center">
-            <div>
-              <Link href="/">
-                <Image src="/logo.png" alt="logo" width={48} height={48} />
-              </Link>
-            </div>
-            <div className="flex justify-between items-center">
-              <nav
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-                className="flex items-center justify-between w-full h-full gap-3 p-3 relative flex-nowrap min-w-[150px] hover:min-w-md group transition-all duration-300 ease-in-out 
-                  after:border-[0.6px] after:content-[''] after:absolute after:w-full after:h-full after:top-0 after:left-0 after:border-foreground/70 after:rounded-full"
-              >
-                {/* Always visible icon */}
-                <Pointer className="size-6 text-foreground/70" />
+    <header className="fixed inset-x-0 top-0 z-50">
+      {/* Scroll progress bar */}
+      <div className="h-[3px] w-full bg-white/10">
+        <div
+          className="h-full bg-amber-500 transition-all duration-150 ease-out"
+          style={{ width: `${progress}%` }}
+        />
+      </div>
 
-                {/* Hidden until hover */}
-                {showNavItems && (
-                  <div className="flex gap-8 items-center relative z-30 opacity-100 animate-fade-in transition-opacity duration-300">
-                    <Link
-                      className="text-sm font-semibold text-foreground/70 hover:text-black"
-                      href="/#project"
-                    >
-                      Project
-                    </Link>
-                    <Link
-                      className="text-sm font-semibold text-foreground/70 hover:text-black"
-                      href="/#about"
-                    >
-                      About
-                    </Link>
-                    <Link
-                      className="text-sm font-semibold text-foreground/70 hover:text-black"
-                      href="/#connect"
-                    >
-                      Connection
-                    </Link>
-                    <a
-                      href="/assets/Amirreza_Jolani_Mameghani_CV.pdf"
-                      className="text-sm font-semibold text-primary/80 hover:text-black"
-                      download
-                    >
-                      Get CV
-                    </a>
-                  </div>
-                )}
-                {/* Always visible end icon */}
-                <div className="z-10">
-                  <svg className="rotate-[-90deg]" width="30" height="30">
-                    <circle
-                      cx="14"
-                      cy="14"
-                      r="12"
-                      stroke="#333"
-                      strokeWidth="5"
-                      fill="none"
-                    />
-                    <circle
-                      cx="14"
-                      cy="14"
-                      r="12"
-                      stroke="#fff"
-                      strokeWidth="5"
-                      fill="none"
-                      strokeDasharray={2 * Math.PI * 14}
-                      strokeDashoffset={
-                        2 * Math.PI * 14 - (progress / 100) * (2 * Math.PI * 14)
-                      }
-                      style={{ transition: "stroke-dashoffset 0.3s ease-out" }}
-                    />
-                  </svg>
-                </div>
-              </nav>
-            </div>
+      {/* Nav bar */}
+      <div className="border-b border-white/10 bg-[#0D0D14]/80 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
+          {/* Logo */}
+          <Link
+            href="#hero"
+            className="text-base font-semibold text-white hover:text-amber-400 transition-colors"
+          >
+            Amirreza Jalali
+          </Link>
 
-            <div className="flex items-center gap-x-4">
-              <Clock
-                className="text-base font-semibold tracking-[0.15em] text-neutral-400/80 uppercase"
-                format={"hh:mm a"}
-                ticking={true}
-              />
-            </div>
+          {/* Nav links */}
+          <nav className="hidden md:flex items-center gap-1">
+            {NAV_LINKS.map((link) => {
+              const id = link.href.replace("#", "");
+              const isActive = activeSection === id;
+              return (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
+                    isActive
+                      ? "bg-amber-500 text-black"
+                      : "text-white/60 hover:text-white hover:bg-white/10"
+                  }`}
+                >
+                  {link.label}
+                </a>
+              );
+            })}
+          </nav>
+
+          {/* Right icons */}
+          <div className="flex items-center gap-2">
+            <Link
+              href="https://github.com/AmirrezaJM"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="GitHub"
+              className="inline-grid h-9 w-9 place-items-center rounded-full border border-white/15 bg-white/5 text-white/70 transition hover:text-white hover:bg-white/10"
+            >
+              <FaGithub className="h-4 w-4" />
+            </Link>
+            <Link
+              href="https://www.linkedin.com/in/amirjm/"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="LinkedIn"
+              className="inline-grid h-9 w-9 place-items-center rounded-full border border-white/15 bg-white/5 text-white/70 transition hover:text-white hover:bg-white/10"
+            >
+              <FaLinkedinIn className="h-4 w-4" />
+            </Link>
           </div>
         </div>
       </div>
