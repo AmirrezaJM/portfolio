@@ -5,6 +5,7 @@ import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 import Image from "next/image";
 import MyselfImage from "@/assets/myself.webp";
 import { useEffect, useState } from "react";
+import { motion } from "motion/react";
 
 const TYPEWRITER_PHRASES = [
   "Fast Web Apps",
@@ -88,12 +89,22 @@ const FLOAT_DOTS = [
   { size: 14, top: "15%", left: "55%", delay: "1.5s", opacity: 0.2 },
 ];
 
+const staggerContainer = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08 } },
+};
+
+const staggerChild = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.4, 0, 0.2, 1] as [number, number, number, number] } },
+};
+
 export default function HeroView() {
   return (
     <>
       <section
         id="hero"
-        className="relative isolate w-full overflow-hidden bg-[#0D0D14] text-white"
+        className="relative isolate w-full overflow-hidden bg-[#0f0804] text-white"
       >
         {/* Aurora background */}
         <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
@@ -101,14 +112,19 @@ export default function HeroView() {
         </div>
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-60 bg-gradient-to-t from-[#03030a] via-transparent to-transparent"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-60 bg-gradient-to-t from-[#0f0804] via-transparent to-transparent"
         />
 
         <Container className="relative mx-auto w-full py-28">
           <div className="flex flex-col items-center text-center gap-6">
 
             {/* Circular photo with floating dots */}
-            <div className="relative w-[180px] h-[180px]">
+            <motion.div
+              className="relative w-[180px] h-[180px]"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+            >
               {FLOAT_DOTS.map((dot, i) => (
                 <span
                   key={i}
@@ -139,18 +155,23 @@ export default function HeroView() {
               {/* Online indicator */}
               <span className="absolute bottom-3 right-3 flex h-4 w-4">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex h-4 w-4 rounded-full bg-emerald-500 border-2 border-[#0D0D14]" />
+                <span className="relative inline-flex h-4 w-4 rounded-full bg-emerald-500 border-2 border-[#0f0804]" />
               </span>
-            </div>
+            </motion.div>
 
             {/* Available for work badge */}
-            <div className="flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-1.5 text-sm text-emerald-400">
+            <motion.div
+              className="flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-1.5 text-sm text-emerald-400"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
+            >
               <span className="relative flex h-2.5 w-2.5">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500" />
               </span>
               Available for Work
-            </div>
+            </motion.div>
 
             {/* Tagline */}
             <p className="text-sm text-white/50 -mt-2">
@@ -158,17 +179,34 @@ export default function HeroView() {
             </p>
 
             {/* Name */}
-            <h1 className="text-[clamp(2.6rem,6vw,4.5rem)] font-bold leading-none tracking-tight text-white">
-              Amirreza Jalali
-            </h1>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.5 }}
+            >
+              <h1 className="text-[clamp(2.6rem,6vw,4.5rem)] font-bold leading-none tracking-tight text-white">
+                Amirreza Jalali
+              </h1>
+            </motion.div>
 
             {/* Typewriter subtitle */}
-            <p className="text-[clamp(1.2rem,3vw,2rem)] font-medium text-white/70 -mt-2">
-              I Build <TypewriterText />
-            </p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.5 }}
+            >
+              <p className="text-[clamp(1.2rem,3vw,2rem)] font-medium text-white/70 -mt-2">
+                I Build <TypewriterText />
+              </p>
+            </motion.div>
 
             {/* Stat badges */}
-            <div className="flex flex-wrap justify-center gap-3 mt-1">
+            <motion.div
+              className="flex flex-wrap justify-center gap-3 mt-1"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5, duration: 0.5 }}
+            >
               {STAT_BADGES.map((badge) => (
                 <span
                   key={badge.label}
@@ -178,39 +216,60 @@ export default function HeroView() {
                   {badge.label}
                 </span>
               ))}
-            </div>
+            </motion.div>
 
             {/* Bio */}
-            <p className="mt-2 max-w-2xl text-base leading-7 text-white/70">
+            <motion.p
+              className="mt-2 max-w-2xl text-base leading-7 text-white/70"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 0.5 }}
+            >
               I build{" "}
               <span className="text-white font-medium">fast, accessible web experiences</span> and
               internal tools using TypeScript, React/Next.js, and Vue. I focus on clean interfaces
               backed by solid APIs and data foundations.{" "}
               <span className="text-amber-400/80">No bloat. Just results.</span>
-            </p>
+            </motion.p>
 
             {/* Feature cards */}
-            <div className="mt-4 grid w-full max-w-2xl grid-cols-1 gap-3 sm:grid-cols-3">
+            <motion.div
+              className="mt-4 grid w-full max-w-2xl grid-cols-1 gap-3 sm:grid-cols-3"
+              initial="hidden"
+              animate="visible"
+              variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.08, delayChildren: 0.7 } } }}
+            >
               {FEATURE_CARDS.map((card) => (
-                <div
+                <motion.div
                   key={card.title}
+                  variants={staggerChild}
                   className="flex flex-col items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-5 backdrop-blur hover:border-white/20 hover:bg-white/8 transition-colors"
                 >
                   <span className="text-2xl">{card.icon}</span>
                   <p className="text-sm font-semibold text-white">{card.title}</p>
                   <p className="text-xs leading-5 text-white/55 text-center">{card.description}</p>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
 
             {/* Fun fact bar */}
-            <div className="w-full max-w-2xl rounded-2xl border border-white/10 bg-white/5 px-5 py-3 text-sm text-white/60 backdrop-blur">
+            <motion.div
+              className="w-full max-w-2xl rounded-2xl border border-white/10 bg-white/5 px-5 py-3 text-sm text-white/60 backdrop-blur"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8, duration: 0.5 }}
+            >
               ✨ <span className="text-white/80 font-medium">Fun fact:</span> I started my first
               freelance project at 18 and haven&apos;t stopped shipping since.
-            </div>
+            </motion.div>
 
             {/* CTA buttons */}
-            <div className="flex flex-wrap justify-center gap-3 mt-1">
+            <motion.div
+              className="flex flex-wrap justify-center gap-3 mt-1"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.9, duration: 0.5 }}
+            >
               <Link
                 href="/Fullstack_developer.pdf"
                 target="_blank"
@@ -245,7 +304,7 @@ export default function HeroView() {
                   <FaGithub className="h-4 w-4" />
                 </Link>
               </div>
-            </div>
+            </motion.div>
 
           </div>
         </Container>
@@ -253,9 +312,9 @@ export default function HeroView() {
 
       <style jsx>{`
         .hero-aurora {
-          background: radial-gradient(circle at 20% 20%, #4c8bf5 0%, transparent 60%),
-            radial-gradient(circle at 80% 0%, #ff8ac3 0%, transparent 55%),
-            radial-gradient(circle at 50% 80%, #5ef6ff 0%, transparent 55%), #03030a;
+          background: radial-gradient(circle at 20% 20%, #c2571a 0%, transparent 60%),
+            radial-gradient(circle at 80% 0%, #7c2d12 0%, transparent 55%),
+            radial-gradient(circle at 50% 80%, #92400e 0%, transparent 55%), #0f0804;
           animation: heroGlow 30s ease-in-out infinite;
           transform-origin: center;
         }

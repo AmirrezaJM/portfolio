@@ -1,351 +1,326 @@
 "use client";
 
-import * as React from "react";
+import { useState } from "react";
+import { motion } from "motion/react";
 import Container from "@/features/Container";
-import { HoverEffect } from "@/components/ui/card-hover-effect";
-import StarBorder from "@/components/StarBorder";
+import Link from "next/link";
+
+type Category = "current" | "corporate" | "education" | "freelance" | "break";
 
 type Experience = {
   company: string;
   role: string;
-  timeframe: string;
-  location: string;
+  year: string;
+  startDate: Date;
+  endDate: Date;
+  category: Category;
+  icon: string;
   summary: string;
-  companyBio: string;
   achievements: string[];
   tags: string[];
-  projects?: {
-    name: string;
-    summary: string;
-    link?: string;
-  }[];
 };
 
-type ExperienceTheme = {
-  color: string;
-  background: string;
-  border: string;
-  surface: string;
-  chipBg: string;
-  chipBorder: string;
-  shadow: string;
+const CATEGORY_COLORS: Record<Category, { bar: string; badge: string; text: string }> = {
+  current: { bar: "bg-amber-500", badge: "bg-amber-500/20 border-amber-500/30 text-amber-400", text: "text-amber-400" },
+  corporate: { bar: "bg-stone-500", badge: "bg-stone-500/20 border-stone-500/30 text-stone-300", text: "text-stone-300" },
+  education: { bar: "bg-stone-600", badge: "bg-stone-600/20 border-stone-600/30 text-stone-400", text: "text-stone-400" },
+  freelance: { bar: "bg-amber-700", badge: "bg-amber-700/20 border-amber-700/30 text-amber-300", text: "text-amber-300" },
+  break: { bar: "bg-white/20", badge: "bg-white/10 border-white/20 text-white/50", text: "text-white/50" },
 };
 
-const EXPERIENCE_THEMES: ExperienceTheme[] = [
-  {
-    color: "#22d3ee",
-    background: "rgba(3,18,31,0.92)",
-    border: "rgba(34,211,238,0.55)",
-    surface: "rgba(14,116,144,0.25)",
-    chipBg: "rgba(13,148,136,0.15)",
-    chipBorder: "rgba(34,211,238,0.45)",
-    shadow: "0 35px 120px -55px rgba(34,211,238,0.85)",
-  },
-  {
-    color: "#c084fc",
-    background: "rgba(34,13,49,0.92)",
-    border: "rgba(192,132,252,0.55)",
-    surface: "rgba(126,34,206,0.22)",
-    chipBg: "rgba(217,70,239,0.15)",
-    chipBorder: "rgba(192,132,252,0.45)",
-    shadow: "0 35px 120px -55px rgba(192,132,252,0.8)",
-  },
-  {
-    color: "#94a3b8",
-    background: "rgba(11,18,27,0.95)",
-    border: "rgba(148,163,184,0.55)",
-    surface: "rgba(15,23,42,0.4)",
-    chipBg: "rgba(71,85,105,0.3)",
-    chipBorder: "rgba(148,163,184,0.45)",
-    shadow: "0 35px 120px -55px rgba(15,23,42,0.85)",
-  },
-  {
-    color: "#38bdf8",
-    background: "rgba(4,20,35,0.92)",
-    border: "rgba(56,189,248,0.55)",
-    surface: "rgba(14,116,144,0.25)",
-    chipBg: "rgba(14,165,233,0.15)",
-    chipBorder: "rgba(56,189,248,0.45)",
-    shadow: "0 35px 120px -55px rgba(56,189,248,0.8)",
-  },
-  {
-    color: "#34d399",
-    background: "rgba(6,31,22,0.92)",
-    border: "rgba(52,211,153,0.55)",
-    surface: "rgba(5,150,105,0.25)",
-    chipBg: "rgba(16,185,129,0.16)",
-    chipBorder: "rgba(52,211,153,0.45)",
-    shadow: "0 35px 120px -55px rgba(16,185,129,0.75)",
-  },
-];
+const CATEGORY_LABELS: Record<Category, string> = {
+  current: "Current",
+  corporate: "Corporate",
+  education: "Teaching",
+  freelance: "Freelance",
+  break: "Career Break",
+};
 
 const EXPERIENCES: Experience[] = [
   {
     company: "OFoundation",
     role: "Web Developer",
-    timeframe: "Jul 2025 - Present",
-    location: "Utrecht, Netherlands",
-    summary:
-      "Focused solely on translating Welbewust.Life from Figma to production, owning the Shopify theme, performance, and automation for that flagship storefront.",
-    companyBio:
-      "OFoundation is redefining the way development aid creates impact. In response to growing doubts about traditional aid’s effectiveness, OFoundation introduces a sustainable and empowering model based on social entrepreneurship and franchise. The foundation operates as an enterprise to promote equality, responsibility, and collaboration, helping people build independent and secure futures. By enabling individuals to provide for themselves, OFoundation fosters lasting change, personal freedom, and long-term prosperity.",
+    year: "2025",
+    startDate: new Date(2025, 6), // Jul 2025
+    endDate: new Date(2026, 6),   // now (ongoing)
+    category: "current",
+    icon: "🛒",
+    summary: "Translating Welbewust.Life from Figma to production — Shopify theme, performance, and automation for the flagship storefront.",
     achievements: [
-      "Rebuilt Welbewust.Life’s Liquid theme with shadcn/ui-inspired sections so UX matched the Figma system pixel-for-pixel.",
-      "Integrated Shopify Admin GraphQL and Remix customer routes for Welbewust.Life to keep product data accurate and typed end-to-end.",
-      "Pushed Welbewust.Life performance to 90-100 Lighthouse scores through image/CDN tuning, lazy loading, and critical CSS planning.",
+      "Rebuilt Liquid theme with shadcn/ui-inspired sections matching Figma pixel-for-pixel",
+      "Integrated Shopify Admin GraphQL and Remix customer routes",
+      "Pushed 90-100 Lighthouse scores through CDN tuning and critical CSS",
     ],
-    tags: ["Shopify",  "Remix", "GraphQL", "Tailwind CSS", "TypeScript"],
-    projects: [
-      {
-        name: "Welbewust.Life",
-        summary: "WelBewust Life is an integrated mental health and lifestyle platform that combines evidence-based therapy, guided movement, sleep coaching and smart nutrition under the supervision of BIG-registered psychologists and qualified trainers, plus tailored supplements and test packages to help you build sustainable energy, resilience and emotional balance",
-        link: "https://www.welbewust.life/",
-      },
-    ],
+    tags: ["Shopify", "Remix", "GraphQL", "Tailwind CSS", "TypeScript"],
   },
   {
     company: "Karhuno AI",
     role: "Fullstack Developer",
-    timeframe: "Feb 2025 - May 2025",
-    location: "Helsinki, Finland",
-    summary:
-      "Delivered the public karhuno.ai website with Next.js, Tailwind CSS, shadcn/ui, and Bun builds.",
-    companyBio:
-      "Karhuno AI is a Helsinki product lab focused on AI-assisted tooling, marrying modern JavaScript stacks with data-centric workflows for Northern European brands.",
+    year: "2025",
+    startDate: new Date(2025, 1), // Feb 2025
+    endDate: new Date(2025, 4),   // May 2025
+    category: "corporate",
+    icon: "🤖",
+    summary: "Delivered the public karhuno.ai website with Next.js, Tailwind CSS, shadcn/ui, and Bun builds.",
     achievements: [
-      "Built statically generated landing, blog, and hiring pages for karhuno.ai with Next.js, Tailwind CSS, and shadcn/ui.",
-      "Crafted immersive Framer Motion hero, feature, and testimonial scenes to increase session duration on the website.",
-      "Swapped Bun into the build pipeline with typed content models so site updates deployed in minutes while avoiding dashboard scope.",
+      "Built statically generated landing, blog, and hiring pages",
+      "Crafted Framer Motion hero and testimonial scenes to increase session duration",
+      "Swapped Bun into the build pipeline with typed content models",
     ],
-    tags: ["Next.js", "Typescript", "shadcn-ui", "tailwindcss", "Prisma", "PostgreSQL", "Zod", "Bun"],
-    projects: [
-      {
-        name: "karhuno.ai",
-        summary: "Karhuno AI is a sales intelligence platform that scans real-time corporate news, hiring trends, and LinkedIn activity to detect strong buying signals and match them with verified decision-maker contacts, helping B2B teams find warm leads and close deals faster.",
-        link: "https://karhuno.ai/",
-      },
+    tags: ["Next.js", "TypeScript", "shadcn/ui", "Framer Motion", "Bun"],
+  },
+  {
+    company: "Career Break",
+    role: "Relocation & Immigration",
+    year: "2022–2024",
+    startDate: new Date(2022, 8), // Sep 2022
+    endDate: new Date(2024, 11),  // Dec 2024
+    category: "break",
+    icon: "🌍",
+    summary: "Relocated from Iran to the Netherlands. Navigated the full immigration process, settled in Utrecht, and kept skills sharp through open-source personal projects.",
+    achievements: [
+      "Completed full immigration and residency process in the Netherlands",
+      "Built Prompter, Nodebase, and E-Commerce Marketplace during the transition",
+      "Expanded professional network in the European tech ecosystem",
     ],
+    tags: ["Netherlands", "Relocation", "Open Source", "Personal Growth"],
   },
   {
     company: "PAP Group Ltd",
     role: "Frontend Engineer",
-    timeframe: "Sep 2022 - Jul 2023",
-    location: "Tehran, Iran",
-    summary:
-      "Modernized PAP Group’s travel brands(AryakTravel, Shabaviz, and BarsamSeyr)by migrating their sites to Vue 3 + Vite while coordinating scrum rituals and cross-team documentation.",
-    companyBio:
-      "PAP Group is a Tehran travel-tech group operating portals like AryakTravel and ShabavizTour, investing in Vue 3 and Vite to modernize booking experiences.",
+    year: "2022",
+    startDate: new Date(2022, 8), // Sep 2022
+    endDate: new Date(2023, 6),   // Jul 2023
+    category: "corporate",
+    icon: "✈️",
+    summary: "Modernized travel brands (AryakTravel, Shabaviz, BarsamSeyr) by migrating to Vue 3 + Vite and coordinating scrum rituals.",
     achievements: [
-      "Led the Vue 3 + Vite rebuilds for AryakTravel, Shabaviz, and BarsamSeyr, squeezing faster loads and consistent UI kits across all three brands.",
-      "Mentored 5+ junior developers in Vue/TypeScript, increasing team velocity by 40%.",
-      "Created PAPDocs with VitePress to centralize knowledge and speed up content creation by 20%.",
+      "Led Vue 3 + Vite rebuilds for 3 brands with consistent UI kits",
+      "Mentored 5+ junior developers, increasing team velocity by 40%",
+      "Created PAPDocs with VitePress to speed up knowledge sharing by 20%",
     ],
-    tags: ["Vue 3", "Vite", "VitePress", "Pinia", "Typescript", "Tailwind CSS", "Mentorship"],
-    projects: [
-      {
-        name: "AryakTravel",
-        summary: "AryakTravel is a Tehran-based flight and travel agency with over 20 years of experience, offering domestic and international tours, flights, hotel bookings, Schengen and other visas, and curated seasonal packages including Nowruz and last-minute deals via an easy online booking platform and in-person support.",
-        link: "https://www.aryaktravel.com/",
-      },
-      {
-        name: "ShabavizTour",
-        summary: "Shabaviz Parvaz is a Tehran-based travel agency specializing in Turkey and international package tours, offering seasonal deals for Nowruz and summer, curated hotel selections in Iran and abroad, Pegasus Airlines services, online installment booking, and 24/7 expert support for flights, hotels, and tailor-made holidays.",
-        link: "https://www.shabaviztour.com/",
-      },
-      {
-        name: "BarsamSeyr",
-        summary: "BarsamSeyr is a Tehran-based travel agency and direct tour operator for popular destinations across Turkey, Asia, Europe, and Africa, offering budget and last-minute packages, hotel booking, flights, visa services, free consultation, and installment payment options through its online platform and expert support team.",
-        link: "https://www.barsamseyr.com/",
-      },
-    ],
+    tags: ["Vue 3", "Vite", "VitePress", "Pinia", "TypeScript"],
   },
   {
     company: "Zharfa Academy",
     role: "Front-End Developer & Coach",
-    timeframe: "May 2021 - Sep 2021 · Coaching since Jan 2022",
-    location: "Remote",
-    summary:
-      "Rebuilt zharfa.org as the academy’s secure learning portal, handling the token-based authentication stack and sustainable content modules end to end.",
-    companyBio:
-      "Zharfa Academy is a remote-first teaching collective that pairs modern HTML/CSS/JS/Python curricula with 1:1 mentorship for aspiring frontend developers.",
+    year: "2021",
+    startDate: new Date(2021, 4), // May 2021
+    endDate: new Date(2022, 8),   // Sep 2022
+    category: "education",
+    icon: "📚",
+    summary: "Rebuilt zharfa.org as the academy's secure learning portal and coached aspiring frontend developers.",
     achievements: [
-      "Implemented token-based login, role-based access, and CSRF/session safeguards directly within zharfa.org.",
-      "Structured the zharfa.org content system so instructors can ship new curriculum and mentorship pages without extra engineering cycles.",
+      "Implemented token-based login, role-based access, and CSRF safeguards",
+      "Structured content system so instructors can ship curriculum without engineering cycles",
     ],
-    tags: ["Teaching", "Security", "HTML/CSS", "JavaScript","laravel"],
-    projects: [
-      {
-        name: "zharfa",
-        summary: "Zharfa Programming Academy is an Iran-based coding school that delivers up-to-date beginner and advanced courses in Python, Java, C#, C++, web and mobile development for all ages, with LMS/SIS-powered online learning, flexible course bundles, private classes and internationally recognised certificates",
-        link: "https://www.zharfa.org/",
-      },
-    ],
+    tags: ["Teaching", "HTML/CSS", "JavaScript", "Laravel", "Security"],
   },
   {
     company: "Almas Teb Rayan",
     role: "Front-End Developer",
-    timeframe: "Apr 2020 - Jul 2021",
-    location: "Tehran, Iran",
-    summary:
-      "Built the IHMS website for Nikan Hospital, giving hospital and clinic teams a responsive interface to manage stock levels, tools, and asset tracking end to end.",
-    companyBio:
-      "Tehran-based healthcare technology studio partnering with hospitals and clinics to digitize patient flows, clinician dashboards, and operational reporting.",
+    year: "2020",
+    startDate: new Date(2020, 3), // Apr 2020
+    endDate: new Date(2021, 6),   // Jul 2021
+    category: "corporate",
+    icon: "🏥",
+    summary: "Built the IHMS website for Nikan Hospital — a responsive interface for stock levels, tools, and asset tracking.",
     achievements: [
-      "Architected the IHMS UI used by Nikan Hospital teams to monitor equipment, medicine, and tool stock across departments.",
-      "Implemented Chart.js dashboards and Swiper-driven flows to highlight usage trends, reorders, and clinic-level assignments.",
-      "Upgraded Git, npm, bundling, and code-splitting workflows for IHMS so releases stayed lightweight even on constrained hospital networks.",
+      "Architected the IHMS UI used by Nikan Hospital across all departments",
+      "Implemented Chart.js dashboards and Swiper-driven flows for usage trends",
+      "Upgraded Git, bundling, and code-splitting for constrained hospital networks",
     ],
-    tags: ["HTML5", "CSS3/SCSS", "JavaScript", "Swiper", "Chart.js"],
-    projects: [
-      {
-        name: "IHMS for Nikan Hospital",
-        summary: "Dashboard for Nikan Hospital to monitor stock levels, room occupancy, medical tools, and full inventory valuation, featuring dedicated inventory and price tabs with responsive SCSS modules and interactive Chart.js visualizations.",
-      },
-    ],
+    tags: ["HTML5", "CSS3/SCSS", "JavaScript", "Chart.js", "Swiper"],
   },
 ];
 
+// Timeline config
+const TL_START = new Date(2020, 0).getTime();
+const TL_END = new Date(2027, 0).getTime();
+const TL_RANGE = TL_END - TL_START;
+const pct = (d: Date) =>
+  Math.max(0, Math.min(100, ((d.getTime() - TL_START) / TL_RANGE) * 100));
+
+const fadeUp = {
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-60px" },
+  transition: { duration: 0.5, ease: [0.4, 0, 0.2, 1] },
+} as const;
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: [0.4, 0, 0.2, 1] },
+  },
+} as const;
+
 export default function ExperienceView() {
-  const experienceItems = React.useMemo(
-    () =>
-      EXPERIENCES.map((experience, index) => ({
-        key: `${experience.company}-${experience.role}`,
-        cardClassName: "w-full",
-        content: (
-          <ExperienceCard
-            experience={experience}
-            theme={EXPERIENCE_THEMES[index % EXPERIENCE_THEMES.length]}
-          />
-        ),
-      })),
-    []
-  );
+  const [expanded, setExpanded] = useState<string | null>(null);
 
   return (
-    <section id="experience" className="w-full py-12">
+    <section id="experience" className="w-full py-16">
       <Container>
-        <div className="max-w-4xl space-y-3">
-          <p className="text-xs font-semibold uppercase tracking-[0.15em] text-label-secondary">
-            The teams and missions I have grown with.
-          </p>
-          <h2 className="text-[clamp(2.25rem,4vw,3.5rem)] font-semibold leading-tight text-label">
+        {/* Section header */}
+        <motion.div
+          className="mb-8 space-y-2"
+          {...fadeUp}
+        >
+          <div className="flex items-center gap-3">
+            <div className="h-px w-12 bg-amber-500" />
+            <span className="text-xs font-semibold uppercase tracking-widest text-amber-500">
+              Career
+            </span>
+          </div>
+          <h2 className="text-[clamp(2rem,4vw,3rem)] font-bold leading-tight text-white">
             Experience
           </h2>
-          <p className="text-base text-label-secondary mb-4">
-            From healthcare platforms at Almas Teb Rayan to commerce work at OFoundation, SASS business at Karhuno AI,
-            travel products at PAP Group, and coaching at Zharfa Academy, each company sharpened a different part of my craft.
-          </p>
-        </div>
+          <p className="text-sm text-white/50">6+ years shipping web products across Europe and beyond</p>
+          <Link
+            href="/Fullstack_developer.pdf"
+            target="_blank"
+            rel="noreferrer"
+            className="mt-3 inline-flex items-center gap-2 rounded-full bg-amber-500 px-5 py-2 text-sm font-semibold text-black transition hover:bg-amber-400"
+          >
+            ↓ Resume (PDF)
+          </Link>
+        </motion.div>
 
-        <HoverEffect
-          items={experienceItems}
-          className="py-0"
-          gridClassName="flex flex-col gap-8 py-0"
-          hoverBackgroundClassName="bg-transparent"
-          itemClassName="relative block w-full p-0"
-        />
+        {/* Timeline */}
+        <motion.div
+          className="mb-8 rounded-2xl border border-white/10 bg-white/[0.04] p-5 backdrop-blur"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1], delay: 0.1 }}
+        >
+          <div className="mb-3 flex justify-between text-xs text-white/40">
+            <span>2020</span>
+            <span>2022</span>
+            <span>2024</span>
+            <span>2026</span>
+          </div>
+          <div className="relative h-10 w-full">
+            {/* Track */}
+            <div className="absolute inset-0 rounded-lg bg-white/5" />
+            {/* Tick marks */}
+            {[0, 25, 50, 75, 100].map((p) => (
+              <div
+                key={p}
+                className="absolute top-0 h-full w-px bg-white/10"
+                style={{ left: `${p}%` }}
+              />
+            ))}
+            {/* Experience blocks */}
+            {EXPERIENCES.map((exp) => {
+              const left = pct(exp.startDate);
+              const right = pct(exp.endDate);
+              return (
+                <button
+                  key={exp.company}
+                  title={`${exp.role} @ ${exp.company}`}
+                  onClick={() =>
+                    setExpanded(expanded === exp.company ? null : exp.company)
+                  }
+                  className={`absolute top-1 h-8 rounded-lg opacity-80 transition-opacity hover:opacity-100 ${CATEGORY_COLORS[exp.category].bar}`}
+                  style={{ left: `${left}%`, width: `${Math.max(right - left, 3)}%` }}
+                />
+              );
+            })}
+          </div>
+          {/* Legend */}
+          <div className="mt-4 flex flex-wrap gap-4">
+            {(Object.entries(CATEGORY_LABELS) as [Category, string][]).map(([cat, label]) => (
+              <div key={cat} className="flex items-center gap-2 text-xs text-white/50">
+                <span className={`h-2.5 w-2.5 rounded-full ${CATEGORY_COLORS[cat].bar}`} />
+                {label}
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Cards grid */}
+        <motion.div
+          className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.08 } } }}
+        >
+          {EXPERIENCES.map((exp) => {
+            const isOpen = expanded === exp.company;
+            const colors = CATEGORY_COLORS[exp.category];
+            return (
+              <motion.div
+                key={exp.company}
+                variants={cardVariants}
+                className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 backdrop-blur transition-colors hover:border-white/20"
+              >
+                {/* Card header */}
+                <div className="flex items-start justify-between gap-2">
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-lg">
+                      {exp.icon}
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-white">{exp.role}</p>
+                      <p className={`text-xs font-medium ${colors.text}`}>{exp.company}</p>
+                    </div>
+                  </div>
+                  <span className={`shrink-0 rounded-full border px-2 py-0.5 text-xs font-semibold ${colors.badge}`}>
+                    {exp.year}
+                  </span>
+                </div>
+
+                {/* Summary */}
+                <p className="mt-3 text-xs leading-5 text-white/55">{exp.summary}</p>
+
+                {/* Tags */}
+                <div className="mt-3 flex flex-wrap gap-1.5">
+                  {exp.tags.slice(0, 3).map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-xs text-white/50"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                  {exp.tags.length > 3 && (
+                    <span className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-xs text-white/40">
+                      +{exp.tags.length - 3}
+                    </span>
+                  )}
+                </div>
+
+                {/* Expand toggle */}
+                <button
+                  onClick={() => setExpanded(isOpen ? null : exp.company)}
+                  className="mt-3 flex items-center gap-1 text-xs text-white/40 hover:text-white/70 transition-colors"
+                >
+                  View details
+                  <span className={`transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}>
+                    ↓
+                  </span>
+                </button>
+
+                {/* Expanded achievements */}
+                {isOpen && (
+                  <ul className="mt-3 space-y-2 border-t border-white/10 pt-3">
+                    {exp.achievements.map((a) => (
+                      <li key={a} className="flex gap-2 text-xs leading-5 text-white/65">
+                        <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-amber-500" />
+                        {a}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </motion.div>
+            );
+          })}
+        </motion.div>
       </Container>
     </section>
-  );
-}
-
-function ExperienceCard({ experience, theme }: { experience: Experience; theme: ExperienceTheme }) {
-  return (
-    <StarBorder
-      color={theme.color}
-      speed="2s"
-      thickness={2}
-      contentClassName="text-left"
-      contentStyle={{
-        borderColor: theme.border,
-        background: theme.background,
-        boxShadow: theme.shadow,
-      }}
-    >
-      <article className="space-y-4 text-white">
-        <div className="flex flex-wrap items-center gap-3 text-sm uppercase tracking-[0.15em] text-white/70">
-          <span>{experience.timeframe}</span>
-          <span className="hidden sm:inline-block text-white/40">•</span>
-          <span>{experience.location}</span>
-        </div>
-        <div className="flex flex-wrap items-center gap-3">
-          <h3 className="text-2xl font-semibold text-white">{experience.role}</h3>
-          <span className="text-xl text-white/75">@ {experience.company}</span>
-        </div>
-        <div
-          className="rounded-2xl border p-4 text-sm text-white/85 transition hover:brightness-110"
-          style={{ borderColor: theme.border, backgroundColor: theme.surface }}
-        >
-          <p className="text-sm uppercase tracking-[0.15em] text-white/70">Company snapshot</p>
-          <p className="mt-2 leading-6 text-base text-white/80">{experience.companyBio}</p>
-        </div>
-        <p className="text-base leading-7 text-white/85">{experience.summary}</p>
-        <ul className="space-y-2 text-base leading-6 text-white/85">
-          {experience.achievements.map((item) => (
-            <li key={item} className="flex gap-2">
-              <span
-                className="mt-2.5 h-1.5 w-1.5 flex-none rounded-full"
-                style={{ backgroundColor: theme.color }}
-              />
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
-        <div className="mt-6 flex flex-wrap gap-2">
-          {experience.tags.map((tag) => (
-            <span
-              key={tag}
-              className="rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.15em] text-white/80 transition hover:brightness-110"
-              style={{ border: `1px solid ${theme.chipBorder}`, backgroundColor: theme.chipBg }}
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-        {experience.projects && experience.projects.length > 0 && (
-          <div
-            className="rounded-2xl border p-4 text-white/85 transition hover:brightness-110"
-            style={{ borderColor: theme.border, backgroundColor: theme.surface }}
-          >
-            <p className="text-xs uppercase tracking-[0.15em] text-white/70">Projects</p>
-            <div className="mt-3 grid gap-3 sm:grid-cols-2">
-              {experience.projects.map((project) => {
-                const content = (
-                  <>
-                    <p className="text-base font-semibold text-white">{project.name}</p>
-                    <p className="mt-1 text-sm leading-5 text-white/80">{project.summary}</p>
-                  </>
-                );
-                const baseStyle = {
-                  borderColor: theme.chipBorder,
-                  backgroundColor: theme.chipBg,
-                };
-
-                return project.link ? (
-                  <a
-                    key={`${experience.company}-${project.name}`}
-                    href={project.link}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="group block rounded-2xl border p-3 transition hover:brightness-125"
-                    style={baseStyle}
-                  >
-                    {content}
-                  </a>
-                ) : (
-                  <div
-                    key={`${experience.company}-${project.name}`}
-                    className="group block rounded-2xl border p-3 transition hover:brightness-125"
-                    style={baseStyle}
-                  >
-                    {content}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
-      </article>
-    </StarBorder>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "motion/react";
 import Container from "@/features/Container";
 
 type Skill = { name: string; level: number; category: "frontend" | "backend" | "tools" };
@@ -54,7 +55,13 @@ export default function StackView() {
     <section id="stack" className="w-full py-16">
       <Container>
         {/* Section header */}
-        <div className="mb-10 space-y-2">
+        <motion.div
+          className="mb-10 space-y-2"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+        >
           <div className="flex items-center gap-3">
             <div className="h-px w-12 bg-amber-500" />
             <span className="text-xs font-semibold uppercase tracking-widest text-amber-500">
@@ -67,10 +74,16 @@ export default function StackView() {
           <p className="text-sm text-white/50">
             From frontend craft to full-stack delivery and engineering tooling
           </p>
-        </div>
+        </motion.div>
 
         {/* Tab navigation */}
-        <div className="mb-8 inline-flex gap-1 rounded-2xl border border-white/10 bg-white/5 p-1 backdrop-blur">
+        <motion.div
+          className="mb-8 inline-flex gap-1 rounded-2xl border border-white/10 bg-white/5 p-1 backdrop-blur"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1], delay: 0.1 }}
+        >
           {TABS.map((tab) => (
             <button
               key={tab.key}
@@ -84,18 +97,30 @@ export default function StackView() {
               {tab.label}
             </button>
           ))}
-        </div>
+        </motion.div>
 
         {/* Skills card */}
-        <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur">
+        <motion.div
+          className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1], delay: 0.2 }}
+        >
           <div className="flex items-center gap-2 mb-6">
             <span className="text-amber-400">✦</span>
             <span className="text-base font-semibold text-white">Technical Skills</span>
           </div>
 
           <div className="space-y-5">
-            {filtered.map((skill) => (
-              <div key={skill.name}>
+            {filtered.map((skill, index) => (
+              <motion.div
+                key={skill.name}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1], delay: index * 0.03 }}
+              >
                 <div className="mb-1.5 flex items-center justify-between">
                   <span className="text-sm text-white/80">{skill.name}</span>
                   <span
@@ -116,7 +141,7 @@ export default function StackView() {
                     style={{ width: `${skill.level}%` }}
                   />
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
 
@@ -133,7 +158,7 @@ export default function StackView() {
               </div>
             ))}
           </div>
-        </div>
+        </motion.div>
       </Container>
     </section>
   );

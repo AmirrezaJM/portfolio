@@ -8,10 +8,11 @@ const NAV_LINKS = [
   { label: "Projects", href: "#projects" },
   { label: "Skills", href: "#stack" },
   { label: "Experience", href: "#experience" },
+  { label: "Guestbook", href: "#guestbook" },
   { label: "Contact", href: "#contact" },
 ];
 
-const SECTION_IDS = ["hero", "projects", "stack", "experience", "contact"];
+const SECTION_IDS = ["hero", "projects", "stack", "experience", "guestbook", "contact"];
 
 export function Header() {
   const [progress, setProgress] = useState(0);
@@ -51,7 +52,7 @@ export function Header() {
       </div>
 
       {/* Nav bar */}
-      <div className="border-b border-white/10 bg-[#0D0D14]/80 backdrop-blur-xl">
+      <div className="border-b border-white/[0.08] bg-[#0f0804]/85 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
           {/* Logo */}
           <Link

@@ -1,9 +1,11 @@
 "use client";
 
 import * as React from "react";
+import { motion } from "motion/react";
 import Container from "@/features/Container";
 import { FaGithub } from "react-icons/fa";
 import { LuLink } from "react-icons/lu";
+import Terminal from "../components/Terminal";
 
 type ProjectStat = { value: string; label: string; color: string };
 
@@ -107,12 +109,27 @@ const PROJECTS: Project[] = [
   },
 ];
 
+const cardVariants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: [0.4, 0, 0.2, 1] },
+  },
+} as const;
+
 export default function ProjectsView() {
   return (
     <section id="projects" className="w-full py-16">
       <Container>
         {/* Section header */}
-        <div className="mb-10 space-y-2">
+        <motion.div
+          className="mb-10 space-y-2"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+        >
           <div className="flex items-center gap-3">
             <div className="h-px w-12 bg-amber-500" />
             <span className="text-xs font-semibold uppercase tracking-widest text-amber-500">
@@ -122,13 +139,31 @@ export default function ProjectsView() {
           <h2 className="text-[clamp(2rem,4vw,3rem)] font-bold leading-tight text-white">
             Featured Projects
           </h2>
-        </div>
+        </motion.div>
+
+        {/* Terminal */}
+        <motion.div
+          className="mb-6"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1], delay: 0.1 }}
+        >
+          <Terminal />
+        </motion.div>
 
         {/* Cards */}
-        <div className="flex flex-col gap-5">
+        <motion.div
+          className="flex flex-col gap-5"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.08 } } }}
+        >
           {PROJECTS.map((project) => (
-            <article
+            <motion.article
               key={project.title}
+              variants={cardVariants}
               className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur transition-colors hover:border-white/20 hover:bg-white/[0.07]"
             >
               {/* Title + badge */}
@@ -199,9 +234,9 @@ export default function ProjectsView() {
                   <FaGithub className="h-4 w-4" />
                 </a>
               </div>
-            </article>
+            </motion.article>
           ))}
-        </div>
+        </motion.div>
       </Container>
     </section>
   );

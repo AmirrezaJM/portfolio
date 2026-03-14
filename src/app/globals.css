@@ -130,17 +130,17 @@
    Dark is the default; .dark flips to light.
    ========================= */
 :root {
-  /* Apple-like dark palette */
-  --background: oklch(13.27% 0.004 258.2);
-  /* base bg ~ #0A0A0A */
+  /* Warm dark palette matching 25x.codes */
+  --background: oklch(9.5% 0.022 45);
+  /* base bg ~ #0f0804 warm dark brown */
   --foreground: oklch(100% 0 0);
   /* white */
 
-  --card: oklch(17.01% 0.003 258.2);
+  --card: oklch(14% 0.022 45);
   /* surface */
   --card-foreground: var(--foreground);
 
-  --popover: oklch(17.01% 0.003 258.2);
+  --popover: oklch(14% 0.022 45);
   --popover-foreground: var(--foreground);
 
   /* brand tokens (kept, tune as needed) */
