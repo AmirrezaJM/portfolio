@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import Container from "@/components/section/Container";
+import Container from "@/features/Container";
 import { Button } from "@/components/ui/button";
 import { FaGithub, FaLinkedinIn, FaTelegram, FaWhatsapp } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";

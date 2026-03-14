@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import Container from "@/components/section/Container";
+import Container from "@/features/Container";
 import { HoverEffect } from "@/components/ui/card-hover-effect";
 import StarBorder from "@/components/StarBorder";
 

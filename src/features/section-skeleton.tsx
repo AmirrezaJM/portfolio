@@ -1,4 +1,4 @@
-import Container from "@/components/section/Container";
+import Container from "@/features/Container";
 
 type SectionSkeletonProps = {
   title: string;

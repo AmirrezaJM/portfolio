@@ -1,7 +1,7 @@
 
 import dynamic from "next/dynamic";
 import HeroView from "@/modules/hero/view/hero";
-import SectionSkeleton from "@/components/section/section-skeleton";
+import SectionSkeleton from "@/features/section-skeleton";
 import ScrollDockClient from "@/components/navigation/scroll-dock-client";
 
 const ExperienceView = dynamic(() => import("@/modules/experience/view/experience-view"), {

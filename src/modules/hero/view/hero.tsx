@@ -1,34 +1,101 @@
 "use client";
-import Container from "@/components/section/Container";
+import Container from "@/features/Container";
 import Link from "next/link";
-import { FaGithub, FaLinkedinIn, FaTelegram, FaWhatsapp } from "react-icons/fa";
-import { Button } from "@/components/ui/button";
+import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 import Image from "next/image";
 import MyselfImage from "@/assets/myself.webp";
+import { useEffect, useState } from "react";
 
-const STAT_HIGHLIGHTS = [
-  {
-    label: "Years shipping",
-    value: "6+",
-    detail: "End-to-end product delivery since 2020 across Next.js, Nuxt, and Shopify builds.",
-  },
-  {
-    label: "Based in",
-    value: "Utrecht, NL",
-    detail: "Working in international, cross-functional teams across Europe; comfortable async and remote-first.",
-  },
-  {
-    label: "Craft",
-    value: "React/Next.js · Vue 3/Nuxt 3",
-    detail: "Full-stack Next.js (App Router): Server Actions/APIs, PostgreSQL/Prisma, caching, and performance-first UX (Core Web Vitals).",
-  },
-]
+const TYPEWRITER_PHRASES = [
+  "Fast Web Apps",
+  "Full-Stack Products",
+  "Clean Interfaces",
+  "Scalable APIs",
+  "Modern UX",
+];
 
+const STAT_BADGES = [
+  { icon: "⚡", label: "6+ Years Experience" },
+  { icon: "📍", label: "Utrecht, Netherlands" },
+  { icon: "🚀", label: "React & Next.js" },
+];
+
+const FEATURE_CARDS = [
+  {
+    icon: "🖥️",
+    title: "Frontend",
+    description: "Pixel-perfect UIs with React, Next.js, and Tailwind CSS",
+  },
+  {
+    icon: "🔗",
+    title: "Full-Stack",
+    description: "End-to-end delivery from idea to production-ready product",
+  },
+  {
+    icon: "⚡",
+    title: "Performance",
+    description: "Core Web Vitals, caching, and CDN optimization at scale",
+  },
+];
+
+function TypewriterText() {
+  const [phraseIndex, setPhraseIndex] = useState(0);
+  const [displayed, setDisplayed] = useState("");
+  const [deleting, setDeleting] = useState(false);
+  const [paused, setPaused] = useState(false);
+
+  useEffect(() => {
+    if (paused) {
+      const t = setTimeout(() => setPaused(false), 1200);
+      return () => clearTimeout(t);
+    }
+
+    const current = TYPEWRITER_PHRASES[phraseIndex];
+
+    if (!deleting) {
+      if (displayed.length < current.length) {
+        const t = setTimeout(() => setDisplayed(current.slice(0, displayed.length + 1)), 80);
+        return () => clearTimeout(t);
+      } else {
+        setPaused(true);
+        setDeleting(true);
+        return;
+      }
+    } else {
+      if (displayed.length > 0) {
+        const t = setTimeout(() => setDisplayed(displayed.slice(0, -1)), 45);
+        return () => clearTimeout(t);
+      } else {
+        setDeleting(false);
+        setPhraseIndex((i) => (i + 1) % TYPEWRITER_PHRASES.length);
+      }
+    }
+  }, [displayed, deleting, paused, phraseIndex]);
+
+  return (
+    <span className="text-amber-400">
+      {displayed}
+      <span className="ml-0.5 inline-block h-[1em] w-[2px] animate-pulse bg-amber-400 align-middle" />
+    </span>
+  );
+}
+
+const FLOAT_DOTS = [
+  { size: 10, top: "18%", left: "38%", delay: "0s", opacity: 0.5 },
+  { size: 7, top: "30%", left: "62%", delay: "1.2s", opacity: 0.35 },
+  { size: 12, top: "55%", left: "35%", delay: "0.7s", opacity: 0.45 },
+  { size: 6, top: "65%", left: "60%", delay: "2s", opacity: 0.3 },
+  { size: 14, top: "15%", left: "55%", delay: "1.5s", opacity: 0.2 },
+];
 
 export default function HeroView() {
   return (
     <>
-      <section id="hero" className="relative isolate w-full overflow-hidden bg-[#0D0D14] text-white">
+      <section
+        id="hero"
+        className="relative isolate w-full overflow-hidden bg-[#0D0D14] text-white"
+      >
+        {/* Aurora background */}
         <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
           <div className="hero-aurora absolute -inset-24 blur-3xl opacity-80" />
         </div>
@@ -37,94 +104,153 @@ export default function HeroView() {
           className="pointer-events-none absolute inset-x-0 bottom-0 h-60 bg-gradient-to-t from-[#03030a] via-transparent to-transparent"
         />
 
-        <Container className="relative mx-auto min-h-screen w-full py-24">
-          <div className="flex flex-col-reverse gap-12 lg:flex-row lg:items-center">
-            <div className="max-w-5xl lg:flex-1">
-              <p className="text-xs font-semibold uppercase tracking-[0.15em] text-white/70">
-                Amirreza Jolani Mameghani
-              </p>
-              <h1 className="mt-4 text-[clamp(3rem,6vw,5rem)] font-semibold leading-tight text-white">
-                Fullstack Developer
-              </h1>
-              <p className="mt-6 max-w-3xl text-lg leading-8 text-white/85">
-                Fullstack developer with 5+ years taking products from idea to production, building customer-facing web experiences and internal tools using TypeScript, React/Next.js, and Vue. I focus on fast, accessible, maintainable interfaces (Tailwind, shadcn/ui) backed by solid API and data foundations (Node.js, REST/GraphQL, Prisma, PostgreSQL), with strong web fundamentals (HTTP, caching/CDNs, Core Web Vitals) and pragmatic engineering practices (code reviews, documentation, mentoring). Based in Utrecht, I’m currently supporting OFoundation as part of my master’s thesis, where I help improve performance and code quality with a data-backed mindset, and I’m especially interested in Fintech challenges such as payments, pricing, and reliability at scale.
-                </p>
+        <Container className="relative mx-auto w-full py-28">
+          <div className="flex flex-col items-center text-center gap-6">
 
-              <div className="mt-8 flex flex-wrap gap-4">
-                <Button
-                  asChild
-                  variant="outline"
-                  size="lg"
-                  className="border-white/30 bg-white/5 px-8 text-base text-white hover:bg-white/10"
-                >
-                  <Link href="/Fullstack_Developer.pdf" target="_blank" rel="noreferrer">
-                    Download CV
-                  </Link>
-                </Button>
+            {/* Circular photo with floating dots */}
+            <div className="relative w-[180px] h-[180px]">
+              {FLOAT_DOTS.map((dot, i) => (
+                <span
+                  key={i}
+                  aria-hidden
+                  className="absolute rounded-full bg-white/70 float-dot"
+                  style={{
+                    width: dot.size,
+                    height: dot.size,
+                    top: dot.top,
+                    left: dot.left,
+                    opacity: dot.opacity,
+                    animationDelay: dot.delay,
+                  }}
+                />
+              ))}
+              <div className="w-full h-full rounded-full overflow-hidden border-2 border-white/20 shadow-[0_8px_40px_rgba(0,0,0,0.5)]">
+                <Image
+                  src={MyselfImage}
+                  alt="Portrait of Amirreza Jalali Motlagh"
+                  width={180}
+                  height={180}
+                  className="object-cover w-full h-full"
+                  priority
+                  placeholder="blur"
+                  quality={85}
+                />
               </div>
+              {/* Online indicator */}
+              <span className="absolute bottom-3 right-3 flex h-4 w-4">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex h-4 w-4 rounded-full bg-emerald-500 border-2 border-[#0D0D14]" />
+              </span>
+            </div>
 
-              <div className="mt-8 flex items-center gap-4">
-                <span className="text-sm uppercase tracking-[0.15em] text-white/70">Connect</span>
+            {/* Available for work badge */}
+            <div className="flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-1.5 text-sm text-emerald-400">
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500" />
+              </span>
+              Available for Work
+            </div>
+
+            {/* Tagline */}
+            <p className="text-sm text-white/50 -mt-2">
+              Let&apos;s build your next web product, starting today
+            </p>
+
+            {/* Name */}
+            <h1 className="text-[clamp(2.6rem,6vw,4.5rem)] font-bold leading-none tracking-tight text-white">
+              Amirreza Jalali
+            </h1>
+
+            {/* Typewriter subtitle */}
+            <p className="text-[clamp(1.2rem,3vw,2rem)] font-medium text-white/70 -mt-2">
+              I Build <TypewriterText />
+            </p>
+
+            {/* Stat badges */}
+            <div className="flex flex-wrap justify-center gap-3 mt-1">
+              {STAT_BADGES.map((badge) => (
+                <span
+                  key={badge.label}
+                  className="flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-sm text-white/80 backdrop-blur"
+                >
+                  <span>{badge.icon}</span>
+                  {badge.label}
+                </span>
+              ))}
+            </div>
+
+            {/* Bio */}
+            <p className="mt-2 max-w-2xl text-base leading-7 text-white/70">
+              I build{" "}
+              <span className="text-white font-medium">fast, accessible web experiences</span> and
+              internal tools using TypeScript, React/Next.js, and Vue. I focus on clean interfaces
+              backed by solid APIs and data foundations.{" "}
+              <span className="text-amber-400/80">No bloat. Just results.</span>
+            </p>
+
+            {/* Feature cards */}
+            <div className="mt-4 grid w-full max-w-2xl grid-cols-1 gap-3 sm:grid-cols-3">
+              {FEATURE_CARDS.map((card) => (
+                <div
+                  key={card.title}
+                  className="flex flex-col items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-5 backdrop-blur hover:border-white/20 hover:bg-white/8 transition-colors"
+                >
+                  <span className="text-2xl">{card.icon}</span>
+                  <p className="text-sm font-semibold text-white">{card.title}</p>
+                  <p className="text-xs leading-5 text-white/55 text-center">{card.description}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* Fun fact bar */}
+            <div className="w-full max-w-2xl rounded-2xl border border-white/10 bg-white/5 px-5 py-3 text-sm text-white/60 backdrop-blur">
+              ✨ <span className="text-white/80 font-medium">Fun fact:</span> I started my first
+              freelance project at 18 and haven&apos;t stopped shipping since.
+            </div>
+
+            {/* CTA buttons */}
+            <div className="flex flex-wrap justify-center gap-3 mt-1">
+              <Link
+                href="/Fullstack_developer.pdf"
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-2 rounded-full bg-amber-500 px-6 py-2.5 text-sm font-semibold text-black transition hover:bg-amber-400"
+              >
+                Download CV ↗
+              </Link>
+              <a
+                href="#projects"
+                className="flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-2.5 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/10"
+              >
+                🚀 See My Work
+              </a>
+              <div className="flex items-center gap-2">
                 <Link
                   href="https://www.linkedin.com/in/amirjm/"
                   target="_blank"
                   rel="noreferrer"
                   aria-label="LinkedIn"
-                  className="inline-grid h-11 w-11 place-items-center rounded-full border border-white/15 bg-white/5 text-white transition hover:border-white/40 hover:bg-white/10"
+                  className="inline-grid h-10 w-10 place-items-center rounded-full border border-white/15 bg-white/5 text-white transition hover:border-white/40 hover:bg-white/10"
                 >
-                  <FaLinkedinIn className="h-5 w-5" />
+                  <FaLinkedinIn className="h-4 w-4" />
                 </Link>
                 <Link
                   href="https://github.com/AmirrezaJM"
                   target="_blank"
                   rel="noreferrer"
                   aria-label="GitHub"
-                  className="inline-grid h-11 w-11 place-items-center rounded-full border border-white/15 bg-white/5 text-white transition hover:border-white/40 hover:bg-white/10"
+                  className="inline-grid h-10 w-10 place-items-center rounded-full border border-white/15 bg-white/5 text-white transition hover:border-white/40 hover:bg-white/10"
                 >
-                  <FaGithub className="h-5 w-5" />
+                  <FaGithub className="h-4 w-4" />
                 </Link>
               </div>
             </div>
 
-            <div className="flex w-full justify-center lg:flex-1 lg:justify-end">
-              <div className="relative">
-                <div
-                  aria-hidden
-                  className="absolute inset-0 -z-10 rounded-[3rem] bg-gradient-to-b from-violet-500/50 via-transparent to-cyan-400/40 blur-3xl"
-                />
-                <div className="group relative mx-auto h-64 w-64 overflow-hidden rounded-[2.5rem] border border-white/15 bg-white/5 p-2 shadow-[0_15px_60px_rgba(0,0,0,0.45)] backdrop-blur-sm sm:h-72 sm:w-72 lg:h-80 lg:w-80">
-                  <div className="absolute inset-2 rounded-[2rem] border border-white/10" aria-hidden />
-                  <div className="relative h-full w-full overflow-hidden rounded-[2rem] bg-gradient-to-b from-white/10 to-white/0">
-                    <Image
-                      src={MyselfImage}
-                      alt="Portrait of Amirreza Jolani Mameghani"
-                      fill
-                      sizes="(min-width: 1024px) 20rem, (min-width: 640px) 18rem, 16rem"
-                      className="object-cover"
-                      priority
-                      placeholder="blur"
-                      quality={85}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
-
-          <ul className="mt-12 grid w-full grid-cols-1 gap-4 border-t border-white/10 pt-8 sm:grid-cols-3">
-            {STAT_HIGHLIGHTS.map((item) => (
-              <li
-                key={item.label}
-                className="space-y-2 rounded-2xl border border-white/10 bg-white/5 p-5 text-white/80 backdrop-blur"
-              >
-                <p className="text-xs uppercase tracking-[0.15em] text-white/60">{item.label}</p>
-                <p className="text-3xl font-semibold text-white">{item.value}</p>
-                <p className="text-sm leading-6 text-white/75">{item.detail}</p>
-              </li>
-            ))}
-          </ul>
         </Container>
       </section>
+
       <style jsx>{`
         .hero-aurora {
           background: radial-gradient(circle at 20% 20%, #4c8bf5 0%, transparent 60%),
@@ -135,18 +261,18 @@ export default function HeroView() {
         }
 
         @keyframes heroGlow {
-          0% {
-            transform: scale(1);
-            opacity: 0.78;
-          }
-          50% {
-            transform: scale(1.08);
-            opacity: 0.9;
-          }
-          100% {
-            transform: scale(1);
-            opacity: 0.78;
-          }
+          0% { transform: scale(1); opacity: 0.78; }
+          50% { transform: scale(1.08); opacity: 0.9; }
+          100% { transform: scale(1); opacity: 0.78; }
+        }
+
+        .float-dot {
+          animation: floatDot 4s ease-in-out infinite;
+        }
+
+        @keyframes floatDot {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-8px); }
         }
       `}</style>
     </>

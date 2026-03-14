@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import Container from "@/components/section/Container";
+import Container from "@/features/Container";
 
 type Project = {
   title: string;

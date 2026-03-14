@@ -3,8 +3,8 @@
 import * as React from "react";
 import TestimonialsView from "./testimonials-view";
 import CompaniesView from "@/modules/brand/view/brand-view";
-import Earth from "@/components/section/globe";
-import Container from "@/components/section/Container";
+import Earth from "@/features/globe";
+import Container from "@/features/Container";
 
 const reviews = [
   {

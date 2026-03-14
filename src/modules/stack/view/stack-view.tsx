@@ -1,6 +1,6 @@
 import * as React from "react";
 import SingleStackComponent from "../components/singlestack-component";
-import Container from "@/components/section/Container";
+import Container from "@/features/Container";
 import {
   FaCode,
   FaCss3Alt,
