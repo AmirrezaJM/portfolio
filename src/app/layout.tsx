@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { twMerge } from "tailwind-merge";
+import { ThemeProvider } from "@/features/ThemeProvider";
 
 
 const degular = localFont({
@@ -105,7 +106,9 @@ export default function RootLayout({
           "text-white relative -z-10"
         )}
       >
-        <main className="bg-background text-foreground">{children}</main>
+        <ThemeProvider>
+          <main className="bg-background text-foreground">{children}</main>
+        </ThemeProvider>
       </body>
     </html>
   );

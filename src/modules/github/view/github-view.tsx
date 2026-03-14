@@ -12,18 +12,14 @@ interface Contribution {
   level: 0 | 1 | 2 | 3 | 4;
 }
 
-interface GithubData {
-  contributions: {
-    total: Record<string, number>;
-    contributions: Contribution[];
-  };
-  user: {
-    public_repos: number;
-    followers: number;
-  } | null;
+interface GridCell {
+  level: 0 | 1 | 2 | 3 | 4;
+  count: number;
+  date: string;
 }
 
 // ── Constants ─────────────────────────────────────────────────
+const GITHUB_USER = "AmirrezaJM";
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const LEVEL_BG = [
   "bg-white/[0.04]",
@@ -33,7 +29,7 @@ const LEVEL_BG = [
   "bg-amber-500",
 ];
 
-// ── Seeded fallback grid (used while loading / on error) ──────
+// ── Seeded fallback ───────────────────────────────────────────
 function makeRng(seed: number) {
   let s = seed >>> 0;
   return () => {
@@ -42,33 +38,33 @@ function makeRng(seed: number) {
   };
 }
 
-function buildFallbackGrid(): { level: number; count: number }[][] {
+function buildFallbackGrid(): GridCell[][] {
   const rng = makeRng(1337);
-  const weekWeight = (w: number) =>
-    w < 8 ? 0.65 : w < 18 ? 0.70 : w < 26 ? 0.50 : w < 34 ? 0.45 : w < 44 ? 0.72 : 0.68;
-
-  return Array.from({ length: 52 }, (_, w) =>
-    Array.from({ length: 7 }, (_, d) => {
-      const prob = d >= 5 ? weekWeight(w) * 0.55 : weekWeight(w);
+  const w = (i: number) => (i < 8 ? 0.65 : i < 18 ? 0.7 : i < 26 ? 0.5 : i < 34 ? 0.45 : i < 44 ? 0.72 : 0.68);
+  return Array.from({ length: 52 }, (_, wi) =>
+    Array.from({ length: 7 }, (_, di) => {
+      const prob = di >= 5 ? w(wi) * 0.55 : w(wi);
       const r = rng();
-      if (r > prob) return { level: 0, count: 0 };
+      if (r > prob) return { level: 0 as const, count: 0, date: "" };
       const r2 = rng();
-      const level = r2 < 0.35 ? 1 : r2 < 0.65 ? 2 : r2 < 0.85 ? 3 : 4;
-      return { level, count: level * 3 };
+      const level = (r2 < 0.35 ? 1 : r2 < 0.65 ? 2 : r2 < 0.85 ? 3 : 4) as 1 | 2 | 3 | 4;
+      return { level, count: level * 3, date: "" };
     })
   );
 }
 
-// ── Convert flat contributions array → 52×7 grid ─────────────
-function toGrid(contributions: Contribution[]): { level: number; count: number }[][] {
+// ── Flatten contributions list → 52×7 grid ───────────────────
+function toGrid(contributions: Contribution[]): GridCell[][] {
   if (!contributions?.length) return buildFallbackGrid();
-
-  // Take the last 364 days (52 weeks × 7)
   const days = contributions.slice(-364);
-  const weeks: { level: number; count: number }[][] = [];
-  for (let w = 0; w < 52; w++) {
+  const weeks: GridCell[][] = [];
+  for (let wi = 0; wi < 52; wi++) {
     weeks.push(
-      days.slice(w * 7, w * 7 + 7).map((d) => ({ level: d.level, count: d.count }))
+      days.slice(wi * 7, wi * 7 + 7).map((d) => ({
+        level: d.level,
+        count: d.count,
+        date: d.date,
+      }))
     );
   }
   return weeks;
@@ -76,36 +72,50 @@ function toGrid(contributions: Contribution[]): { level: number; count: number }
 
 // ── Component ─────────────────────────────────────────────────
 export default function GithubView() {
-  const [grid, setGrid] = useState(() => buildFallbackGrid());
-  const [totalCommits, setTotalCommits] = useState<number | null>(null);
+  const [grid, setGrid] = useState<GridCell[][]>(() => buildFallbackGrid());
+  const [totalLastYear, setTotalLastYear] = useState<number | null>(null);
   const [repos, setRepos] = useState<number | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [followers, setFollowers] = useState<number | null>(null);
+  const [isLive, setIsLive] = useState(false);
 
   useEffect(() => {
-    fetch("/api/github")
+    // Fetch contribution heatmap
+    fetch(`https://github-contributions-api.jogruber.de/v4/${GITHUB_USER}?y=last`)
       .then((r) => r.json())
-      .then((data: GithubData) => {
-        if (data.contributions?.contributions) {
-          setGrid(toGrid(data.contributions.contributions));
-          const totals = data.contributions.total;
-          const sum = Object.values(totals).reduce((a, b) => a + b, 0);
-          setTotalCommits(sum);
-        }
-        if (data.user) {
-          setRepos(data.user.public_repos);
+      .then((data) => {
+        if (data?.contributions?.length) {
+          setGrid(toGrid(data.contributions));
+          setTotalLastYear(data.total?.lastYear ?? null);
+          setIsLive(true);
         }
       })
-      .catch(() => {/* keep fallback */})
-      .finally(() => setLoading(false));
+      .catch(() => {});
+
+    // Fetch user profile stats
+    fetch(`https://api.github.com/users/${GITHUB_USER}`)
+      .then((r) => r.json())
+      .then((data) => {
+        if (data?.public_repos != null) {
+          setRepos(data.public_repos);
+          setFollowers(data.followers);
+        }
+      })
+      .catch(() => {});
   }, []);
 
   const STATS = [
     {
-      value: totalCommits ? `${totalCommits.toLocaleString()}+` : "Lots 🚀",
-      label: "Commits Shipped",
+      value: totalLastYear != null ? `${totalLastYear.toLocaleString()}` : "Lots 🚀",
+      label: "Contributions (Last Year)",
     },
-    { value: repos ? `${repos} repos` : "Consistently", label: "Building Things" },
-    { value: "Coffee ☕", label: "Powered By" },
+    {
+      value: repos != null ? `${repos}` : "10+",
+      label: "Public Repos",
+    },
+    {
+      value: followers != null ? `${followers}` : "Growing",
+      label: "GitHub Followers",
+    },
     { value: "∞", label: "Curiosity Level" },
   ];
 
@@ -126,9 +136,14 @@ export default function GithubView() {
             </div>
             <h2 className="text-2xl font-bold text-white md:text-3xl">GitHub Activity</h2>
           </div>
-          <p className="text-sm italic text-white/40">
-            {loading ? "Loading…" : "✨ Live data from GitHub"}
-          </p>
+          <a
+            href={`https://github.com/${GITHUB_USER}`}
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center gap-1.5 text-sm text-white/40 transition hover:text-amber-400 italic"
+          >
+            {isLive ? "✨ Live data ·" : "⏳ Loading ·"} github.com/{GITHUB_USER}
+          </a>
         </motion.div>
 
         <motion.div
@@ -138,14 +153,14 @@ export default function GithubView() {
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] as [number, number, number, number], delay: 0.1 }}
         >
-          {/* Stat boxes */}
+          {/* Stats */}
           <div className="mb-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
             {STATS.map((s) => (
               <div
                 key={s.label}
                 className="rounded-2xl border border-white/10 bg-white/[0.04] px-5 py-4 text-center"
               >
-                <p className="text-lg font-bold text-amber-400 sm:text-xl">{s.value}</p>
+                <p className="text-xl font-bold text-amber-400">{s.value}</p>
                 <p className="mt-1 text-xs text-white/45">{s.label}</p>
               </div>
             ))}
@@ -157,11 +172,7 @@ export default function GithubView() {
               {/* Month labels */}
               <div className="mb-1.5 flex pl-8">
                 {MONTHS.map((m) => (
-                  <div
-                    key={m}
-                    className="text-xs text-white/35"
-                    style={{ width: `${100 / 12}%` }}
-                  >
+                  <div key={m} className="text-xs text-white/35" style={{ width: `${100 / 12}%` }}>
                     {m}
                   </div>
                 ))}
@@ -171,11 +182,7 @@ export default function GithubView() {
                 {/* Day labels */}
                 <div className="flex flex-col justify-between py-0.5 pr-2" style={{ width: 28 }}>
                   {["Mon", "", "Wed", "", "Fri", "", ""].map((d, i) => (
-                    <span
-                      key={i}
-                      className="text-[10px] leading-none text-white/35"
-                      style={{ height: 13 }}
-                    >
+                    <span key={i} className="text-[10px] leading-none text-white/35" style={{ height: 13 }}>
                       {d}
                     </span>
                   ))}
@@ -188,8 +195,14 @@ export default function GithubView() {
                       {week.map((cell, di) => (
                         <div
                           key={di}
-                          title={cell.count > 0 ? `${cell.count} contributions` : "No contributions"}
-                          className={`aspect-square w-full rounded-[3px] ${LEVEL_BG[cell.level]}`}
+                          title={
+                            cell.date
+                              ? `${cell.date}: ${cell.count} contribution${cell.count !== 1 ? "s" : ""}`
+                              : cell.count > 0
+                              ? `${cell.count} contributions`
+                              : "No contributions"
+                          }
+                          className={`aspect-square w-full rounded-[3px] ${LEVEL_BG[cell.level]} transition-opacity hover:opacity-80`}
                         />
                       ))}
                     </div>

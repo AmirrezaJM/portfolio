@@ -6,6 +6,7 @@ import Image from "next/image";
 import MyselfImage from "@/assets/myself.webp";
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
+import { THEMES, useTheme, type ThemeKey } from "@/features/ThemeProvider";
 
 const TYPEWRITER_PHRASES = [
   "Fast Web Apps",
@@ -88,6 +89,34 @@ const FLOAT_DOTS = [
   { size: 6, top: "65%", left: "60%", delay: "2s", opacity: 0.3 },
   { size: 14, top: "15%", left: "55%", delay: "1.5s", opacity: 0.2 },
 ];
+
+function ThemeSwitcher() {
+  const { theme, setTheme } = useTheme();
+  return (
+    <motion.div
+      className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-5 py-3 backdrop-blur"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.85, duration: 0.5 }}
+    >
+      <span className="text-xs text-white/40 shrink-0">🎨 Theme</span>
+      <div className="flex items-center gap-2">
+        {THEMES.map((t) => (
+          <button
+            key={t.key}
+            onClick={() => setTheme(t.key as ThemeKey)}
+            title={t.name}
+            className={`relative h-6 w-6 rounded-full transition-all duration-200 ${
+              theme.key === t.key ? "scale-110 ring-2 ring-white/60 ring-offset-1 ring-offset-transparent" : "opacity-60 hover:opacity-100 hover:scale-105"
+            }`}
+            style={{ backgroundColor: t.swatch }}
+          />
+        ))}
+      </div>
+      <span className="text-xs font-medium text-white/50 min-w-[3.5rem]">{theme.name}</span>
+    </motion.div>
+  );
+}
 
 const staggerContainer = {
   hidden: {},
@@ -263,6 +292,9 @@ export default function HeroView() {
               freelance project at 18 and haven&apos;t stopped shipping since.
             </motion.div>
 
+            {/* Theme switcher */}
+            <ThemeSwitcher />
+
             {/* CTA buttons */}
             <motion.div
               className="flex flex-wrap justify-center gap-3 mt-1"
@@ -312,9 +344,9 @@ export default function HeroView() {
 
       <style jsx>{`
         .hero-aurora {
-          background: radial-gradient(circle at 20% 20%, #c2571a 0%, transparent 60%),
-            radial-gradient(circle at 80% 0%, #7c2d12 0%, transparent 55%),
-            radial-gradient(circle at 50% 80%, #92400e 0%, transparent 55%), #0f0804;
+          background: radial-gradient(circle at 20% 20%, var(--aurora-1, #c2571a) 0%, transparent 60%),
+            radial-gradient(circle at 80% 0%, var(--aurora-2, #7c2d12) 0%, transparent 55%),
+            radial-gradient(circle at 50% 80%, var(--aurora-3, #92400e) 0%, transparent 55%), #0f0804;
           animation: heroGlow 30s ease-in-out infinite;
           transform-origin: center;
         }
