@@ -1,52 +1,30 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import Container from "@/features/Container";
 import { FaGithub } from "react-icons/fa";
 
-const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-const WEEKS = 52;
-const DAYS = 7;
+// ── Types ─────────────────────────────────────────────────────
+interface Contribution {
+  date: string;
+  count: number;
+  level: 0 | 1 | 2 | 3 | 4;
+}
 
-// Deterministic seeded RNG (LCG)
-function makeRng(seed: number) {
-  let s = seed >>> 0;
-  return () => {
-    s = Math.imul(s, 1664525) + 1013904223;
-    return (s >>> 0) / 4294967295;
+interface GithubData {
+  contributions: {
+    total: Record<string, number>;
+    contributions: Contribution[];
   };
+  user: {
+    public_repos: number;
+    followers: number;
+  } | null;
 }
 
-// Weight by week to simulate realistic activity (lower mid-year = summer)
-function weekWeight(w: number): number {
-  if (w < 8) return 0.65;   // Jan-Feb
-  if (w < 18) return 0.70;  // Mar-Apr
-  if (w < 26) return 0.50;  // May-Jun (lower)
-  if (w < 34) return 0.45;  // Jul-Aug (lower)
-  if (w < 44) return 0.72;  // Sep-Oct
-  return 0.68;               // Nov-Dec
-}
-
-function generateGrid(): number[][] {
-  const rng = makeRng(1337);
-  return Array.from({ length: WEEKS }, (_, w) => {
-    const base = weekWeight(w);
-    return Array.from({ length: DAYS }, (_, d) => {
-      const isWeekend = d === 5 || d === 6;
-      const prob = isWeekend ? base * 0.55 : base;
-      const r = rng();
-      if (r > prob) return 0;
-      const r2 = rng();
-      if (r2 < 0.35) return 1;
-      if (r2 < 0.65) return 2;
-      if (r2 < 0.85) return 3;
-      return 4;
-    });
-  });
-}
-
-const GRID = generateGrid();
-
+// ── Constants ─────────────────────────────────────────────────
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const LEVEL_BG = [
   "bg-white/[0.04]",
   "bg-[#3d200f]",
@@ -55,14 +33,82 @@ const LEVEL_BG = [
   "bg-amber-500",
 ];
 
-const STATS = [
-  { value: "Lots 🚀", label: "Commits Shipped" },
-  { value: "Consistently", label: "Building Things" },
-  { value: "Coffee ☕", label: "Powered By" },
-  { value: "∞", label: "Curiosity Level" },
-];
+// ── Seeded fallback grid (used while loading / on error) ──────
+function makeRng(seed: number) {
+  let s = seed >>> 0;
+  return () => {
+    s = Math.imul(s, 1664525) + 1013904223;
+    return (s >>> 0) / 4294967295;
+  };
+}
 
+function buildFallbackGrid(): { level: number; count: number }[][] {
+  const rng = makeRng(1337);
+  const weekWeight = (w: number) =>
+    w < 8 ? 0.65 : w < 18 ? 0.70 : w < 26 ? 0.50 : w < 34 ? 0.45 : w < 44 ? 0.72 : 0.68;
+
+  return Array.from({ length: 52 }, (_, w) =>
+    Array.from({ length: 7 }, (_, d) => {
+      const prob = d >= 5 ? weekWeight(w) * 0.55 : weekWeight(w);
+      const r = rng();
+      if (r > prob) return { level: 0, count: 0 };
+      const r2 = rng();
+      const level = r2 < 0.35 ? 1 : r2 < 0.65 ? 2 : r2 < 0.85 ? 3 : 4;
+      return { level, count: level * 3 };
+    })
+  );
+}
+
+// ── Convert flat contributions array → 52×7 grid ─────────────
+function toGrid(contributions: Contribution[]): { level: number; count: number }[][] {
+  if (!contributions?.length) return buildFallbackGrid();
+
+  // Take the last 364 days (52 weeks × 7)
+  const days = contributions.slice(-364);
+  const weeks: { level: number; count: number }[][] = [];
+  for (let w = 0; w < 52; w++) {
+    weeks.push(
+      days.slice(w * 7, w * 7 + 7).map((d) => ({ level: d.level, count: d.count }))
+    );
+  }
+  return weeks;
+}
+
+// ── Component ─────────────────────────────────────────────────
 export default function GithubView() {
+  const [grid, setGrid] = useState(() => buildFallbackGrid());
+  const [totalCommits, setTotalCommits] = useState<number | null>(null);
+  const [repos, setRepos] = useState<number | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("/api/github")
+      .then((r) => r.json())
+      .then((data: GithubData) => {
+        if (data.contributions?.contributions) {
+          setGrid(toGrid(data.contributions.contributions));
+          const totals = data.contributions.total;
+          const sum = Object.values(totals).reduce((a, b) => a + b, 0);
+          setTotalCommits(sum);
+        }
+        if (data.user) {
+          setRepos(data.user.public_repos);
+        }
+      })
+      .catch(() => {/* keep fallback */})
+      .finally(() => setLoading(false));
+  }, []);
+
+  const STATS = [
+    {
+      value: totalCommits ? `${totalCommits.toLocaleString()}+` : "Lots 🚀",
+      label: "Commits Shipped",
+    },
+    { value: repos ? `${repos} repos` : "Consistently", label: "Building Things" },
+    { value: "Coffee ☕", label: "Powered By" },
+    { value: "∞", label: "Curiosity Level" },
+  ];
+
   return (
     <section id="github" className="w-full py-16">
       <Container>
@@ -80,7 +126,9 @@ export default function GithubView() {
             </div>
             <h2 className="text-2xl font-bold text-white md:text-3xl">GitHub Activity</h2>
           </div>
-          <p className="text-sm italic text-white/40">✨ Simulated visualization</p>
+          <p className="text-sm italic text-white/40">
+            {loading ? "Loading…" : "✨ Live data from GitHub"}
+          </p>
         </motion.div>
 
         <motion.div
@@ -103,16 +151,16 @@ export default function GithubView() {
             ))}
           </div>
 
-          {/* Contribution grid */}
+          {/* Heatmap */}
           <div className="overflow-x-auto overscroll-x-contain">
             <div className="min-w-[600px]">
               {/* Month labels */}
               <div className="mb-1.5 flex pl-8">
-                {MONTHS.map((m, i) => (
+                {MONTHS.map((m) => (
                   <div
                     key={m}
                     className="text-xs text-white/35"
-                    style={{ width: `${(100 / 12)}%` }}
+                    style={{ width: `${100 / 12}%` }}
                   >
                     {m}
                   </div>
@@ -123,21 +171,25 @@ export default function GithubView() {
                 {/* Day labels */}
                 <div className="flex flex-col justify-between py-0.5 pr-2" style={{ width: 28 }}>
                   {["Mon", "", "Wed", "", "Fri", "", ""].map((d, i) => (
-                    <span key={i} className="text-[10px] leading-none text-white/35" style={{ height: 13 }}>
+                    <span
+                      key={i}
+                      className="text-[10px] leading-none text-white/35"
+                      style={{ height: 13 }}
+                    >
                       {d}
                     </span>
                   ))}
                 </div>
 
-                {/* Weeks grid */}
+                {/* Weeks */}
                 <div className="flex flex-1 gap-[3px]">
-                  {GRID.map((week, wi) => (
+                  {grid.map((week, wi) => (
                     <div key={wi} className="flex flex-1 flex-col gap-[3px]">
-                      {week.map((level, di) => (
+                      {week.map((cell, di) => (
                         <div
                           key={di}
-                          title={`Level ${level}`}
-                          className={`aspect-square w-full rounded-[3px] ${LEVEL_BG[level]}`}
+                          title={cell.count > 0 ? `${cell.count} contributions` : "No contributions"}
+                          className={`aspect-square w-full rounded-[3px] ${LEVEL_BG[cell.level]}`}
                         />
                       ))}
                     </div>
