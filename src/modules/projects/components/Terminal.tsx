@@ -17,7 +17,7 @@ const COMMANDS: Record<string, string> = {
   neofetch    - System info
   clear       - Clear terminal`,
 
-  whoami: `Amirreza Jalali Motlagh
+  whoami: `Amirreza Jolani Mameghani
 Fullstack Developer · Utrecht, Netherlands
 6+ years shipping web products
 React / Next.js · Vue 3 / Nuxt 3 · TypeScript

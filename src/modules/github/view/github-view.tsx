@@ -19,7 +19,7 @@ interface GridCell {
 }
 
 // ── Constants ─────────────────────────────────────────────────
-const GITHUB_USER = "AmirrezaJM";
+const GITHUB_USER = "AmirrezaJM"; // used for profile link only
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const LEVEL_BG = [
   "bg-white/[0.04]",
@@ -79,25 +79,18 @@ export default function GithubView() {
   const [isLive, setIsLive] = useState(false);
 
   useEffect(() => {
-    // Fetch contribution heatmap
-    fetch(`https://github-contributions-api.jogruber.de/v4/${GITHUB_USER}?y=last`)
+    fetch("/api/github")
       .then((r) => r.json())
       .then((data) => {
-        if (data?.contributions?.length) {
-          setGrid(toGrid(data.contributions));
-          setTotalLastYear(data.total?.lastYear ?? null);
+        const contribs = data?.contributions?.contributions;
+        if (contribs?.length) {
+          setGrid(toGrid(contribs));
+          setTotalLastYear(data.contributions?.totalLastYear ?? null);
           setIsLive(true);
         }
-      })
-      .catch(() => {});
-
-    // Fetch user profile stats
-    fetch(`https://api.github.com/users/${GITHUB_USER}`)
-      .then((r) => r.json())
-      .then((data) => {
-        if (data?.public_repos != null) {
-          setRepos(data.public_repos);
-          setFollowers(data.followers);
+        if (data?.user?.public_repos != null) {
+          setRepos(data.user.public_repos);
+          setFollowers(data.user.followers);
         }
       })
       .catch(() => {});
