@@ -1,50 +1,50 @@
 
 import dynamic from "next/dynamic";
-import HeroView from "@/modules/hero/view/hero";
+import HeroView from "@/features/hero/view/hero";
 import SectionSkeleton from "@/features/section-skeleton";
 import { Header } from "@/features/Header";
 
-const ExperienceView = dynamic(() => import("@/modules/experience/view/experience-view"), {
+const ExperienceView = dynamic(() => import("@/features/experience/view/experience-view"), {
   loading: () => <SectionSkeleton title="Experience" />,
   ssr: true,
 });
 
-const ProjectsView = dynamic(() => import("@/modules/projects/view/projects-view"), {
+const ProjectsView = dynamic(() => import("@/features/projects/view/projects-view"), {
   loading: () => <SectionSkeleton title="Personal Projects" />,
   ssr: true,
 });
 
-const TerminalView = dynamic(() => import("@/modules/terminal/view/terminal-view"), {
+const TerminalView = dynamic(() => import("@/features/terminal/view/terminal-view"), {
   loading: () => <SectionSkeleton title="Terminal" />,
   ssr: true,
 });
 
-const GithubView = dynamic(() => import("@/modules/github/view/github-view"), {
+const GithubView = dynamic(() => import("@/features/github/view/github-view"), {
   loading: () => <SectionSkeleton title="GitHub Activity" />,
   ssr: true,
 });
 
-const StackView = dynamic(() => import("@/modules/stack/view/stack-view"), {
+const StackView = dynamic(() => import("@/features/stack/view/stack-view"), {
   loading: () => <SectionSkeleton title="Skills" />,
   ssr: true,
 });
 
-const ReviewView = dynamic(() => import("@/modules/testimonials/view/review-view"), {
+const ReviewView = dynamic(() => import("@/features/testimonials/view/review-view"), {
   loading: () => <SectionSkeleton title="Testimonials" />,
   ssr: true,
 });
 
-const ContactView = dynamic(() => import("@/modules/contact/view/contact-view"), {
+const ContactView = dynamic(() => import("@/features/contact/view/contact-view"), {
   loading: () => <SectionSkeleton title="Contact" />,
   ssr: true,
 });
 
-const GuestbookView = dynamic(() => import("@/modules/guestbook/view/guestbook-client"), {
+const GuestbookView = dynamic(() => import("@/features/guestbook/view/guestbook-client"), {
   loading: () => <SectionSkeleton title="Guestbook" />,
   ssr: true,
 });
 
-const FooterView = dynamic(() => import("@/modules/footer/view/footer-view"), {
+const FooterView = dynamic(() => import("@/features/footer/view/footer-view"), {
   loading: () => null,
   ssr: true,
 });

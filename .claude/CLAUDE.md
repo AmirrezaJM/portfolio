@@ -58,7 +58,7 @@ src/
 │   ├── globals.css         # Tailwind v4, CSS variables, typography system, animations
 │   ├── error.tsx           # Custom error boundary page
 │   └── not-found.tsx       # Custom 404 page
-├── features/                # Domain-driven feature features (each has view/ subfolder) with components, view, types, servers, and hooks
+├── features/               # Domain-driven features (each has view/ subfolder) with components, view, types, servers, and hooks
 ├── components/
 │   ├── ui/                 # 47 shadcn/ui primitives — DO NOT edit manually
 │   └── navigation/         # ScrollDock (static + client wrapper)
@@ -75,8 +75,8 @@ src/
 
 ### Key Architectural Patterns
 
-- **Dynamic imports** with `dynamic()` on all section modules — each section has a `SectionSkeleton` fallback
-- **Domain modules** live in `src/modules/` and contain their own `view/` and `components/` subfolders
+- **Dynamic imports** with `dynamic()` on all section features — each section has a `SectionSkeleton` fallback
+- **Domain features** live in `src/features/` and contain their own `view/` and `components/` subfolders
 - **Client/Server boundary**: RSC by default; interactive components have `"use client"` at the top
 - **Path alias**: `@/*` maps to `src/*`
 
@@ -225,11 +225,11 @@ Never manually edit files inside `src/components/ui/` — always regenerate via 
 | `Globe` | `src/components/section/globe.tsx` | Cobe 3D globe |
 | `SectionSkeleton` | `src/components/section/section-skeleton.tsx` | Loading placeholder |
 
-### Module Pages
+### Feature Pages
 
-Each module in `src/modules/` follows this structure:
+Each feature in `src/features/` follows this structure:
 ```
-modules/<name>/
+features/<name>/
   view/
     <name>-view.tsx     # Main section component
   components/           # (optional) section-specific sub-components
@@ -295,15 +295,15 @@ No `.env` files currently used. If adding environment variables:
 
 ## Sections & Content
 
-| Section | Module Path | Description |
+| Section | Feature Path | Description |
 |---|---|---|
-| Hero | `src/modules/hero/view/hero.tsx` | Aurora BG, portrait, stats, CV download, social links |
-| Experience | `src/modules/experience/view/experience-view.tsx` | 5 work roles with StarBorder cards |
-| Projects | `src/modules/projects/view/projects-view.tsx` | 5 personal projects grid |
-| Stack | `src/modules/stack/view/stack-view.tsx` | 25 hard skills + 8 soft skills |
-| Testimonials | `src/modules/testimonials/view/testimonials-view.tsx` | Reviews + 3D globe |
-| Brand | `src/modules/brand/view/brand-view.tsx` | Company logo marquee |
-| Footer | `src/modules/footer/view/footer-view.tsx` | CTA, contact, social links |
+| Hero | `src/features/hero/view/hero.tsx` | Aurora BG, portrait, stats, CV download, social links |
+| Experience | `src/features/experience/view/experience-view.tsx` | 5 work roles with StarBorder cards |
+| Projects | `src/features/projects/view/projects-view.tsx` | 5 personal projects grid |
+| Stack | `src/features/stack/view/stack-view.tsx` | 25 hard skills + 8 soft skills |
+| Testimonials | `src/features/testimonials/view/testimonials-view.tsx` | Reviews + 3D globe |
+| Brand | `src/features/brand/view/brand-view.tsx` | Company logo marquee |
+| Footer | `src/features/footer/view/footer-view.tsx` | CTA, contact, social links |
 
 ---
 
