@@ -58,17 +58,7 @@ src/
 │   ├── globals.css         # Tailwind v4, CSS variables, typography system, animations
 │   ├── error.tsx           # Custom error boundary page
 │   └── not-found.tsx       # Custom 404 page
-├── features/
-
-├── modules/                # Domain-driven feature modules (each has view/ subfolder)
-│   ├── hero/
-│   ├── experience/
-│   ├── projects/
-│   ├── stack/
-│   ├── testimonials/
-│   ├── brand/
-│   └── footer/
-│
+├── features/                # Domain-driven feature features (each has view/ subfolder) with components, view, types, servers, and hooks
 ├── components/
 │   ├── ui/                 # 47 shadcn/ui primitives — DO NOT edit manually
 │   └── navigation/         # ScrollDock (static + client wrapper)
