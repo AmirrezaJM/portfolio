@@ -4,6 +4,7 @@
 
 A premium animated personal portfolio website for a Fullstack Developer based in Utrecht, Netherlands. Built with Next.js 16 (App Router) + React 19, heavy use of GSAP, Framer Motion, Three.js, and glassmorphism design. Deployed on Vercel.
 
+
 ---
 
 ## Package Manager
@@ -17,6 +18,8 @@ pnpm build            # production build
 pnpm start            # start production server
 pnpm lint             # run ESLint
 ```
+
+on Each commit please check and add major, minor or patch version to the package.json file.
 
 ---
 
