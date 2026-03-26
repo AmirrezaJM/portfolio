@@ -41,14 +41,26 @@ function makeRng(seed: number) {
 function buildFallbackGrid(): GridCell[][] {
   const rng = makeRng(1337);
   const w = (i: number) => (i < 8 ? 0.65 : i < 18 ? 0.7 : i < 26 ? 0.5 : i < 34 ? 0.45 : i < 44 ? 0.72 : 0.68);
+
+  // Generate real dates so month labels render even in fallback mode
+  const today = new Date();
+  const startDay = new Date(today);
+  startDay.setDate(today.getDate() - 52 * 7 + 1);
+  // Align to the most recent Monday
+  startDay.setDate(startDay.getDate() - ((startDay.getDay() + 6) % 7));
+
   return Array.from({ length: 52 }, (_, wi) =>
     Array.from({ length: 7 }, (_, di) => {
+      const d = new Date(startDay);
+      d.setDate(startDay.getDate() + wi * 7 + di);
+      const date = d.toISOString().slice(0, 10);
+
       const prob = di >= 5 ? w(wi) * 0.55 : w(wi);
       const r = rng();
-      if (r > prob) return { level: 0 as const, count: 0, date: "" };
+      if (r > prob) return { level: 0 as const, count: 0, date };
       const r2 = rng();
       const level = (r2 < 0.35 ? 1 : r2 < 0.65 ? 2 : r2 < 0.85 ? 3 : 4) as 1 | 2 | 3 | 4;
-      return { level, count: level * 3, date: "" };
+      return { level, count: level * 3, date };
     })
   );
 }
