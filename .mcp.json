@@ -6,6 +6,12 @@
         "-y",
         "next-devtools-mcp@latest"
       ]
+    },
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "@playwright/mcp@latest"
+      ]
     }
   }
 }

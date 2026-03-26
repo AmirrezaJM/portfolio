@@ -1,0 +1,2 @@
+[     959ms] [WARNING] Image with src "/_next/static/media/myself.09e6cb8c.webp" is using quality "85" which is not configured in images.qualities [75]. Please update your config to [75, 85].
+Read more: https://nextjs.org/docs/messages/next-image-unconfigured-qualities @ http://localhost:3000/_next/static/chunks/f1ab7_next_dist_a27653a2._.js:2297
