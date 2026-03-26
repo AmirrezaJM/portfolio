@@ -5,15 +5,16 @@ import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 
 const NAV_LINKS = [
   { label: "Home", href: "#hero" },
+  { label: "Experience", href: "#experience" },
   { label: "Projects", href: "#projects" },
   { label: "Terminal", href: "#terminal" },
   { label: "Skills", href: "#stack" },
-  { label: "Experience", href: "#experience" },
-  { label: "Guestbook", href: "#guestbook" },
+  { label: "Testimonials", href: "#testimonials" },
   { label: "Contact", href: "#contact" },
+  { label: "Guestbook", href: "#guestbook" },
 ];
 
-const SECTION_IDS = ["hero", "projects", "terminal", "github", "stack", "experience", "guestbook", "contact"];
+const SECTION_IDS = ["hero", "experience", "projects", "terminal", "github", "stack", "testimonials", "contact", "guestbook"];
 
 export function Header() {
   const [progress, setProgress] = useState(0);
@@ -60,7 +61,7 @@ export function Header() {
             href="#hero"
             className="text-base font-semibold text-white hover:text-amber-400 transition-colors"
           >
-            Amirreza Jalali
+            Amirreza Jolani Mameghani
           </Link>
 
           {/* Nav links */}

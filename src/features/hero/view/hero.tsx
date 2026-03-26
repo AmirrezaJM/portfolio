@@ -303,7 +303,7 @@ export default function HeroView() {
               transition={{ delay: 0.9, duration: 0.5 }}
             >
               <Link
-                href="/Fullstack_developer.pdf"
+                href="/FullStack_Resume_Amirreza.pdf"
                 target="_blank"
                 rel="noreferrer"
                 className="flex items-center gap-2 rounded-full bg-amber-500 px-6 py-2.5 text-sm font-semibold text-black transition hover:bg-amber-400"

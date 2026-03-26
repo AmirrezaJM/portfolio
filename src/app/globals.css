@@ -253,6 +253,11 @@
 }
 
 /* Global base */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 64px;
+}
+
 body {
   letter-spacing: var(--tracking-normal);
 }

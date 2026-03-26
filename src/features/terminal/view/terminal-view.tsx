@@ -2,7 +2,7 @@
 
 import { motion } from "motion/react";
 import Container from "@/features/Container";
-import Terminal from "@/modules/projects/components/Terminal";
+import Terminal from "@/features/projects/components/Terminal";
 
 export default function TerminalView() {
   return (

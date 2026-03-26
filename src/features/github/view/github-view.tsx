@@ -20,7 +20,7 @@ interface GridCell {
 
 // ── Constants ─────────────────────────────────────────────────
 const GITHUB_USER = "AmirrezaJM"; // used for profile link only
-const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const LEVEL_BG = [
   "bg-white/[0.04]",
   "bg-[#3d200f]",
@@ -56,7 +56,12 @@ function buildFallbackGrid(): GridCell[][] {
 // ── Flatten contributions list → 52×7 grid ───────────────────
 function toGrid(contributions: Contribution[]): GridCell[][] {
   if (!contributions?.length) return buildFallbackGrid();
-  const days = contributions.slice(-364);
+
+  // Filter out future dates, then take the last 364 days (52 weeks)
+  const today = new Date().toISOString().slice(0, 10);
+  const pastOnly = contributions.filter((c) => c.date <= today);
+  const days = pastOnly.slice(-364);
+
   const weeks: GridCell[][] = [];
   for (let wi = 0; wi < 52; wi++) {
     weeks.push(
@@ -68,6 +73,26 @@ function toGrid(contributions: Contribution[]): GridCell[][] {
     );
   }
   return weeks;
+}
+
+// ── Derive month labels from the grid dates ──────────────────
+function getMonthLabels(grid: GridCell[][]): { label: string; offset: number }[] {
+  const labels: { label: string; offset: number }[] = [];
+  let lastMonth = -1;
+  for (let wi = 0; wi < grid.length; wi++) {
+    const firstDay = grid[wi]?.[0];
+    if (!firstDay?.date) continue;
+    const month = new Date(firstDay.date).getMonth();
+    if (month !== lastMonth) {
+      labels.push({ label: MONTH_NAMES[month], offset: wi });
+      lastMonth = month;
+    }
+  }
+  // Drop the first label if it's too close to the second (< 3 weeks apart)
+  if (labels.length > 1 && labels[1].offset - labels[0].offset < 3) {
+    labels.shift();
+  }
+  return labels;
 }
 
 // ── Component ─────────────────────────────────────────────────
@@ -163,11 +188,15 @@ export default function GithubView() {
           <div className="overflow-x-auto overscroll-x-contain">
             <div className="min-w-[600px]">
               {/* Month labels */}
-              <div className="mb-1.5 flex pl-8">
-                {MONTHS.map((m) => (
-                  <div key={m} className="text-xs text-white/35" style={{ width: `${100 / 12}%` }}>
-                    {m}
-                  </div>
+              <div className="relative mb-1.5 h-4 pl-8">
+                {getMonthLabels(grid).map((m) => (
+                  <span
+                    key={`${m.label}-${m.offset}`}
+                    className="absolute text-xs text-white/35"
+                    style={{ left: `calc(28px + ${(m.offset / 52) * 100}%)` }}
+                  >
+                    {m.label}
+                  </span>
                 ))}
               </div>
 

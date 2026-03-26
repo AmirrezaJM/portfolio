@@ -24,7 +24,7 @@ export function Hero() {
         {/* Download CV Button */}
         <div className="mt-8 mb-6 flex justify-center relative z-50 px-4">
           <Link
-            href="/AmirrezaJolaniCV.pdf"
+            href="/FullStack_Resume_Amirreza.pdf"
             download
             className="flex justify-center"
           >
