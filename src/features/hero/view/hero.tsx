@@ -172,7 +172,7 @@ export default function HeroView() {
               <div className="w-full h-full rounded-full overflow-hidden border-2 border-white/20 shadow-[0_8px_40px_rgba(0,0,0,0.5)]">
                 <Image
                   src={MyselfImage}
-                  alt="Portrait of Amirreza Jalali Motlagh"
+                  alt="Portrait of Amirreza Jolani Mameghani"
                   width={180}
                   height={180}
                   className="object-cover w-full h-full"
@@ -214,7 +214,7 @@ export default function HeroView() {
               transition={{ delay: 0.3, duration: 0.5 }}
             >
               <h1 className="text-[clamp(2.6rem,6vw,4.5rem)] font-bold leading-none tracking-tight text-white">
-                Amirreza Jalali
+                Amirreza Jolani Mameghani
               </h1>
             </motion.div>
 

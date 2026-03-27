@@ -312,7 +312,7 @@ No `.env` files currently used. If adding environment variables:
 
 ## Personal Info (Reference)
 
-- **Name**: Amirreza Jalali Motlagh
+- **Name**: Amirreza Jolani Mameghani
 - **Title**: Fullstack Developer
 - **Location**: Utrecht, Netherlands (CET timezone)
 - **Experience**: 6+ years

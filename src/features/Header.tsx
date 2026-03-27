@@ -11,10 +11,9 @@ const NAV_LINKS = [
   { label: "Skills", href: "#stack" },
   { label: "Testimonials", href: "#testimonials" },
   { label: "Contact", href: "#contact" },
-  { label: "Guestbook", href: "#guestbook" },
 ];
 
-const SECTION_IDS = ["hero", "experience", "projects", "terminal", "github", "stack", "testimonials", "contact", "guestbook"];
+const SECTION_IDS = ["hero", "experience", "projects", "terminal", "github", "stack", "testimonials", "contact"];
 
 export function Header() {
   const [progress, setProgress] = useState(0);

@@ -39,11 +39,6 @@ const ContactView = dynamic(() => import("@/features/contact/view/contact-view")
   ssr: true,
 });
 
-const GuestbookView = dynamic(() => import("@/features/guestbook/view/guestbook-client"), {
-  loading: () => <SectionSkeleton title="Guestbook" />,
-  ssr: true,
-});
-
 const FooterView = dynamic(() => import("@/features/footer/view/footer-view"), {
   loading: () => null,
   ssr: true,
@@ -70,7 +65,6 @@ export default function Home() {
           <StackView />
           <ReviewView />
           <ContactView />
-          <GuestbookView />
         </main>
         <FooterView />
       </div>

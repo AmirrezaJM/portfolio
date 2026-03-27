@@ -38,11 +38,24 @@ export default function ContactView() {
       return;
     }
     setSending(true);
-    // Simulate sending (wire up Resend/API later)
-    await new Promise((r) => setTimeout(r, 900));
-    setSending(false);
-    toast.success("Message sent! I'll get back to you within 24 hours.");
-    setForm({ name: "", email: "", subject: "", message: "" });
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        toast.error(data.error || "Something went wrong. Please try again.");
+        return;
+      }
+      toast.success("Message sent! I'll get back to you within 24 hours.");
+      setForm({ name: "", email: "", subject: "", message: "" });
+    } catch {
+      toast.error("Failed to send message. Please try again later.");
+    } finally {
+      setSending(false);
+    }
   };
 
   return (

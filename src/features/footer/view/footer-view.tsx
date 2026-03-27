@@ -18,7 +18,7 @@ export default function FooterView() {
           transition={{ delay: 0.1, duration: 0.5, ease: [0.4, 0, 0.2, 1] as [number, number, number, number] }}
         >
           {/* Name */}
-          <p className="text-base font-semibold text-amber-400">Amirreza Jalali</p>
+          <p className="text-base font-semibold text-amber-400">Amirreza Jolani Mameghani</p>
 
           {/* Role */}
           <p className="text-sm text-white/45">Fullstack Developer · Utrecht, Netherlands</p>
@@ -56,7 +56,7 @@ export default function FooterView() {
           <div className="h-px w-24 bg-white/10" />
 
           {/* Copyright */}
-          <p className="text-xs text-white/30">© 2025 Amirreza Jalali Motlagh</p>
+          <p className="text-xs text-white/30">© 2025 Amirreza Jolani Mameghani</p>
         </motion.div>
       </Container>
     </footer>
