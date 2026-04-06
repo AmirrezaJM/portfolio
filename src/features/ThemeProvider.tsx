@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
 
-export type ThemeKey = "amber" | "sky" | "emerald" | "rose" | "violet";
+export type ThemeKey = "amber" | "sky" | "emerald" | "rose" | "violet" | "vue";
 
 export interface ThemeConfig {
   key: ThemeKey;
@@ -80,6 +80,19 @@ export const THEMES: ThemeConfig[] = [
       "--color-amber-700": "oklch(49.1% 0.27 277.117)",
     },
     aurora: ["#4c1d95", "#3b0764", "#5b21b6"],
+  },
+  {
+    key: "vue",
+    name: "Vue",
+    swatch: "#42b883",
+    vars: {
+      "--color-amber-300": "oklch(83.8% 0.135 163.5)",
+      "--color-amber-400": "oklch(75.2% 0.158 162.8)",
+      "--color-amber-500": "oklch(68.8% 0.155 162.1)",
+      "--color-amber-600": "oklch(57.5% 0.13 163.0)",
+      "--color-amber-700": "oklch(47.2% 0.105 164.5)",
+    },
+    aurora: ["#42b883", "#35495e", "#2c3e50"],
   },
 ];
 

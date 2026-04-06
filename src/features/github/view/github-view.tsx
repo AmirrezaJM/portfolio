@@ -23,10 +23,10 @@ const GITHUB_USER = "AmirrezaJM"; // used for profile link only
 const MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const LEVEL_BG = [
   "bg-white/[0.04]",
-  "bg-[#3d200f]",
-  "bg-[#7c3a12]",
-  "bg-[#b35418]",
-  "bg-amber-500",
+  "bg-[#0e4429]",
+  "bg-[#006d32]",
+  "bg-[#26a641]",
+  "bg-[#39d353]",
 ];
 
 // ── Seeded fallback ───────────────────────────────────────────
@@ -161,8 +161,8 @@ export default function GithubView() {
           transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] as [number, number, number, number] }}
         >
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500/20">
-              <FaGithub className="h-5 w-5 text-amber-400" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#39d353]/20">
+              <FaGithub className="h-5 w-5 text-[#39d353]" />
             </div>
             <h2 className="text-2xl font-bold text-white md:text-3xl">GitHub Activity</h2>
           </div>
@@ -170,7 +170,7 @@ export default function GithubView() {
             href={`https://github.com/${GITHUB_USER}`}
             target="_blank"
             rel="noreferrer"
-            className="flex items-center gap-1.5 text-sm text-white/40 transition hover:text-amber-400 italic"
+            className="flex items-center gap-1.5 text-sm text-white/40 transition hover:text-[#39d353] italic"
           >
             {isLive ? "✨ Live data ·" : "⏳ Loading ·"} github.com/{GITHUB_USER}
           </a>
@@ -190,7 +190,7 @@ export default function GithubView() {
                 key={s.label}
                 className="rounded-2xl border border-white/10 bg-white/[0.04] px-5 py-4 text-center"
               >
-                <p className="text-xl font-bold text-amber-400">{s.value}</p>
+                <p className="text-xl font-bold text-[#39d353]">{s.value}</p>
                 <p className="mt-1 text-xs text-white/45">{s.label}</p>
               </div>
             ))}

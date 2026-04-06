@@ -1,7 +1,8 @@
 "use client";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { FaGithub, FaLinkedinIn } from "react-icons/fa";
+import { HiOutlineMenuAlt3, HiOutlineX } from "react-icons/hi";
 
 const NAV_LINKS = [
   { label: "Home", href: "#hero" },
@@ -18,6 +19,8 @@ const SECTION_IDS = ["hero", "experience", "projects", "terminal", "github", "st
 export function Header() {
   const [progress, setProgress] = useState(0);
   const [activeSection, setActiveSection] = useState("hero");
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onScroll = () => {
@@ -42,6 +45,26 @@ export function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Close mobile menu on outside click
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const handleClick = (e: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setMobileOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, [mobileOpen]);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [mobileOpen]);
+
+  const closeMobile = useCallback(() => setMobileOpen(false), []);
+
   return (
     <header className="fixed inset-x-0 top-0 z-50">
       {/* Scroll progress bar */}
@@ -63,7 +86,7 @@ export function Header() {
             Amirreza Jolani Mameghani
           </Link>
 
-          {/* Nav links */}
+          {/* Desktop nav links */}
           <nav className="hidden md:flex items-center gap-1">
             {NAV_LINKS.map((link) => {
               const id = link.href.replace("#", "");
@@ -84,7 +107,7 @@ export function Header() {
             })}
           </nav>
 
-          {/* Right icons */}
+          {/* Right icons + hamburger */}
           <div className="flex items-center gap-2">
             <Link
               href="https://github.com/AmirrezaJM"
@@ -104,8 +127,50 @@ export function Header() {
             >
               <FaLinkedinIn className="h-4 w-4" />
             </Link>
+
+            {/* Hamburger button — mobile only */}
+            <button
+              onClick={() => setMobileOpen((v) => !v)}
+              aria-label={mobileOpen ? "Close menu" : "Open menu"}
+              className="md:hidden inline-grid h-9 w-9 place-items-center rounded-full border border-white/15 bg-white/5 text-white/70 transition hover:text-white hover:bg-white/10"
+            >
+              {mobileOpen ? (
+                <HiOutlineX className="h-5 w-5" />
+              ) : (
+                <HiOutlineMenuAlt3 className="h-5 w-5" />
+              )}
+            </button>
           </div>
         </div>
+      </div>
+
+      {/* Mobile slide-down menu */}
+      <div
+        ref={menuRef}
+        className={`md:hidden overflow-hidden transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] border-b border-white/[0.06] bg-[#0f0804]/95 backdrop-blur-xl ${
+          mobileOpen ? "max-h-[420px] opacity-100" : "max-h-0 opacity-0 border-b-0"
+        }`}
+      >
+        <nav className="flex flex-col gap-1 px-6 py-4">
+          {NAV_LINKS.map((link) => {
+            const id = link.href.replace("#", "");
+            const isActive = activeSection === id;
+            return (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={closeMobile}
+                className={`rounded-xl px-4 py-3 text-sm font-medium transition-colors ${
+                  isActive
+                    ? "bg-amber-500/15 text-amber-400"
+                    : "text-white/60 hover:text-white hover:bg-white/5"
+                }`}
+              >
+                {link.label}
+              </a>
+            );
+          })}
+        </nav>
       </div>
     </header>
   );

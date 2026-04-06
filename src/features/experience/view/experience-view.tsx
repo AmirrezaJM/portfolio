@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion } from "motion/react";
 import Container from "@/features/Container";
-import Link from "next/link";
+
 
 type Category = "current" | "corporate" | "education" | "freelance" | "break";
 
@@ -178,14 +178,13 @@ export default function ExperienceView() {
             Experience
           </h2>
           <p className="text-sm text-white/50">6+ years shipping web products across Europe and beyond</p>
-          <Link
-            href="/Fullstack_developer.pdf"
-            target="_blank"
-            rel="noreferrer"
+          <a
+            href="/Amirreza_Jolani_CV.pdf"
+            download="Amirreza_Jolani_CV.pdf"
             className="mt-3 inline-flex items-center gap-2 rounded-full bg-amber-500 px-5 py-2 text-sm font-semibold text-black transition hover:bg-amber-400"
           >
             ↓ Resume (PDF)
-          </Link>
+          </a>
         </motion.div>
 
         {/* Timeline */}

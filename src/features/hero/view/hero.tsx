@@ -302,14 +302,13 @@ export default function HeroView() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.9, duration: 0.5 }}
             >
-              <Link
-                href="/FullStack_Resume_Amirreza.pdf"
-                target="_blank"
-                rel="noreferrer"
+              <a
+                href="/Amirreza_Jolani_CV.pdf"
+                download="Amirreza_Jolani_CV.pdf"
                 className="flex items-center gap-2 rounded-full bg-amber-500 px-6 py-2.5 text-sm font-semibold text-black transition hover:bg-amber-400"
               >
-                Download CV ↗
-              </Link>
+                ↓ Download CV
+              </a>
               <a
                 href="#projects"
                 className="flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-2.5 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/10"
