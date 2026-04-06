@@ -21,12 +21,12 @@ interface GridCell {
 // ── Constants ─────────────────────────────────────────────────
 const GITHUB_USER = "AmirrezaJM"; // used for profile link only
 const MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-const LEVEL_BG = [
-  "bg-white/[0.04]",
-  "bg-[#0e4429]",
-  "bg-[#006d32]",
-  "bg-[#26a641]",
-  "bg-[#39d353]",
+const LEVEL_COLORS = [
+  "rgba(255,255,255,0.04)",
+  "#0e4429",
+  "#006d32",
+  "#26a641",
+  "#39d353",
 ];
 
 // ── Seeded fallback ───────────────────────────────────────────
@@ -236,7 +236,8 @@ export default function GithubView() {
                               ? `${cell.count} contributions`
                               : "No contributions"
                           }
-                          className={`aspect-square w-full rounded-[3px] ${LEVEL_BG[cell.level]} transition-opacity hover:opacity-80`}
+                          className="aspect-square w-full rounded-[3px] transition-opacity hover:opacity-80"
+                          style={{ backgroundColor: LEVEL_COLORS[cell.level] }}
                         />
                       ))}
                     </div>
@@ -247,10 +248,10 @@ export default function GithubView() {
               {/* Legend */}
               <div className="mt-3 flex items-center justify-end gap-1.5">
                 <span className="text-xs text-white/35">Less</span>
-                {LEVEL_BG.map((bg, i) => (
-                  <span key={i} className={`h-3 w-3 rounded-[3px] ${bg}`} />
+                {LEVEL_COLORS.map((color, i) => (
+                  <span key={i} className="h-3 w-3 rounded-[3px]" style={{ backgroundColor: color }} />
                 ))}
-                <span className="text-xs text-white/35">More</span>
+                <span className="text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>More</span>
               </div>
             </div>
           </div>
