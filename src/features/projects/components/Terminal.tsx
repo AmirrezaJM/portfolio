@@ -18,13 +18,13 @@ const COMMANDS: Record<string, string> = {
   clear       - Clear terminal`,
 
   whoami: `Amirreza Jolani Mameghani
-Fullstack Developer · Utrecht, Netherlands
-6+ years shipping web products
+Fullstack Developer · Padova, Italy
+5+ years shipping web products
 React / Next.js · Vue 3 / Nuxt 3 · TypeScript
 Currently at OFoundation`,
 
   resume: `Experience Timeline:
-  2025 - Present  Web Developer, OFoundation
+  2025 - 2025  Web Developer, OFoundation
   2025            Fullstack Developer, Karhuno AI
   2023 - 2024     Career Break (Relocation, Netherlands)
   2022 - 2023     Frontend Engineer, PAP Group Ltd
@@ -59,16 +59,16 @@ Currently at OFoundation`,
 Telegram:  @AmirrezaJMM
 GitHub:    github.com/AmirrezaJM
 LinkedIn:  linkedin.com/in/amirjm
-WhatsApp:  +31634997564`,
+WhatsApp:  +31634997564 / +39`,
 
   neofetch: `        .---.        amirreza@portfolio
        /     \\       ----------------------
        \\.@-@./       OS: Next.js 16 (App Router)
        /\`\\_/\`\\       Shell: zsh + pnpm
       //  _  \\\\      Stack: React · Vue · TypeScript
-     | \\     )|_     Location: Utrecht, Netherlands
-    /\`\\_\`>  <_/ \\    Uptime: 6+ years
-    \\__/'---'\\__/    Coffee: Consistently ∞`,
+     | \\     )|_     Location: Padova, Italy
+    /\`\\_\`>  <_/ \\    Uptime: 5+ years
+    \\__/'---'\\__/    Movie: Consistently ∞`,
 };
 
 export default function Terminal() {

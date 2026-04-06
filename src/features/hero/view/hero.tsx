@@ -18,7 +18,7 @@ const TYPEWRITER_PHRASES = [
 
 const STAT_BADGES = [
   { icon: "⚡", label: "6+ Years Experience" },
-  { icon: "📍", label: "Utrecht, Netherlands" },
+  { icon: "📍", label: "Padova, Italy" },
   { icon: "🚀", label: "React & Next.js" },
 ];
 

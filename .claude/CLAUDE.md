@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-A premium animated personal portfolio website for a Fullstack Developer based in Utrecht, Netherlands. Built with Next.js 16 (App Router) + React 19, heavy use of GSAP, Framer Motion, Three.js, and glassmorphism design. Deployed on Vercel.
+A premium animated personal portfolio website for a Fullstack Developer based in padova, Italy. Built with Next.js 16 (App Router) + React 19, heavy use of GSAP, Framer Motion, Three.js, and glassmorphism design. Deployed on Vercel.
 
 
 ---
@@ -314,8 +314,8 @@ No `.env` files currently used. If adding environment variables:
 
 - **Name**: Amirreza Jolani Mameghani
 - **Title**: Fullstack Developer
-- **Location**: Utrecht, Netherlands (CET timezone)
-- **Experience**: 6+ years
+- **Location**: Padova, Italy (CET timezone)
+- **Experience**: 5+ years
 - **Primary Stack**: React / Next.js · Vue 3 / Nuxt 3
 - **Resume**: `/public/Fullstack_developer.pdf`
 - **Socials**: LinkedIn, GitHub, Telegram, WhatsApp

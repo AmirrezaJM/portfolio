@@ -72,7 +72,7 @@ export default function ContactView() {
           <h2 className="text-[clamp(2rem,4vw,3rem)] font-bold leading-tight text-white">
             Get in Touch
           </h2>
-          <p className="text-sm text-white/50">Based in Utrecht, Netherlands · Always async-friendly</p>
+          <p className="text-sm text-white/50">Based in Padova, Italy · Always async-friendly</p>
         </motion.div>
 
         <div className="grid gap-6 lg:grid-cols-[1fr_1.6fr]">

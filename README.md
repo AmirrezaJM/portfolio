@@ -23,7 +23,7 @@
 
 A **beautifully animated, single-page portfolio** built with the **Next.js 16 App Router** and **React 19**, designed to showcase professional experience, personal projects, technical skills, testimonials, and contact information through a premium dark-themed UI with fluid motion and immersive visual effects.
 
-Built by **Amirreza Jolani Mameghani** — Fullstack Developer based in Utrecht, Netherlands.
+Built by **Amirreza Jolani Mameghani** — Fullstack Developer based in Padova, Italy.
 
 ---
 
@@ -403,7 +403,7 @@ The project includes a full set of **47 shadcn/ui components** built on Radix UI
 ### 🎬 Hero Section
 - **Aurora background animation** — a multi-color radial gradient that slowly scales and breathes with a 30-second CSS keyframe loop, creating a living nebula effect behind the hero content.
 - **Professional portrait** with a glassmorphic frame, double rounded borders, and a violet-to-cyan gradient glow behind it. Served as an optimised `next/image` with `priority` loading and blur placeholder.
-- **Stat highlights** — three key-figure cards ("6+ years shipping", "Utrecht, NL", "React/Next.js · Vue 3/Nuxt 3") rendered in a responsive 3-column grid with glassmorphic styling.
+- **Stat highlights** — three key-figure cards ("6+ years shipping", "Padova, Italy", "React/Next.js · Vue 3/Nuxt 3") rendered in a responsive 3-column grid with glassmorphic styling.
 - **Download CV** button linking to a hosted PDF.
 - **Social links** (LinkedIn, GitHub) as rounded icon buttons with hover transitions.
 
@@ -491,7 +491,7 @@ Displayed as a 2-column grid of glassmorphic cards:
 - **CTA card** — "Do you need a hand with your next web project?" with Email Me and Book a Call buttons.
 - **Contact method cards** — Email and Schedule links with descriptive icons.
 - **Social link icons** — LinkedIn, GitHub, Telegram, WhatsApp, each as rounded icon buttons.
-- **Location badge** — Utrecht, Netherlands · CET timezone.
+- **Location badge** — Padova, Italy · CET timezone.
 - **Availability status** — "Available for freelance" and "Remote-friendly" indicators.
 
 ---
@@ -672,7 +672,7 @@ npm run lint
 
 **Amirreza Jolani Mameghani**  
 Fullstack Developer · Frontend Specialist · UI/UX Enthusiast  
-📍 Utrecht, Netherlands
+📍 Padova, Italy
 
 - 🔗 [LinkedIn](https://www.linkedin.com/in/amirjm/)
 - 💻 [GitHub](https://github.com/AmirrezaJM)

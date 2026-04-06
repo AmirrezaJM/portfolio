@@ -21,7 +21,7 @@ export default function FooterView() {
           <p className="text-base font-semibold text-amber-400">Amirreza Jolani Mameghani</p>
 
           {/* Role */}
-          <p className="text-sm text-white/45">Fullstack Developer · Utrecht, Netherlands</p>
+          <p className="text-sm text-white/45">Fullstack Developer · Padova, Italy</p>
 
           {/* Social icons */}
           <div className="flex items-center gap-3">

@@ -77,7 +77,7 @@ const EXPERIENCES: Experience[] = [
     endDate: new Date(2024, 11),  // Dec 2024
     category: "break",
     icon: "🌍",
-    summary: "Relocated from Iran to the Netherlands. Navigated the full immigration process, settled in Utrecht, and kept skills sharp through open-source personal projects.",
+    summary: "Relocated from Iran to the Netherlands. Navigated the full immigration process, settled in Padova, and kept skills sharp through open-source personal projects.",
     achievements: [
       "Completed full immigration and residency process in the Netherlands",
       "Built Prompter, Nodebase, and E-Commerce Marketplace during the transition",
